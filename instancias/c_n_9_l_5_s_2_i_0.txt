@@ -1,0 +1,96 @@
+# ------------------------------------------------------------
+# Instancia sintetica para pruebas del modelo exacto
+# L = 9 estudiantes por curso
+# P = 5 preferencias por estudiante
+# C = 2 cursos nuevos
+# Total = 18 estudiantes
+# ------------------------------------------------------------
+
+# INSTANCIA DE REASIGNACION DE ESTUDIANTES
+# Este archivo contiene los datos de entrada de la instancia. La solucion se guarda aparte.
+
+[INSTANCIA]
+nombre=c_n_9_l_5_s_2_i_0
+semilla=50264
+N=18
+C=2
+L=9
+P=5
+
+[CURSOS_NUEVOS]
+curso;capacidad
+1;9
+2;9
+
+[BALANCE_GENERO]
+grupos=F,M
+diferencia_maxima=1
+
+[CURSOS_ORIGEN]
+cursos_origen=O1,O2
+minimo_O1=3
+minimo_O2=3
+
+[CRITERIOS_BALANCE]
+criterios=academico,socioemocional,convivencia
+niveles=1,2,3
+
+[ESTUDIANTES]
+estudiante;curso_origen;genero;academico;socioemocional;convivencia
+1;O1;M;3;1;2
+2;O1;M;2;2;3
+3;O1;M;3;3;1
+4;O1;F;3;2;2
+5;O1;M;1;3;2
+6;O1;F;1;2;2
+7;O1;M;1;3;1
+8;O1;F;3;3;3
+9;O1;F;2;2;3
+10;O2;F;2;3;1
+11;O2;M;2;2;2
+12;O2;M;1;3;3
+13;O2;F;2;2;2
+14;O2;F;3;1;2
+15;O2;M;2;1;1
+16;O2;M;1;1;2
+17;O2;M;1;1;2
+18;O2;F;3;1;1
+
+[PREFERENCIAS]
+# En esta familia P=5, por lo que cada estudiante tiene 5 preferencias
+estudiante;preferencia_1;preferencia_2;preferencia_3;preferencia_4;preferencia_5
+1;12;16;17;8;5
+2;10;7;8;12;5
+3;5;11;6;9;18
+4;11;6;7;13;16
+5;4;11;13;8;12
+6;8;14;10;15;9
+7;11;8;16;3;1
+8;17;1;13;15;4
+9;12;10;15;14;6
+10;12;2;3;4;13
+11;3;8;7;16;13
+12;3;1;16;7;13
+13;14;12;1;3;5
+14;1;18;6;11;3
+15;5;11;18;12;4
+16;12;8;1;5;11
+17;16;8;18;9;5
+18;9;15;3;8;7
+
+[SEPARACIONES]
+estudiante_i;estudiante_j
+1;11
+4;5
+4;9
+8;11
+
+[NOTAS]
+generacion=aleatoria_controlada
+preferencias_por_estudiante=P_fijo
+genero=balanceado_dentro_de_cada_curso_de_origen
+criterios_perfil=sorteados_de_forma_independiente
+separaciones=aprox_N_div_4
+estado=instancia_de_experimento
+pesos_funcion_objetivo=no_incluidos_en_la_instancia
+factibilidad=se_uso_una_asignacion_testigo_solo_para_generar_la_instancia

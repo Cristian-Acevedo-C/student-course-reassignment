@@ -1,0 +1,30 @@
+# Testigo factible usado SOLO para generar la instancia.
+# No debe usarse como warm start en el benchmark.
+estudiante;curso_testigo
+1;1
+2;2
+3;3
+4;3
+5;1
+6;2
+7;3
+8;3
+9;2
+10;1
+11;2
+12;1
+13;1
+14;1
+15;2
+16;3
+17;3
+18;1
+19;2
+20;2
+21;1
+22;3
+23;3
+24;1
+25;2
+26;2
+27;3

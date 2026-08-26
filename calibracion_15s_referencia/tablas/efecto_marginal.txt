@@ -1,0 +1,25 @@
+Efecto marginal de cada factor sobre el tiempo de ejecucion.
+Se promedia sobre los demas factores. Solo instancias cerradas.
+
+DENSIDAD DE PREFERENCIAS (l)
+   valor   #Opt  #Total   TiempoProm   TiempoMax    NodosProm   VarsProm
+       3      4      12         5.54       13.28           94       1141
+       5      5      12         3.10        6.28           43       1676
+       7      5      12         4.10        9.36           64       2177
+
+FRAGMENTACION EN CURSOS (s)
+   valor   #Opt  #Total   TiempoProm   TiempoMax    NodosProm   VarsProm
+       2     12      12         4.09       13.28           66        683
+       3      2      12         4.54        5.17           62       1612
+       4      0      12            -           -            -       2700
+
+ALUMNOS POR CURSO (n)
+   valor   #Opt  #Total   TiempoProm   TiempoMax    NodosProm   VarsProm
+       9      5       9         2.33        5.17           26        647
+      18      3       9         2.58        3.24           34       1335
+      27      3       9         3.29        4.54           56       1998
+      36      3       9         9.64       13.28          171       2680
+
+Lectura: si al subir l el tiempo crece pero los NODOS se mantienen,
+el costo viene del tamano del modelo. Si al subir s explotan los
+NODOS, el costo viene del arbol de busqueda (simetria entre cursos).

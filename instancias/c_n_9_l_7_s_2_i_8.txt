@@ -1,0 +1,96 @@
+# ------------------------------------------------------------
+# Instancia sintetica para pruebas del modelo exacto
+# L = 9 estudiantes por curso
+# P = 7 preferencias por estudiante
+# C = 2 cursos nuevos
+# Total = 18 estudiantes
+# ------------------------------------------------------------
+
+# INSTANCIA DE REASIGNACION DE ESTUDIANTES
+# Este archivo contiene los datos de entrada de la instancia. La solucion se guarda aparte.
+
+[INSTANCIA]
+nombre=c_n_9_l_7_s_2_i_8
+semilla=70334
+N=18
+C=2
+L=9
+P=7
+
+[CURSOS_NUEVOS]
+curso;capacidad
+1;9
+2;9
+
+[BALANCE_GENERO]
+grupos=F,M
+diferencia_maxima=1
+
+[CURSOS_ORIGEN]
+cursos_origen=O1,O2
+minimo_O1=3
+minimo_O2=3
+
+[CRITERIOS_BALANCE]
+criterios=academico,socioemocional,convivencia
+niveles=1,2,3
+
+[ESTUDIANTES]
+estudiante;curso_origen;genero;academico;socioemocional;convivencia
+1;O1;F;3;2;3
+2;O1;M;2;3;3
+3;O1;M;2;3;2
+4;O1;M;2;1;1
+5;O1;F;3;3;2
+6;O1;M;2;1;1
+7;O1;M;3;1;2
+8;O1;F;2;3;1
+9;O1;F;2;1;3
+10;O2;F;3;1;3
+11;O2;M;2;1;3
+12;O2;F;1;2;2
+13;O2;M;3;3;1
+14;O2;M;2;1;3
+15;O2;M;2;3;3
+16;O2;F;3;2;1
+17;O2;F;2;2;3
+18;O2;M;2;2;1
+
+[PREFERENCIAS]
+# En esta familia P=7, por lo que cada estudiante tiene 7 preferencias
+estudiante;preferencia_1;preferencia_2;preferencia_3;preferencia_4;preferencia_5;preferencia_6;preferencia_7
+1;7;9;10;17;15;14;12
+2;15;7;16;13;4;5;12
+3;14;18;11;8;13;9;7
+4;13;7;9;18;16;2;8
+5;6;13;18;9;10;14;15
+6;11;7;17;15;4;12;18
+7;4;12;1;16;11;2;14
+8;2;16;13;18;11;3;4
+9;3;14;2;16;6;1;18
+10;7;2;5;3;9;17;18
+11;6;18;9;16;4;15;14
+12;2;13;6;14;3;18;1
+13;9;16;3;6;2;18;17
+14;2;7;13;8;17;15;11
+15;2;12;16;3;5;1;6
+16;14;1;13;17;7;10;5
+17;6;13;14;9;3;1;2
+18;12;5;13;11;2;6;7
+
+[SEPARACIONES]
+estudiante_i;estudiante_j
+4;9
+4;14
+6;12
+10;13
+
+[NOTAS]
+generacion=aleatoria_controlada
+preferencias_por_estudiante=P_fijo
+genero=balanceado_dentro_de_cada_curso_de_origen
+criterios_perfil=sorteados_de_forma_independiente
+separaciones=aprox_N_div_4
+estado=instancia_de_experimento
+pesos_funcion_objetivo=no_incluidos_en_la_instancia
+factibilidad=se_uso_una_asignacion_testigo_solo_para_generar_la_instancia

@@ -1,0 +1,12 @@
+CALIBRACION DE REFERENCIA - NO SON LOS RESULTADOS DEL EXPERIMENTO
+==================================================================
+
+Este CSV es una corrida exploratoria hecha con un limite de SOLO 15 SEGUNDOS
+por instancia, y solo sobre la replica i=0 de cada combinacion (36 de 360).
+
+Sirve unicamente para dos cosas:
+  1. Ver como se ven las tablas antes de tener datos reales.
+  2. Estimar cuanto va a demorar la corrida en serio.
+
+NO lo copies a resultados\resultados.csv. El experimento de verdad usa
+3600 segundos por instancia y las 10 replicas.

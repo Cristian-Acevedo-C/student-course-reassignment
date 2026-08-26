@@ -1,0 +1,10 @@
+Perfil de desempeno: % acumulado de instancias resueltas.
+
+    <= seg  resueltas  % del total
+         1          2         5.6%
+        10         13        36.1%
+        60         14        38.9%
+       300         14        38.9%
+       600         14        38.9%
+      1800         14        38.9%
+      15.0         14        38.9%
