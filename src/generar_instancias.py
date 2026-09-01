@@ -1,12 +1,12 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 Generador de instancias para el analisis de sensibilidad del modelo exacto
 de reasignacion de estudiantes.
 
 Grilla final (480 instancias):
-    n (alumnos por curso) : 9, 18, 36, 72
-    l (preferencias)      : 4, 5, 6, 7
-    s (cursos)            : 4, 5, 6
+    n (alumnos por curso) : 9, 18, 27, 36
+    l (preferencias)      : 3, 5, 7
+    s (cursos)            : 4, 5, 6, 7
     i (replica)           : 0..9
 
 Nombre de archivo: c_n_[N]_l_[L]_s_[S]_i_[I].txt
@@ -28,9 +28,9 @@ import random
 # ----------------------------------------------------------------------
 # GRILLA EXPERIMENTAL
 # ----------------------------------------------------------------------
-N_VALORES = [9, 18, 36, 72]      # alumnos por curso
-L_VALORES = [4, 5, 6, 7]         # preferencias por alumno
-S_VALORES = [4, 5, 6]            # cantidad de cursos
+N_VALORES = [9, 18, 27, 36]      # alumnos por curso
+L_VALORES = [3, 5, 7]         # preferencias por alumno
+S_VALORES = [4, 5, 6, 7]            # cantidad de cursos
 REPLICAS = range(10)             # i = 0..9
 
 DIFERENCIA_GENERO = 1            # Delta_g

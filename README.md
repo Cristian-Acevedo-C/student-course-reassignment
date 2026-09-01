@@ -1,186 +1,186 @@
-# Student Course Reassignment
+﻿# Studentâ€“Course Reassignment
 
-Implementación reproducible del modelo MILP exacto para reasignar estudiantes
-entre cursos, considerando restricciones educativas y sociales. El repositorio
-reúne el generador de instancias, el modelo, el protocolo de ejecución, las
-auditorías de factibilidad y los materiales de dos análisis de sensibilidad.
+Repositorio reproducible para el modelo exacto de reasignaciÃ³n de estudiantes con restricciones sociales y educativas.
 
-## Estado actual
+## Protocolo experimental definitivo
 
-| Componente | Estado | Evidencia disponible |
-|---|---|---|
-| Grilla experimental final | Completa | 480 instancias en `instancias/` |
-| Factibilidad por construcción | Verificada | 480 testigos en `testigos/` |
-| Calibración de la grilla final | Pendiente | Debe cubrir las 48 configuraciones |
-| Benchmark definitivo | Pendiente | Debe ejecutarse con 3600 s e hilo único |
-| Sensibilidad de pesos \(\lambda\) | Documentada | Sección de análisis para el manuscrito |
+El experimento computacional considera:
 
-La calibración de 15 segundos **no constituye el resultado final**. El
-protocolo vigente exige un límite de **3600 segundos por instancia**.
+| Factor | Valores |
+|---|---|
+| Estudiantes por curso \(L\) | 9, 18, 27, 36 |
+| Preferencias por estudiante \(P\) | 3, 5, 7 |
+| NÃºmero de cursos \(C\) | 4, 5, 6, 7 |
+| RÃ©plicas | 10 por combinaciÃ³n |
+| LÃ­mite exacto | 3600 s por instancia |
+| Hilos | 1 |
 
-## Preguntas experimentales
+Por tanto:
 
-El repositorio separa dos estudios complementarios:
+\[
+4 \times 3 \times 4 \times 10 = \mathbf{480}
+\]
 
-1. **Sensibilidad computacional:** compara el efecto del tamaño del curso
-   (`n`), la cantidad de preferencias (`l`) y el número de cursos (`s`) sobre
-   tiempo, gap, nodos y tamaño del modelo.
-2. **Sensibilidad de los pesos:** estudia el compromiso entre estudiantes sin
-   una preferencia satisfecha y dispersión de perfiles al variar
-   \(\lambda_0\) y \(\lambda_1\).
+instancias.
 
-## Diseño del benchmark
+Cada combinaciÃ³n \((L,P,C)\) tiene 10 rÃ©plicas independientes, con identificadores \(i=0,\ldots,9\).
 
-Esta es la grilla canónica acordada para el experimento final y reemplaza la
-versión preliminar de 360 instancias.
+### Familias por nÃºmero de cursos
 
-| Parámetro | Valores | Interpretación |
-|---|---|---|
-| `n` | 9, 18, 36, 72 | estudiantes por curso destino |
-| `l` | 4, 5, 6, 7 | preferencias por estudiante |
-| `s` | 4, 5, 6 | cursos de origen y destino |
-| `i` | 0, …, 9 | réplica independiente |
+Cada valor de \(C\) contiene:
 
-La grilla contiene
+\[
+4 \times 3 \times 10 = 120
+\]
 
-$$
-4\times 4\times 3\times 10=480
-$$
+instancias:
 
-instancias, con poblaciones totales entre 36 y 432 estudiantes. El nombre
-`c_n_[N]_l_[L]_s_[S]_i_[I].txt` codifica todos los factores.
+- `s4`: 120
+- `s5`: 120
+- `s6`: 120
+- `s7`: 120
+
+Total: **480**.
+
+## ConvenciÃ³n de nombres
+
+```text
+c_n_[L]_l_[P]_s_[C]_i_[i].txt
+```
+
+Ejemplo:
+
+```text
+c_n_36_l_7_s_4_i_0.txt
+```
+
+## GeneraciÃ³n
+
+Para regenerar exactamente la grilla:
+
+```powershell
+python src\generar_instancias.py --todas
+```
+
+El modo `--todas` elimina primero las instancias/testigos generados por la grilla anterior y crea nuevamente las 480 instancias de la grilla vigente.
+
+Una instancia individual:
+
+```powershell
+python src\generar_instancias.py --caso 36 7 4 0
+```
+
+## EjecuciÃ³n exacta
+
+Cada instancia se resuelve con un lÃ­mite de **3600 segundos** y un hilo:
+
+```powershell
+python src\resolver_lote.py --instancias instancias --tiempo 3600 --hilos 1
+```
+
+TambiÃ©n se puede ejecutar por familia:
+
+```powershell
+.\correr.ps1 -Modo s4
+.\correr.ps1 -Modo s5
+.\correr.ps1 -Modo s6
+.\correr.ps1 -Modo s7
+```
+
+o todo el experimento:
+
+```powershell
+.\correr.ps1 -Modo todo
+```
+
+## Resultados
+
+Para cada instancia se registra como mÃ­nimo:
+
+- nombre de la instancia;
+- tiempo de resoluciÃ³n;
+- gap de optimalidad.
+
+AdemÃ¡s, el registro contiene las mÃ©tricas necesarias para el anÃ¡lisis:
+
+- estado;
+- objetivo;
+- mejor cota;
+- nÃºmero de nodos;
+- variables y restricciones;
+- componente social;
+- \(T\).
+
+Las soluciones se almacenan separadamente como:
+
+```text
+soluciones/sol_<nombre_de_instancia>.txt
+```
+
+## Pregunta experimental
+
+El anÃ¡lisis busca determinar quÃ© caracterÃ­sticas de la instancia aumentan principalmente la dificultad computacional del modelo exacto:
+
+1. tamaÃ±o de cada curso \(L\);
+2. densidad de preferencias \(P\);
+3. nÃºmero de cursos \(C\).
+
+Se reportarÃ¡:
+
+- nÃºmero y porcentaje de instancias resueltas a optimalidad;
+- tiempos de resoluciÃ³n;
+- gaps de las instancias que alcanzan el lÃ­mite;
+- comportamiento por familia;
+- relaciÃ³n entre tamaÃ±o del modelo y esfuerzo de bÃºsqueda.
+
+## Sensibilidad de los pesos \(\lambda\)
+
+La sensibilidad de los pesos de la funciÃ³n objetivo se mantiene separada del benchmark de las 480 instancias.
+
+La grilla principal es:
+
+| \(\lambda_0\) | \(\lambda_1\) |
+|---:|---:|
+| 0,00 | 1,00 |
+| 0,25 | 0,75 |
+| 0,50 | 0,50 |
+| 0,75 | 0,25 |
+| 1,00 | 0,00 |
+
+con:
+
+\[
+\lambda_0+\lambda_1=1.
+\]
+
+Esta sensibilidad se utiliza para estudiar el compromiso entre satisfacciÃ³n de preferencias y balance educativo en el ejemplo ilustrativo.
+
+## Reproducibilidad
+
+La instancia contiene todos sus datos de entrada. La semilla se deriva determinÃ­sticamente de \(L,P,C,i\), de modo que la misma combinaciÃ³n reproduce la misma instancia.
+
+Los testigos factibles se almacenan en `testigos/` Ãºnicamente para auditar el generador. No se utilizan como warm start durante el benchmark exacto.
 
 ## Estructura
 
 ```text
-.
-├── README.md
-├── requirements.txt
-├── correr.ps1
-├── src/                              # generación, modelo, resolución y análisis
-├── instancias/                       # 480 entradas del benchmark
-├── testigos/                         # factibilidad; nunca se usan como warm start
-├── experimentos/
-│   ├── sensibilidad_computacional/
-│   │   └── calibracion_15s_grilla_360/ # archivo de una grilla anterior
-│   └── sensibilidad_lambda/          # análisis de pesos para el manuscrito
-└── docs/
-    ├── ejecucion.md                  # protocolo y comandos
-    └── guia_windows.md               # instrucciones detalladas para PowerShell
+student-course-reassignment/
+â”œâ”€â”€ instancias/
+â”œâ”€â”€ testigos/
+â”œâ”€â”€ src/
+â”‚   â”œâ”€â”€ generar_instancias.py
+â”‚   â”œâ”€â”€ modelo.py
+â”‚   â”œâ”€â”€ resolver_lote.py
+â”‚   â”œâ”€â”€ auditar_instancia.py
+â”‚   â””â”€â”€ analizar_resultados.py
+â”œâ”€â”€ resultados/
+â”œâ”€â”€ soluciones/
+â”œâ”€â”€ analisis/
+â”œâ”€â”€ calibracion_15s_referencia/
+â”œâ”€â”€ COMO_CORRER.md
+â”œâ”€â”€ PASO_A_PASO.md
+â”œâ”€â”€ correr.ps1
+â””â”€â”€ README.md
 ```
 
-Las carpetas `resultados/`, `soluciones/` y `analisis/` se generan durante la
-ejecución. Las soluciones individuales se ignoran por defecto; el CSV agregado
-y las tablas finales quedan visibles para incorporarlos al repositorio una vez
-completado y auditado el protocolo definitivo.
-
-## Inicio rápido
-
-### 1. Preparar el entorno
-
-```bash
-python -m venv .venv
-python -m pip install -r requirements.txt
-```
-
-En PowerShell, activa primero el entorno con:
-
-```powershell
-.\.venv\Scripts\Activate.ps1
-```
-
-### 2. Ejecutar una prueba corta
-
-```powershell
-.\correr.ps1 -Modo prueba
-```
-
-La prueba resuelve tres instancias pequeñas con un límite de 30 segundos y
-genera tablas de control. No reemplaza el benchmark definitivo.
-
-### 3. Ejecutar el protocolo final
-
-```powershell
-.\correr.ps1 -Modo s4 -Tiempo 3600
-.\correr.ps1 -Modo s5 -Tiempo 3600
-.\correr.ps1 -Modo s6 -Tiempo 3600
-```
-
-También puede ejecutarse directamente desde Python:
-
-```bash
-python src/resolver_lote.py \
-  --instancias instancias \
-  --tiempo 3600 \
-  --hilos 1 \
-  --lambda-0 1 \
-  --lambda-1 1
-```
-
-El proceso es reanudable. Una instancia solo se omite si su resultado previo
-es compatible con el límite, los pesos, el número de hilos y el gap objetivo
-de la nueva corrida.
-
-## Protocolo vigente
-
-- Solver: SCIP 10.0.2 mediante PySCIPOpt 6.2.1.
-- Límite: 3600 segundos por instancia.
-- Paralelismo interno: 1 hilo por instancia.
-- Gap objetivo: 0.
-- Pesos del benchmark: \(\lambda_0=\lambda_1=1\).
-- Testigos factibles: solo auditoría; no se entregan al solver.
-- Semilla de generación:
-
-```text
-(n·1000003 + l·10007 + s·101 + i·7) mod 1000000
-```
-
-Para reportar resultados finales también deben registrarse el procesador, la
-memoria RAM, el sistema operativo y las versiones de Python, PySCIPOpt y SCIP.
-La versión actual fue validada con Python 3.12.13, PySCIPOpt 6.2.1 y SCIP
-10.0.2.
-
-## Salidas
-
-`resultados/resultados.csv` registra estado, tiempo, gap, objetivo, cota dual,
-satisfacción social, dispersión, nodos, variables, restricciones y parámetros
-del protocolo. Cada asignación se guarda en
-`soluciones/sol_<instancia>.txt`.
-
-Las tablas se generan con:
-
-```bash
-python src/analizar_resultados.py \
-  --resultados resultados/resultados.csv \
-  --salida analisis \
-  --limite 3600
-```
-
-## Generación y auditoría
-
-Las instancias son factibles por construcción. Cada una se genera alrededor de
-una asignación testigo que satisface capacidad, separaciones, balance de género
-y representación por curso de origen. Las preferencias se sortean sin
-auto-nominaciones ni duplicados, y las separaciones se crean entre estudiantes
-que el testigo ubica en cursos distintos.
-
-Para reproducir la grilla completa:
-
-```bash
-python src/generar_instancias.py --todas
-```
-
-Para auditar una instancia sin instalar el solver:
-
-```bash
-python src/auditar_instancia.py \
-  --instancia instancias/c_n_9_l_4_s_4_i_0.txt \
-  --testigo testigos/testigo_c_n_9_l_4_s_4_i_0.txt
-```
-
-## Documentación
-
-- [Ejecución del experimento](docs/ejecucion.md)
-- [Guía paso a paso para Windows](docs/guia_windows.md)
-- [Sensibilidad computacional](experimentos/sensibilidad_computacional/README.md)
-- [Sensibilidad de los pesos](experimentos/sensibilidad_lambda/README.md)
+La carpeta `calibracion_15s_referencia/` corresponde a una etapa exploratoria anterior y no forma parte del benchmark definitivo de 3600 s.
