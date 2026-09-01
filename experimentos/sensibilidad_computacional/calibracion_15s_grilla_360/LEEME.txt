@@ -1,0 +1,12 @@
+ARCHIVO HISTORICO - CALIBRACION DE LA GRILLA ANTERIOR DE 360
+=============================================================
+
+Este CSV es una corrida exploratoria hecha con un limite de SOLO 15 SEGUNDOS
+por instancia, y solo sobre la replica i=0 de cada combinacion (36 de 360).
+
+Se conserva unicamente para trazabilidad historica y para revisar el formato
+de las tablas. NO permite estimar la duracion de la grilla final de 480
+instancias, porque usa otros valores de n, l y s.
+
+NO lo copies a resultados\resultados.csv. El experimento final contiene 480
+instancias, usa 3600 segundos por instancia y considera 10 replicas.

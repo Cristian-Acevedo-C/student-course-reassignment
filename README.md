@@ -9,9 +9,9 @@ auditorías de factibilidad y los materiales de dos análisis de sensibilidad.
 
 | Componente | Estado | Evidencia disponible |
 |---|---|---|
-| Grilla experimental | Completa | 360 instancias en `instancias/` |
-| Factibilidad por construcción | Verificada | 360 testigos en `testigos/` |
-| Calibración exploratoria | Completa | 36 corridas con límite de 15 s |
+| Grilla experimental final | Completa | 480 instancias en `instancias/` |
+| Factibilidad por construcción | Verificada | 480 testigos en `testigos/` |
+| Calibración de la grilla final | Pendiente | Debe cubrir las 48 configuraciones |
 | Benchmark definitivo | Pendiente | Debe ejecutarse con 3600 s e hilo único |
 | Sensibilidad de pesos \(\lambda\) | Documentada | Sección de análisis para el manuscrito |
 
@@ -31,20 +31,23 @@ El repositorio separa dos estudios complementarios:
 
 ## Diseño del benchmark
 
+Esta es la grilla canónica acordada para el experimento final y reemplaza la
+versión preliminar de 360 instancias.
+
 | Parámetro | Valores | Interpretación |
 |---|---|---|
-| `n` | 9, 18, 27, 36 | estudiantes por curso destino |
-| `l` | 3, 5, 7 | preferencias por estudiante |
-| `s` | 2, 3, 4 | cursos de origen y destino |
+| `n` | 9, 18, 36, 72 | estudiantes por curso destino |
+| `l` | 4, 5, 6, 7 | preferencias por estudiante |
+| `s` | 4, 5, 6 | cursos de origen y destino |
 | `i` | 0, …, 9 | réplica independiente |
 
 La grilla contiene
 
 $$
-4\times 3\times 3\times 10=360
+4\times 4\times 3\times 10=480
 $$
 
-instancias, con poblaciones totales entre 18 y 144 estudiantes. El nombre
+instancias, con poblaciones totales entre 36 y 432 estudiantes. El nombre
 `c_n_[N]_l_[L]_s_[S]_i_[I].txt` codifica todos los factores.
 
 ## Estructura
@@ -55,11 +58,11 @@ instancias, con poblaciones totales entre 18 y 144 estudiantes. El nombre
 ├── requirements.txt
 ├── correr.ps1
 ├── src/                              # generación, modelo, resolución y análisis
-├── instancias/                       # 360 entradas del benchmark
+├── instancias/                       # 480 entradas del benchmark
 ├── testigos/                         # factibilidad; nunca se usan como warm start
 ├── experimentos/
 │   ├── sensibilidad_computacional/
-│   │   └── calibracion_15s/          # referencia exploratoria, no resultado final
+│   │   └── calibracion_15s_grilla_360/ # archivo de una grilla anterior
 │   └── sensibilidad_lambda/          # análisis de pesos para el manuscrito
 └── docs/
     ├── ejecucion.md                  # protocolo y comandos
@@ -92,15 +95,15 @@ En PowerShell, activa primero el entorno con:
 .\correr.ps1 -Modo prueba
 ```
 
-La prueba resuelve nueve instancias pequeñas con un límite de 30 segundos y
+La prueba resuelve tres instancias pequeñas con un límite de 30 segundos y
 genera tablas de control. No reemplaza el benchmark definitivo.
 
 ### 3. Ejecutar el protocolo final
 
 ```powershell
-.\correr.ps1 -Modo s2 -Tiempo 3600
-.\correr.ps1 -Modo s3 -Tiempo 3600
 .\correr.ps1 -Modo s4 -Tiempo 3600
+.\correr.ps1 -Modo s5 -Tiempo 3600
+.\correr.ps1 -Modo s6 -Tiempo 3600
 ```
 
 También puede ejecutarse directamente desde Python:
@@ -171,8 +174,8 @@ Para auditar una instancia sin instalar el solver:
 
 ```bash
 python src/auditar_instancia.py \
-  --instancia instancias/c_n_9_l_3_s_2_i_0.txt \
-  --testigo testigos/testigo_c_n_9_l_3_s_2_i_0.txt
+  --instancia instancias/c_n_9_l_4_s_4_i_0.txt \
+  --testigo testigos/testigo_c_n_9_l_4_s_4_i_0.txt
 ```
 
 ## Documentación

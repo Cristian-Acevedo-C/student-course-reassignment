@@ -1,7 +1,7 @@
 # Cómo correr el experimento completo
 
 El benchmark se ejecuta en una máquina local o servidor persistente: son hasta
-360 × 3600 s de cómputo.
+480 × 3600 s de cómputo.
 
 ## 1. Requisitos (una sola vez)
 
@@ -9,10 +9,11 @@ El benchmark se ejecuta en una máquina local o servidor persistente: son hasta
 python -m pip install -r requirements.txt
 ```
 
-## 2. Generar las 360 instancias
+## 2. Generar las 480 instancias
 
 Ya vienen generadas en `instancias/`. Si quieres rehacerlas (son idénticas,
-la semilla depende solo de los parámetros):
+la semilla depende solo de los parámetros), el comando reemplaza los archivos
+generados de cualquier grilla anterior:
 
 ```bash
 python src/generar_instancias.py --todas
@@ -37,9 +38,9 @@ instancias ya registradas. Puedes cerrarlo y retomarlo cuantas veces quieras.
 Empieza por lo barato para tener datos rápido:
 
 ```bash
-python src/resolver_lote.py --patron "c_n_*_s_2_*.txt" --tiempo 3600   # 120 inst, rápidas
-python src/resolver_lote.py --patron "c_n_*_s_3_*.txt" --tiempo 3600   # 120 inst, duras
-python src/resolver_lote.py --patron "c_n_*_s_4_*.txt" --tiempo 3600   # 120 inst, muy duras
+python src/resolver_lote.py --patron "c_n_*_s_4_*.txt" --tiempo 3600   # 160 instancias
+python src/resolver_lote.py --patron "c_n_*_s_5_*.txt" --tiempo 3600   # 160 instancias
+python src/resolver_lote.py --patron "c_n_*_s_6_*.txt" --tiempo 3600   # 160 instancias
 ```
 
 ### Ejecución paralela exploratoria
@@ -50,8 +51,8 @@ terminal por familia con salidas separadas y después concatenar los CSV:
 ```bash
 python src/resolver_lote.py --patron "c_n_9_*"  --salida res_n9  --soluciones soluciones &
 python src/resolver_lote.py --patron "c_n_18_*" --salida res_n18 --soluciones soluciones &
-python src/resolver_lote.py --patron "c_n_27_*" --salida res_n27 --soluciones soluciones &
 python src/resolver_lote.py --patron "c_n_36_*" --salida res_n36 --soluciones soluciones &
+python src/resolver_lote.py --patron "c_n_72_*" --salida res_n72 --soluciones soluciones &
 ```
 
 Mantén `--hilos 1` en cada proceso. Sin embargo, los tiempos obtenidos mediante
@@ -77,15 +78,10 @@ Produce, en el estilo de Pérez-Galarce et al. (2014):
 
 ## Estimación de tiempo
 
-De la calibración de referencia guardada en
-`experimentos/sensibilidad_computacional/calibracion_15s/` (36 celdas,
-réplica 0):
+La calibración de 15 segundos disponible corresponde a la grilla anterior de
+360 instancias y no debe extrapolarse al protocolo final. Antes del benchmark
+se recomienda calibrar una réplica por cada una de las 48 configuraciones.
 
-- `s=2` → 12 de 12 cerraron, la más lenta en 13 s
-- `s=3` → 2 de 12 cerraron
-- `s=4` → 0 de 12 cerraron
-
-Si esa proporción se mantiene, las 120 instancias con `s=2` se resuelven en
-minutos, y buena parte de las 240 con `s=3` y `s=4` consumirán los 3600 s
-completos. Cota superior realista: **200-240 horas de cómputo secuencial**.
-Repartido en 4 procesos paralelos, del orden de 2-3 días.
+La cota máxima teórica es de **480 horas de cómputo secuencial** si todas las
+instancias agotan el límite de 3600 segundos. El tiempo real solo podrá
+estimarse con rigor después de la nueva calibración.

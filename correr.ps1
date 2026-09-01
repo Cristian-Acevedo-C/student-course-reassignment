@@ -3,16 +3,16 @@
 #  Script para Windows PowerShell
 #
 #  Uso:
-#     .\correr.ps1 -Modo prueba     # 5 min, para verificar que todo anda
-#     .\correr.ps1 -Modo s2         # 120 instancias faciles (2 cursos)
-#     .\correr.ps1 -Modo s3         # 120 instancias duras   (3 cursos)
-#     .\correr.ps1 -Modo s4         # 120 instancias muy duras (4 cursos)
-#     .\correr.ps1 -Modo todo       # las 360 de corrido
+#     .\correr.ps1 -Modo prueba     # prueba corta de 3 instancias
+#     .\correr.ps1 -Modo s4         # 160 instancias de 4 cursos
+#     .\correr.ps1 -Modo s5         # 160 instancias de 5 cursos
+#     .\correr.ps1 -Modo s6         # 160 instancias de 6 cursos
+#     .\correr.ps1 -Modo todo       # las 480 de corrido
 #     .\correr.ps1 -Modo analizar   # solo construye las tablas
 # =====================================================================
 
 param(
-    [ValidateSet("prueba", "s2", "s3", "s4", "todo", "analizar")]
+    [ValidateSet("prueba", "s4", "s5", "s6", "todo", "analizar")]
     [string]$Modo = "prueba",
 
     [double]$Tiempo = 3600,
@@ -77,19 +77,24 @@ Write-Host ""
 
 # --- 3. verificar que existan las instancias -------------------------
 if (-not (Test-Path "instancias")) {
-    Write-Host "No hay carpeta 'instancias'. Generando las 360..." -ForegroundColor Yellow
+    Write-Host "No hay carpeta 'instancias'. Generando las 480..." -ForegroundColor Yellow
     & $python src\generar_instancias.py --todas
 }
 $cuantas = (Get-ChildItem "instancias\*.txt" | Measure-Object).Count
+if ($cuantas -ne 480) {
+    Write-Host "ERROR: se esperaban 480 instancias y se encontraron $cuantas." -ForegroundColor Red
+    Write-Host "Regenera la grilla final con: $python src\generar_instancias.py --todas"
+    exit 1
+}
 Write-Host "Instancias disponibles: $cuantas" -ForegroundColor Green
 Write-Host ""
 
 # --- 4. elegir que resolver ------------------------------------------
 switch ($Modo) {
-    "prueba"   { $patron = "c_n_9_*_i_0.txt";  $limite = 30 }
-    "s2"       { $patron = "c_n_*_s_2_*.txt";  $limite = $Tiempo }
-    "s3"       { $patron = "c_n_*_s_3_*.txt";  $limite = $Tiempo }
+    "prueba"   { $patron = "c_n_9_l_4_*_i_0.txt"; $limite = 30 }
     "s4"       { $patron = "c_n_*_s_4_*.txt";  $limite = $Tiempo }
+    "s5"       { $patron = "c_n_*_s_5_*.txt";  $limite = $Tiempo }
+    "s6"       { $patron = "c_n_*_s_6_*.txt";  $limite = $Tiempo }
     "todo"     { $patron = "c_n_*.txt";        $limite = $Tiempo }
     "analizar" { $patron = $null;              $limite = $Tiempo }
 }

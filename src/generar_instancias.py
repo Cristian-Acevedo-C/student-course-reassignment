@@ -3,10 +3,10 @@
 Generador de instancias para el analisis de sensibilidad del modelo exacto
 de reasignacion de estudiantes.
 
-Grilla (360 instancias):
-    n (alumnos por curso) : 9, 18, 27, 36
-    l (preferencias)      : 3, 5, 7
-    s (cursos)            : 2, 3, 4
+Grilla final (480 instancias):
+    n (alumnos por curso) : 9, 18, 36, 72
+    l (preferencias)      : 4, 5, 6, 7
+    s (cursos)            : 4, 5, 6
     i (replica)           : 0..9
 
 Nombre de archivo: c_n_[N]_l_[L]_s_[S]_i_[I].txt
@@ -19,7 +19,7 @@ cursos distintos) y se guarda aparte para auditoria.
 
 Uso:
     python generar_instancias.py --caso 36 7 4 0        # un solo caso
-    python generar_instancias.py --todas                # las 360
+    python generar_instancias.py --todas                # las 480
 """
 from pathlib import Path
 import argparse
@@ -28,9 +28,9 @@ import random
 # ----------------------------------------------------------------------
 # GRILLA EXPERIMENTAL
 # ----------------------------------------------------------------------
-N_VALORES = [9, 18, 27, 36]      # alumnos por curso
-L_VALORES = [3, 5, 7]            # preferencias por alumno
-S_VALORES = [2, 3, 4]            # cantidad de cursos
+N_VALORES = [9, 18, 36, 72]      # alumnos por curso
+L_VALORES = [4, 5, 6, 7]         # preferencias por alumno
+S_VALORES = [4, 5, 6]            # cantidad de cursos
 REPLICAS = range(10)             # i = 0..9
 
 DIFERENCIA_GENERO = 1            # Delta_g
@@ -314,7 +314,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--caso", nargs=4, type=int, metavar=("N", "L", "S", "I"),
                     help="genera un solo caso: n l s i")
-    ap.add_argument("--todas", action="store_true", help="genera las 360")
+    ap.add_argument(
+        "--todas",
+        action="store_true",
+        help="reemplaza la grilla generada y crea las 480 instancias finales",
+    )
     ap.add_argument("--destino", default="instancias")
     ap.add_argument("--testigos", default="testigos")
     a = ap.parse_args()
@@ -331,6 +335,15 @@ def main():
         return
 
     if a.todas:
+        # Evita mezclar archivos de una grilla anterior con el protocolo vigente.
+        # Los patrones son deliberadamente específicos para no borrar otros datos.
+        anteriores = list(destino.glob("c_n_*_l_*_s_*_i_*.txt"))
+        testigos_anteriores = list(
+            testigos.glob("testigo_c_n_*_l_*_s_*_i_*.txt")
+        )
+        for ruta in anteriores + testigos_anteriores:
+            ruta.unlink()
+
         total = 0
         for n in N_VALORES:
             for l in L_VALORES:
@@ -338,6 +351,10 @@ def main():
                     for i in REPLICAS:
                         generar(n, l, s, i, destino, testigos)
                         total += 1
+        print(
+            f"Reemplazados {len(anteriores)} archivos de instancia y "
+            f"{len(testigos_anteriores)} testigos anteriores."
+        )
         print(f"Generadas {total} instancias en {destino}")
         return
 

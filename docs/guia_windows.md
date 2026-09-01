@@ -4,13 +4,13 @@
 
 | Carpeta | Qué es |
 |---|---|
-| `instancias\` | **Los 360 casos de prueba.** Un archivo `.txt` por caso. Son los datos de entrada: alumnos, preferencias, separaciones. |
+| `instancias\` | **Los 480 casos de prueba.** Un archivo `.txt` por caso. Son los datos de entrada: alumnos, preferencias, separaciones. |
 | `src\` | **Los programas del experimento.** Generan, resuelven, auditan y construyen las tablas. |
 | `testigos\` | Una solución de ejemplo de cada caso, usada solo para comprobar que el caso tiene solución. **No se usa al resolver.** |
 | `resultados\` | **Todavía no existe.** Se crea sola en la primera corrida, con el `resultados.csv`: nombre, tiempo y gap de cada caso. |
 | `soluciones\` | Se crea sola. Van los `sol_<caso>.txt`, uno por caso resuelto. |
 | `analisis\` | Se crea sola. Las tablas finales, estilo artículo. |
-| `experimentos\sensibilidad_computacional\calibracion_15s\` | Corrida exploratoria de 15 segundos, útil para revisar el formato de las tablas. No corresponde al resultado final y no debe copiarse a `resultados\`. |
+| `experimentos\sensibilidad_computacional\calibracion_15s_grilla_360\` | Archivo histórico de una grilla anterior. No corresponde al protocolo final ni debe copiarse a `resultados\`. |
 | `correr.ps1` | Automatiza la instalación, ejecución y construcción de tablas. |
 
 En una frase: `instancias\` son las preguntas, `soluciones\` son las respuestas,
@@ -55,7 +55,7 @@ Antes de comprometer días de cómputo, verifica que todo funciona:
 .\correr.ps1 -Modo prueba
 ```
 
-Esto instala el solver si falta, resuelve 9 casos chicos con 30 segundos de
+Esto instala el solver si falta, resuelve 3 casos pequeños con 30 segundos de
 tope, y arma las tablas. Si termina diciendo **LISTO**, todo está en orden.
 
 > Si el sistema indica que no encuentra Python, instálalo desde python.org y **marca
@@ -67,9 +67,9 @@ tope, y arma las tablas. Si termina diciendo **LISTO**, todo está en orden.
 Van por partes, de la más fácil a la más difícil. Cada una es un comando:
 
 ```powershell
-.\correr.ps1 -Modo s2        # 120 casos de 2 cursos. Rápido: minutos u horas.
-.\correr.ps1 -Modo s3        # 120 casos de 3 cursos. Lento.
-.\correr.ps1 -Modo s4        # 120 casos de 4 cursos. Muy lento.
+.\correr.ps1 -Modo s4        # 160 casos de 4 cursos.
+.\correr.ps1 -Modo s5        # 160 casos de 5 cursos.
+.\correr.ps1 -Modo s6        # 160 casos de 6 cursos.
 ```
 
 Todo va sumándose al mismo `resultados\resultados.csv`.
@@ -85,7 +85,7 @@ no mezcle dos protocolos distintos.
 Si necesitas comenzar desde cero:
 
 ```powershell
-.\correr.ps1 -Modo s2 -Limpiar
+.\correr.ps1 -Modo s4 -Limpiar
 ```
 
 Para ejecutar la grilla completa y dejar el equipo trabajando:
@@ -131,10 +131,10 @@ python src\resolver_lote.py --patron "c_n_9_*"  --tiempo 3600 --hilos 1 --salida
 python src\resolver_lote.py --patron "c_n_18_*" --tiempo 3600 --hilos 1 --salida res_n18
 
 # ventana 3
-python src\resolver_lote.py --patron "c_n_27_*" --tiempo 3600 --hilos 1 --salida res_n27
+python src\resolver_lote.py --patron "c_n_36_*" --tiempo 3600 --hilos 1 --salida res_n36
 
 # ventana 4
-python src\resolver_lote.py --patron "c_n_36_*" --tiempo 3600 --hilos 1 --salida res_n36
+python src\resolver_lote.py --patron "c_n_72_*" --tiempo 3600 --hilos 1 --salida res_n72
 ```
 
 Mantén `--hilos 1` en todas. Esta modalidad reduce el tiempo total, pero la
@@ -148,7 +148,7 @@ Cuando terminen, combina los cuatro CSV en uno:
 $destino = "resultados\resultados.csv"
 New-Item -ItemType Directory -Force -Path resultados | Out-Null
 Get-Content res_n9\resultados.csv | Select-Object -First 1 | Set-Content $destino
-foreach ($d in @("res_n9","res_n18","res_n27","res_n36")) {
+foreach ($d in @("res_n9","res_n18","res_n36","res_n72")) {
     Get-Content "$d\resultados.csv" | Select-Object -Skip 1 | Add-Content $destino
 }
 python src\analizar_resultados.py --resultados $destino --salida analisis
@@ -158,15 +158,7 @@ python src\analizar_resultados.py --resultados $destino --salida analisis
 
 ## Cuánto va a demorar
 
-De la calibración con 15 segundos de tope:
-
-- **2 cursos** → cerraron los 12 de 12 probados. Minutos.
-- **3 cursos** → cerraron 2 de 12.
-- **4 cursos** → cerró 0 de 12.
-
-Con el límite real de 3600 s, es posible que buena parte de los 240 casos de 3 y 4
-cursos consuma la hora completa. En una sola ventana eso son del orden de
-**200 horas**. Con 4 ventanas en paralelo, **2 a 3 días**.
-
-Por eso conviene ejecutar `-Modo s2` primero: permite obtener 120 casos
-resueltos mientras el resto sigue corriendo.
+La calibración guardada corresponde a la grilla anterior y no permite estimar
+el tiempo del protocolo final. Si las 480 instancias agotaran el límite de una
+hora, la cota máxima sería de **480 horas secuenciales**. Primero debe ejecutarse
+una calibración de las 48 configuraciones actuales.
