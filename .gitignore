@@ -1,0 +1,15 @@
+# Entornos y cachés de Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Salidas pesadas o temporales de las corridas
+soluciones/
+res_n*/
+
+# Archivos del sistema y del editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

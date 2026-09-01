@@ -1,12 +1,12 @@
 # Cómo correr el experimento completo
 
-Todo esto se corre **en tu máquina**, no en la sesión de Claude: son hasta
-360 × 3600 s de cómputo y la sesión es efímera.
+El benchmark se ejecuta en una máquina local o servidor persistente: son hasta
+360 × 3600 s de cómputo.
 
 ## 1. Requisitos (una sola vez)
 
 ```bash
-pip install pyscipopt
+python -m pip install -r requirements.txt
 ```
 
 ## 2. Generar las 360 instancias
@@ -42,10 +42,10 @@ python src/resolver_lote.py --patron "c_n_*_s_3_*.txt" --tiempo 3600   # 120 ins
 python src/resolver_lote.py --patron "c_n_*_s_4_*.txt" --tiempo 3600   # 120 inst, muy duras
 ```
 
-### Correr en paralelo
+### Ejecución paralela exploratoria
 
-Si tienes varios núcleos, lanza una terminal por familia con salidas
-separadas y después concatena los CSV:
+Si el objetivo es obtener soluciones con mayor rapidez, se puede lanzar una
+terminal por familia con salidas separadas y después concatenar los CSV:
 
 ```bash
 python src/resolver_lote.py --patron "c_n_9_*"  --salida res_n9  --soluciones soluciones &
@@ -54,8 +54,10 @@ python src/resolver_lote.py --patron "c_n_27_*" --salida res_n27 --soluciones so
 python src/resolver_lote.py --patron "c_n_36_*" --salida res_n36 --soluciones soluciones &
 ```
 
-Deja `--hilos 1` en cada uno: el protocolo pide un hilo por instancia, y así
-los tiempos son comparables entre sí.
+Mantén `--hilos 1` en cada proceso. Sin embargo, los tiempos obtenidos mediante
+procesos concurrentes pueden verse afectados por la competencia por CPU y RAM.
+Para el benchmark que se reportará en el artículo, ejecuta las instancias de
+forma secuencial o en recursos aislados y documenta el hardware utilizado.
 
 ## 4. Construir las tablas del reporte
 
@@ -75,7 +77,9 @@ Produce, en el estilo de Pérez-Galarce et al. (2014):
 
 ## Estimación de tiempo
 
-De la calibración a 15 s (36 celdas, réplica 0):
+De la calibración de referencia guardada en
+`experimentos/sensibilidad_computacional/calibracion_15s/` (36 celdas,
+réplica 0):
 
 - `s=2` → 12 de 12 cerraron, la más lenta en 13 s
 - `s=3` → 2 de 12 cerraron

@@ -62,12 +62,12 @@ Write-Host "Python encontrado: $version" -ForegroundColor Green
 # --- 2. verificar / instalar pyscipopt -------------------------------
 & $python -c "import pyscipopt" 2>$null
 if ($LASTEXITCODE -ne 0) {
-    Write-Host "Instalando pyscipopt (el solver)..." -ForegroundColor Yellow
-    & $python -m pip install --quiet pyscipopt
+    Write-Host "Instalando las dependencias del experimento..." -ForegroundColor Yellow
+    & $python -m pip install --quiet -r requirements.txt
     & $python -c "import pyscipopt" 2>$null
     if ($LASTEXITCODE -ne 0) {
         Write-Host "ERROR: no se pudo instalar pyscipopt." -ForegroundColor Red
-        Write-Host "Proba a mano:  $python -m pip install pyscipopt"
+        Write-Host "Prueba a mano:  $python -m pip install -r requirements.txt"
         exit 1
     }
 }

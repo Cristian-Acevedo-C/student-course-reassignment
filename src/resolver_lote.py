@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Resuelve instancias en lote y deja el registro que pide el investigador jefe:
+Resuelve instancias en lote y deja el registro del protocolo experimental:
 
   resultados/resultados.csv      nombre de la instancia, tiempo y gap
   soluciones/sol_<nombre>.txt    la solucion entregada por el solver
@@ -23,7 +23,8 @@ from modelo import leer_instancia, construir_modelo, extraer_solucion
 
 COLUMNAS = [
     "instancia", "n", "l", "s", "i", "N",
-    "estado", "tiempo_seg", "gap", "limite_seg",
+    "estado", "tiempo_seg", "gap", "limite_seg", "hilos",
+    "lambda_0", "lambda_1", "gap_objetivo",
     "objetivo", "cota_dual", "suma_z", "no_satisfechos", "T",
     "nodos", "variables", "restricciones",
 ]
@@ -38,6 +39,17 @@ def parametros_desde_nombre(nombre):
         return (None, None, None, None)
 
 
+def valor_compatible(fila, campo, actual, predeterminado=None):
+    """Compara un parámetro actual con un registro previo del CSV."""
+    valor = fila.get(campo)
+    if valor in (None, ""):
+        return predeterminado is not None and actual == predeterminado
+    try:
+        return abs(float(valor) - float(actual)) <= 1e-12
+    except ValueError:
+        return False
+
+
 def escribir_solucion(ruta, inst, asignacion, resumen):
     with open(ruta, "w", encoding="utf-8", newline="\n") as f:
         w = f.write
@@ -45,6 +57,9 @@ def escribir_solucion(ruta, inst, asignacion, resumen):
         w(f"# estado={resumen['estado']}\n")
         w(f"# tiempo_seg={resumen['tiempo_seg']:.2f}\n")
         w(f"# gap={resumen['gap']}\n")
+        w(f"# limite_seg={resumen['limite_seg']}  hilos={resumen['hilos']}\n")
+        w(f"# lambda_0={resumen['lambda_0']}  lambda_1={resumen['lambda_1']}\n")
+        w(f"# gap_objetivo={resumen['gap_objetivo']}\n")
         w(f"# objetivo={resumen['objetivo']}\n")
         w(f"# cota_dual={resumen['cota_dual']}\n")
         w(f"# suma_z={resumen['suma_z']}  no_satisfechos={resumen['no_satisfechos']}\n")
@@ -83,9 +98,9 @@ def resolver_una(ruta, dir_soluciones, tiempo, hilos, gap, lambda_0, lambda_1):
         tiempo=tiempo, hilos=hilos, gap=gap,
     )
 
-    t0 = time.time()
+    t0 = time.perf_counter()
     m.optimize()
-    transcurrido = time.time() - t0
+    transcurrido = time.perf_counter() - t0
 
     estado = m.getStatus()
     asignacion, suma_z, valor_T, _ = extraer_solucion(m, vars_, inst)
@@ -104,6 +119,10 @@ def resolver_una(ruta, dir_soluciones, tiempo, hilos, gap, lambda_0, lambda_1):
         "tiempo_seg": round(transcurrido, 2),
         "gap": None if gap_final is None else round(gap_final, 8),
         "limite_seg": tiempo,
+        "hilos": hilos,
+        "lambda_0": lambda_0,
+        "lambda_1": lambda_1,
+        "gap_objetivo": gap,
         "objetivo": None if objetivo is None else round(objetivo, 6),
         "cota_dual": None if cota is None else round(cota, 6),
         "suma_z": suma_z,
@@ -136,6 +155,17 @@ def main():
     ap.add_argument("--rehacer", action="store_true",
                     help="reprocesa instancias que ya tienen solucion")
     a = ap.parse_args()
+
+    if a.tiempo <= 0:
+        ap.error("--tiempo debe ser mayor que 0")
+    if a.hilos < 1:
+        ap.error("--hilos debe ser al menos 1")
+    if not 0 <= a.gap <= 1:
+        ap.error("--gap debe estar entre 0 y 1")
+    if a.lambda_0 < 0 or a.lambda_1 < 0:
+        ap.error("los pesos lambda deben ser no negativos")
+    if a.lambda_0 == 0 and a.lambda_1 == 0:
+        ap.error("al menos uno de los pesos lambda debe ser positivo")
 
     dir_inst = Path(a.instancias)
     dir_sal = Path(a.salida)
@@ -170,16 +200,22 @@ def main():
                     limite_previo = float(r.get("limite_seg") or 0)
                 except ValueError:
                     limite_previo = 0.0
-                if cerrada or limite_previo >= a.tiempo:
+                mismo_protocolo = (
+                    valor_compatible(r, "hilos", a.hilos, 1)
+                    and valor_compatible(r, "lambda_0", a.lambda_0, 1.0)
+                    and valor_compatible(r, "lambda_1", a.lambda_1, 1.0)
+                    and valor_compatible(r, "gap_objetivo", a.gap, 0.0)
+                )
+                if mismo_protocolo and (cerrada or limite_previo >= a.tiempo):
                     hechas.add(r["instancia"])
                     conservadas.append({c: r.get(c, "") for c in COLUMNAS})
                 else:
                     obsoletas += 1
 
     if obsoletas:
-        print(f"Aviso: {obsoletas} registros previos se hicieron con un limite "
-              f"menor a {a.tiempo:.0f} s. Se descartan y se vuelven a resolver, "
-              f"para no mezclar protocolos en el mismo CSV.\n")
+        print(f"Aviso: {obsoletas} registros previos no son compatibles con "
+              "el protocolo solicitado. Se descartan y se vuelven a resolver "
+              "para no mezclar configuraciones en el mismo CSV.\n")
 
     # se reescribe el CSV conservando solo los registros vigentes
     with open(csv_ruta, "w", encoding="utf-8", newline="") as f:

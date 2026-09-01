@@ -13,7 +13,6 @@ El modelo reproduce la formulacion del manuscrito:
   objetivo  lambda_0 * (|S| - sum z_i) + lambda_1 * T
 """
 from pathlib import Path
-from pyscipopt import Model, quicksum
 
 
 # ----------------------------------------------------------------------
@@ -116,6 +115,10 @@ def leer_instancia(ruta):
 
 def construir_modelo(inst, lambda_0=1.0, lambda_1=1.0,
                      tiempo=3600.0, hilos=1, gap=0.0):
+    # La importación se difiere para que leer y auditar instancias no requiera
+    # tener instalado el solver. PySCIPOpt solo es necesario al resolver.
+    from pyscipopt import Model, quicksum
+
     S = sorted(inst["estudiantes"])
     C = inst["cursos"]
     est = inst["estudiantes"]

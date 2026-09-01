@@ -57,7 +57,7 @@ def celdas(filas):
 def tabla_1(d, salida):
     lineas = []
     lineas.append("Tabla 1. Instancias resueltas a optimalidad dentro del limite de tiempo.")
-    lineas.append("Cada celda agrega las 10 replicas.\n")
+    lineas.append("Cada celda agrega las replicas disponibles en el registro.\n")
     lineas.append(f"{'n':>4} {'l':>4} {'s':>4} {'N':>6} {'#Opt':>6} {'#Total':>7} {'%Opt':>7}")
     lineas.append("-" * 44)
     for (n, l, s) in sorted(d):

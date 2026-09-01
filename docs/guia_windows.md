@@ -1,44 +1,45 @@
 # Paso a paso en PowerShell (Windows)
 
-## Qué trae el zip, en simple
+## Qué contiene el repositorio
 
 | Carpeta | Qué es |
 |---|---|
 | `instancias\` | **Los 360 casos de prueba.** Un archivo `.txt` por caso. Son los datos de entrada: alumnos, preferencias, separaciones. |
-| `src\` | **Los 4 programas.** Uno genera los casos, uno los resuelve, uno arma las tablas, uno verifica que estén bien. |
+| `src\` | **Los programas del experimento.** Generan, resuelven, auditan y construyen las tablas. |
 | `testigos\` | Una solución de ejemplo de cada caso, usada solo para comprobar que el caso tiene solución. **No se usa al resolver.** |
 | `resultados\` | **Todavía no existe.** Se crea sola en la primera corrida, con el `resultados.csv`: nombre, tiempo y gap de cada caso. |
 | `soluciones\` | Se crea sola. Van los `sol_<caso>.txt`, uno por caso resuelto. |
 | `analisis\` | Se crea sola. Las tablas finales, estilo artículo. |
-| `calibracion_15s_referencia\` | Una corrida exploratoria mía de 15 segundos, **solo para que veas cómo se ven las tablas**. No son resultados del experimento y no hay que copiarla a `resultados\`. |
-| `correr.ps1` | **El botón grande.** Hace todo lo de abajo por vos. |
+| `experimentos\sensibilidad_computacional\calibracion_15s\` | Corrida exploratoria de 15 segundos, útil para revisar el formato de las tablas. No corresponde al resultado final y no debe copiarse a `resultados\`. |
+| `correr.ps1` | Automatiza la instalación, ejecución y construcción de tablas. |
 
 En una frase: `instancias\` son las preguntas, `soluciones\` son las respuestas,
 y `resultados\resultados.csv` es la planilla con cuánto costó cada una.
 
 ---
 
-## Paso 1 — Descomprimir
+## Paso 1 — Descargar el repositorio
 
-Descargá el zip, botón derecho → **Extraer todo**. Te queda una carpeta `exp`.
-Anotá dónde quedó, por ejemplo `C:\Users\TuNombre\Downloads\exp`.
+En GitHub selecciona **Code → Download ZIP** y luego **Extraer todo**, o clona
+el repositorio con Git. Abre la carpeta `student-course-reassignment` resultante.
 
 ## Paso 2 — Abrir PowerShell en esa carpeta
 
-Abrí la carpeta `exp` en el Explorador de Windows. En la barra de direcciones
-escribí `powershell` y apretá Enter. Se abre una ventana ya parada en la carpeta.
+Abre la carpeta `student-course-reassignment` en el Explorador de Windows. En
+la barra de direcciones escribe `powershell` y presiona Enter. Se abrirá una
+ventana ubicada en la carpeta correcta.
 
-Para confirmar que estás bien parado, escribí:
+Para confirmar que estás en la carpeta correcta, escribe:
 
 ```powershell
 dir
 ```
 
-Tenés que ver `instancias`, `src`, `correr.ps1`, etc.
+Debes ver `instancias`, `src`, `correr.ps1`, etc.
 
 ## Paso 3 — Permitir que corran scripts
 
-Windows bloquea los `.ps1` por defecto. Escribí esto una vez por ventana:
+Windows puede bloquear los `.ps1` por defecto. Escribe esto una vez por ventana:
 
 ```powershell
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
@@ -48,7 +49,7 @@ Solo afecta a esta ventana, no cambia nada permanente en tu PC.
 
 ## Paso 4 — Prueba corta (5 minutos)
 
-Antes de comprometer días de cómputo, verificá que todo funciona:
+Antes de comprometer días de cómputo, verifica que todo funciona:
 
 ```powershell
 .\correr.ps1 -Modo prueba
@@ -57,9 +58,9 @@ Antes de comprometer días de cómputo, verificá que todo funciona:
 Esto instala el solver si falta, resuelve 9 casos chicos con 30 segundos de
 tope, y arma las tablas. Si termina diciendo **LISTO**, todo está en orden.
 
-> Si te dice que no encuentra Python, instalalo desde python.org y **marcá
-> la casilla "Add Python to PATH"** durante la instalación. Después cerrá y
-> volvé a abrir PowerShell.
+> Si el sistema indica que no encuentra Python, instálalo desde python.org y **marca
+> la casilla "Add Python to PATH"** durante la instalación. Después cierra y
+> vuelve a abrir PowerShell.
 
 ## Paso 5 — La corrida en serio
 
@@ -73,21 +74,21 @@ Van por partes, de la más fácil a la más difícil. Cada una es un comando:
 
 Todo va sumándose al mismo `resultados\resultados.csv`.
 
-**Podés cortar cuando quieras con Ctrl+C.** Al volver a lanzar el mismo
-comando, salta los casos que ya resolvió y sigue por donde iba. No perdés nada.
+**Puedes interrumpir con Ctrl+C.** Al volver a lanzar el mismo comando, el
+programa omite los casos compatibles ya resueltos y continúa la corrida.
 
 Un caso se salta solo si ya cerró a óptimo, o si ya se corrió con un límite de
-tiempo **igual o mayor** al que estás pidiendo ahora. Si subís el límite, los
+tiempo **igual o mayor** al solicitado. Si aumentas el límite, los
 casos que habían quedado cortados se vuelven a resolver solos, para que el CSV
 no mezcle dos protocolos distintos.
 
-Si en algún momento querés arrancar todo de cero:
+Si necesitas comenzar desde cero:
 
 ```powershell
 .\correr.ps1 -Modo s2 -Limpiar
 ```
 
-Si preferís largarlo todo de una y dejar el PC trabajando:
+Para ejecutar la grilla completa y dejar el equipo trabajando:
 
 ```powershell
 .\correr.ps1 -Modo todo
@@ -95,7 +96,7 @@ Si preferís largarlo todo de una y dejar el PC trabajando:
 
 ## Paso 6 — Ver las tablas
 
-Se generan solas al final de cada corrida. Si querés regenerarlas sin resolver
+Se generan al final de cada corrida. Para regenerarlas sin resolver
 nada:
 
 ```powershell
@@ -112,14 +113,14 @@ Quedan en la carpeta `analisis\`:
 | `efecto_marginal.txt` | **La respuesta a tu pregunta**: cuánto pesa `l` vs. `s` |
 | `perfil_desempeno.csv` | Para graficar el % acumulado de casos resueltos |
 
-Abrilos con el Bloc de notas, o arrastrálos a Excel si son `.csv`.
+Ábrelos con el Bloc de notas o impórtalos en Excel si son `.csv`.
 
 ---
 
-## Ir más rápido: cuatro ventanas a la vez
+## Ejecución paralela exploratoria
 
-Si tu PC tiene 4 núcleos o más, abrí **4 ventanas de PowerShell** en la carpeta
-`exp` y corré una línea distinta en cada una:
+Si tu equipo tiene 4 núcleos o más, abre **4 ventanas de PowerShell** en la carpeta
+`student-course-reassignment` y ejecuta una línea distinta en cada una:
 
 ```powershell
 # ventana 1
@@ -136,10 +137,12 @@ python src\resolver_lote.py --patron "c_n_27_*" --tiempo 3600 --hilos 1 --salida
 python src\resolver_lote.py --patron "c_n_36_*" --tiempo 3600 --hilos 1 --salida res_n36
 ```
 
-Dejá `--hilos 1` en todas. El protocolo pide un hilo por instancia, y así los
-tiempos siguen siendo comparables entre sí.
+Mantén `--hilos 1` en todas. Esta modalidad reduce el tiempo total, pero la
+competencia por CPU y RAM puede sesgar los tiempos individuales. No uses esos
+tiempos como benchmark final salvo que cada proceso disponga de recursos
+aislados y esa configuración quede documentada.
 
-Cuando terminen, juntá los cuatro CSV en uno:
+Cuando terminen, combina los cuatro CSV en uno:
 
 ```powershell
 $destino = "resultados\resultados.csv"
@@ -161,9 +164,9 @@ De la calibración con 15 segundos de tope:
 - **3 cursos** → cerraron 2 de 12.
 - **4 cursos** → cerró 0 de 12.
 
-Con el tope real de 3600 s, esperá que buena parte de los 240 casos de 3 y 4
+Con el límite real de 3600 s, es posible que buena parte de los 240 casos de 3 y 4
 cursos consuma la hora completa. En una sola ventana eso son del orden de
 **200 horas**. Con 4 ventanas en paralelo, **2 a 3 días**.
 
-Por eso conviene largar `-Modo s2` primero: en poco rato ya tenés 120 casos
-resueltos y podés mostrar resultados mientras el resto sigue corriendo.
+Por eso conviene ejecutar `-Modo s2` primero: permite obtener 120 casos
+resueltos mientras el resto sigue corriendo.

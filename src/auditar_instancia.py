@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Verifica que una instancia es coherente y que su testigo es factible."""
-import sys, argparse
+import argparse
+import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from modelo import leer_instancia
@@ -69,3 +70,6 @@ for c in C:
     gen = "/".join(f"{sum(1 for i in mi if est[i]['genero']==g)}{g}" for g in inst["grupos_genero"])
     org = "/".join(str(sum(1 for i in mi if est[i]["origen"]==o)) for o in inst["cursos_origen"])
     print(f"  curso {c}: n={len(mi)}  genero {gen}  origen {org}")
+
+if fallas:
+    sys.exit(1)
