@@ -1,13 +1,13 @@
-﻿# =====================================================================
+# =====================================================================
 #  Experimento de sensibilidad - modelo exacto de reasignacion
 #  Script para Windows PowerShell
 #
 #  Uso:
 #     .\correr.ps1 -Modo prueba     # prueba corta de 3 instancias
-#     .\correr.ps1 -Modo s4         # 160 instancias de 4 cursos
-#     .\correr.ps1 -Modo s5         # 160 instancias de 5 cursos
-#     .\correr.ps1 -Modo s6         # 160 instancias de 6 cursos
-#     .\correr.ps1 -Modo s7         # 160 instancias de 7 cursos
+#     .\correr.ps1 -Modo s4         # 120 instancias de 4 cursos
+#     .\correr.ps1 -Modo s5         # 120 instancias de 5 cursos
+#     .\correr.ps1 -Modo s6         # 120 instancias de 6 cursos
+#     .\correr.ps1 -Modo s7         # 120 instancias de 7 cursos
 #     .\correr.ps1 -Modo todo       # las 480 de corrido
 #     .\correr.ps1 -Modo analizar   # solo construye las tablas
 # =====================================================================
@@ -95,7 +95,8 @@ switch ($Modo) {
     "prueba"   { $patron = "c_n_9_l_3_s_4_i_0.txt"; $limite = 30 }
     "s4"       { $patron = "c_n_*_s_4_*.txt";  $limite = $Tiempo }
     "s5"       { $patron = "c_n_*_s_5_*.txt";  $limite = $Tiempo }
-    "s6"       { $patron = "c_n_*_s_6_*.txt";  $limite = $Tiempo }`r`n    "s7"       { $patron = "c_n_*_s_7_*.txt";  $limite = $Tiempo }
+    "s6"       { $patron = "c_n_*_s_6_*.txt";  $limite = $Tiempo }
+    "s7"       { $patron = "c_n_*_s_7_*.txt";  $limite = $Tiempo }
     "todo"     { $patron = "c_n_*.txt";        $limite = $Tiempo }
     "analizar" { $patron = $null;              $limite = $Tiempo }
 }
