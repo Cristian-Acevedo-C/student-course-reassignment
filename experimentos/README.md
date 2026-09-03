@@ -1,9 +1,13 @@
 # Experimentos
 
-Este directorio separa los dos análisis del proyecto para evitar mezclar sus
-objetivos, entradas y resultados.
+Los análisis se separan para que sus preguntas, entradas y resultados no se
+confundan.
 
-| Experimento | Pregunta | Estado |
-|---|---|---|
-| [Sensibilidad computacional](sensibilidad_computacional/README.md) | ¿Cómo afectan `n`, `l` y `s` la dificultad del MILP? | Calibración disponible; benchmark final pendiente |
-| [Sensibilidad de pesos](sensibilidad_lambda/README.md) | ¿Cómo cambia el compromiso social–balance al variar los pesos? | Análisis del caso ilustrativo documentado |
+| Experimento | Unidad de análisis | Evidencia versionada | Estado |
+|---|---|---|---|
+| [Sensibilidad computacional](sensibilidad_computacional/README.md) | 480 instancias de la grilla `L×P×C×réplica` | Instancias, testigos y calibración histórica aislada | Benchmark definitivo pendiente |
+| [Sensibilidad de los pesos](sensibilidad_lambda/README.md) | Ejemplo I00C de 27 estudiantes | Datos, scripts, resultados, figura y LaTeX | Completo para los 7 pesos evaluados |
+
+La sensibilidad de pesos no reemplaza el benchmark computacional. Del mismo
+modo, la calibración histórica de 15 segundos no constituye evidencia sobre el
+protocolo definitivo de 480 instancias.

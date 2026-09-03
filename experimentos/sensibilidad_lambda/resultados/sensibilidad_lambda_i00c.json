@@ -1,0 +1,1398 @@
+{
+  "instance_id": "I00C_DRAFT_ILUSTRATIVO_27",
+  "formulation": "weighted_sum_equation_6",
+  "objective": "lambda_0*(|S|-sum(z_i)) + lambda_1*T",
+  "solver_requirement": "SCIP status optimal for every scenario",
+  "representative_reporting": "En escenarios no base, las etiquetas simétricas de cursos se permutan solo para facilitar la comparación. En BASE_DRAFT se reporta reference_solution.csv después de verificar que es factible y alcanza el mismo objetivo óptimo certificado; la solución bruta de SCIP permanece en raw_assignment.",
+  "reference_solution_audit": {
+    "valid": true,
+    "problems": [],
+    "capacity_counts": {
+      "1M-A": 9,
+      "1M-B": 9,
+      "1M-C": 9
+    },
+    "flows": {
+      "8A": [
+        3,
+        3,
+        3
+      ],
+      "8B": [
+        4,
+        2,
+        3
+      ],
+      "8C": [
+        2,
+        4,
+        3
+      ]
+    },
+    "satisfied": 26,
+    "unsatisfied": 1,
+    "satisfaction_percent": 96.29629629629629,
+    "satisfied_by_student": {
+      "SYN-0001": true,
+      "SYN-0002": true,
+      "SYN-0003": true,
+      "SYN-0004": true,
+      "SYN-0005": true,
+      "SYN-0006": true,
+      "SYN-0007": true,
+      "SYN-0008": true,
+      "SYN-0009": true,
+      "SYN-0010": true,
+      "SYN-0011": true,
+      "SYN-0012": true,
+      "SYN-0013": true,
+      "SYN-0014": true,
+      "SYN-0015": false,
+      "SYN-0016": true,
+      "SYN-0017": true,
+      "SYN-0018": true,
+      "SYN-0019": true,
+      "SYN-0020": true,
+      "SYN-0021": true,
+      "SYN-0022": true,
+      "SYN-0023": true,
+      "SYN-0024": true,
+      "SYN-0025": true,
+      "SYN-0026": true,
+      "SYN-0027": true
+    },
+    "F": {
+      "academic": 4.666666666666667,
+      "socioemotional": 4.666666666666667,
+      "convivencia": 4.666666666666667
+    },
+    "T": 4.666666666666667,
+    "objective": 5.666666666666667,
+    "profile_counts": {
+      "academic": {
+        "1": [
+          1,
+          3,
+          2
+        ],
+        "2": [
+          4,
+          3,
+          4
+        ],
+        "3": [
+          4,
+          3,
+          3
+        ]
+      },
+      "socioemotional": {
+        "1": [
+          3,
+          3,
+          2
+        ],
+        "2": [
+          3,
+          4,
+          5
+        ],
+        "3": [
+          3,
+          2,
+          2
+        ]
+      },
+      "convivencia": {
+        "1": [
+          3,
+          3,
+          2
+        ],
+        "2": [
+          4,
+          3,
+          5
+        ],
+        "3": [
+          2,
+          3,
+          2
+        ]
+      }
+    },
+    "solution_id": "2A1D468B74"
+  },
+  "results": [
+    {
+      "scenario": "BAL_10X",
+      "lambda_0": 0.1,
+      "lambda_1": 1.0,
+      "lambda_ratio": 0.1,
+      "status": "optimal",
+      "optimal": true,
+      "objective": 2.966666666666667,
+      "satisfied": 24,
+      "unsatisfied": 3,
+      "satisfaction_percent": 88.88888888888889,
+      "T": 2.666666666666667,
+      "F_academic": 2.666666666666667,
+      "F_socioemotional": 2.666666666666667,
+      "F_convivencia": 2.666666666666667,
+      "flow_8A": "4/2/3",
+      "flow_8B": "2/3/4",
+      "flow_8C": "3/4/2",
+      "solution_id": "04819BEA8D",
+      "solve_time_s": 17.0,
+      "nodes": 1025,
+      "gap": 0.0,
+      "dual_bound": 2.966666666666667,
+      "reporting_relabeling": {
+        "1M-A": "1M-B",
+        "1M-B": "1M-C",
+        "1M-C": "1M-A"
+      },
+      "representative_policy": "solver_solution_with_destination_relabeling",
+      "solver_selected_components": {
+        "satisfied": 24,
+        "unsatisfied": 3,
+        "T": 2.666666666666667,
+        "F": {
+          "academic": 2.666666666666667,
+          "socioemotional": 2.666666666666667,
+          "convivencia": 2.666666666666667
+        },
+        "objective": 2.966666666666667
+      },
+      "hamming_distance_to_reference": 16,
+      "raw_assignment": {
+        "SYN-0001": "1M-C",
+        "SYN-0002": "1M-B",
+        "SYN-0003": "1M-B",
+        "SYN-0004": "1M-A",
+        "SYN-0005": "1M-A",
+        "SYN-0006": "1M-C",
+        "SYN-0007": "1M-C",
+        "SYN-0008": "1M-C",
+        "SYN-0009": "1M-B",
+        "SYN-0010": "1M-A",
+        "SYN-0011": "1M-A",
+        "SYN-0012": "1M-A",
+        "SYN-0013": "1M-B",
+        "SYN-0014": "1M-C",
+        "SYN-0015": "1M-C",
+        "SYN-0016": "1M-B",
+        "SYN-0017": "1M-B",
+        "SYN-0018": "1M-B",
+        "SYN-0019": "1M-B",
+        "SYN-0020": "1M-B",
+        "SYN-0021": "1M-A",
+        "SYN-0022": "1M-A",
+        "SYN-0023": "1M-A",
+        "SYN-0024": "1M-C",
+        "SYN-0025": "1M-C",
+        "SYN-0026": "1M-C",
+        "SYN-0027": "1M-A"
+      },
+      "assignment": {
+        "SYN-0001": "1M-A",
+        "SYN-0002": "1M-C",
+        "SYN-0003": "1M-C",
+        "SYN-0004": "1M-B",
+        "SYN-0005": "1M-B",
+        "SYN-0006": "1M-A",
+        "SYN-0007": "1M-A",
+        "SYN-0008": "1M-A",
+        "SYN-0009": "1M-C",
+        "SYN-0010": "1M-B",
+        "SYN-0011": "1M-B",
+        "SYN-0012": "1M-B",
+        "SYN-0013": "1M-C",
+        "SYN-0014": "1M-A",
+        "SYN-0015": "1M-A",
+        "SYN-0016": "1M-C",
+        "SYN-0017": "1M-C",
+        "SYN-0018": "1M-C",
+        "SYN-0019": "1M-C",
+        "SYN-0020": "1M-C",
+        "SYN-0021": "1M-B",
+        "SYN-0022": "1M-B",
+        "SYN-0023": "1M-B",
+        "SYN-0024": "1M-A",
+        "SYN-0025": "1M-A",
+        "SYN-0026": "1M-A",
+        "SYN-0027": "1M-B"
+      },
+      "satisfied_by_student": {
+        "SYN-0001": true,
+        "SYN-0002": true,
+        "SYN-0003": true,
+        "SYN-0004": true,
+        "SYN-0005": true,
+        "SYN-0006": true,
+        "SYN-0007": true,
+        "SYN-0008": false,
+        "SYN-0009": true,
+        "SYN-0010": true,
+        "SYN-0011": true,
+        "SYN-0012": true,
+        "SYN-0013": false,
+        "SYN-0014": true,
+        "SYN-0015": false,
+        "SYN-0016": true,
+        "SYN-0017": true,
+        "SYN-0018": true,
+        "SYN-0019": true,
+        "SYN-0020": true,
+        "SYN-0021": true,
+        "SYN-0022": true,
+        "SYN-0023": true,
+        "SYN-0024": true,
+        "SYN-0025": true,
+        "SYN-0026": true,
+        "SYN-0027": true
+      },
+      "profile_counts": {
+        "academic": {
+          "1": [
+            2,
+            2,
+            2
+          ],
+          "2": [
+            4,
+            3,
+            4
+          ],
+          "3": [
+            3,
+            4,
+            3
+          ]
+        },
+        "socioemotional": {
+          "1": [
+            3,
+            2,
+            3
+          ],
+          "2": [
+            4,
+            4,
+            4
+          ],
+          "3": [
+            2,
+            3,
+            2
+          ]
+        },
+        "convivencia": {
+          "1": [
+            3,
+            2,
+            3
+          ],
+          "2": [
+            4,
+            4,
+            4
+          ],
+          "3": [
+            2,
+            3,
+            2
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "BAL_4X",
+      "lambda_0": 0.25,
+      "lambda_1": 1.0,
+      "lambda_ratio": 0.25,
+      "status": "optimal",
+      "optimal": true,
+      "objective": 3.416666666666667,
+      "satisfied": 24,
+      "unsatisfied": 3,
+      "satisfaction_percent": 88.88888888888889,
+      "T": 2.666666666666667,
+      "F_academic": 2.666666666666667,
+      "F_socioemotional": 2.666666666666667,
+      "F_convivencia": 2.666666666666667,
+      "flow_8A": "4/2/3",
+      "flow_8B": "2/3/4",
+      "flow_8C": "3/4/2",
+      "solution_id": "04819BEA8D",
+      "solve_time_s": 21.0,
+      "nodes": 1323,
+      "gap": 0.0,
+      "dual_bound": 3.4166666666666674,
+      "reporting_relabeling": {
+        "1M-A": "1M-C",
+        "1M-B": "1M-B",
+        "1M-C": "1M-A"
+      },
+      "representative_policy": "solver_solution_with_destination_relabeling",
+      "solver_selected_components": {
+        "satisfied": 24,
+        "unsatisfied": 3,
+        "T": 2.666666666666667,
+        "F": {
+          "academic": 2.666666666666667,
+          "socioemotional": 2.666666666666667,
+          "convivencia": 2.666666666666667
+        },
+        "objective": 3.416666666666667
+      },
+      "hamming_distance_to_reference": 16,
+      "raw_assignment": {
+        "SYN-0001": "1M-C",
+        "SYN-0002": "1M-A",
+        "SYN-0003": "1M-A",
+        "SYN-0004": "1M-B",
+        "SYN-0005": "1M-B",
+        "SYN-0006": "1M-C",
+        "SYN-0007": "1M-C",
+        "SYN-0008": "1M-C",
+        "SYN-0009": "1M-A",
+        "SYN-0010": "1M-B",
+        "SYN-0011": "1M-B",
+        "SYN-0012": "1M-B",
+        "SYN-0013": "1M-A",
+        "SYN-0014": "1M-C",
+        "SYN-0015": "1M-C",
+        "SYN-0016": "1M-A",
+        "SYN-0017": "1M-A",
+        "SYN-0018": "1M-A",
+        "SYN-0019": "1M-A",
+        "SYN-0020": "1M-A",
+        "SYN-0021": "1M-B",
+        "SYN-0022": "1M-B",
+        "SYN-0023": "1M-B",
+        "SYN-0024": "1M-C",
+        "SYN-0025": "1M-C",
+        "SYN-0026": "1M-C",
+        "SYN-0027": "1M-B"
+      },
+      "assignment": {
+        "SYN-0001": "1M-A",
+        "SYN-0002": "1M-C",
+        "SYN-0003": "1M-C",
+        "SYN-0004": "1M-B",
+        "SYN-0005": "1M-B",
+        "SYN-0006": "1M-A",
+        "SYN-0007": "1M-A",
+        "SYN-0008": "1M-A",
+        "SYN-0009": "1M-C",
+        "SYN-0010": "1M-B",
+        "SYN-0011": "1M-B",
+        "SYN-0012": "1M-B",
+        "SYN-0013": "1M-C",
+        "SYN-0014": "1M-A",
+        "SYN-0015": "1M-A",
+        "SYN-0016": "1M-C",
+        "SYN-0017": "1M-C",
+        "SYN-0018": "1M-C",
+        "SYN-0019": "1M-C",
+        "SYN-0020": "1M-C",
+        "SYN-0021": "1M-B",
+        "SYN-0022": "1M-B",
+        "SYN-0023": "1M-B",
+        "SYN-0024": "1M-A",
+        "SYN-0025": "1M-A",
+        "SYN-0026": "1M-A",
+        "SYN-0027": "1M-B"
+      },
+      "satisfied_by_student": {
+        "SYN-0001": true,
+        "SYN-0002": true,
+        "SYN-0003": true,
+        "SYN-0004": true,
+        "SYN-0005": true,
+        "SYN-0006": true,
+        "SYN-0007": true,
+        "SYN-0008": false,
+        "SYN-0009": true,
+        "SYN-0010": true,
+        "SYN-0011": true,
+        "SYN-0012": true,
+        "SYN-0013": false,
+        "SYN-0014": true,
+        "SYN-0015": false,
+        "SYN-0016": true,
+        "SYN-0017": true,
+        "SYN-0018": true,
+        "SYN-0019": true,
+        "SYN-0020": true,
+        "SYN-0021": true,
+        "SYN-0022": true,
+        "SYN-0023": true,
+        "SYN-0024": true,
+        "SYN-0025": true,
+        "SYN-0026": true,
+        "SYN-0027": true
+      },
+      "profile_counts": {
+        "academic": {
+          "1": [
+            2,
+            2,
+            2
+          ],
+          "2": [
+            4,
+            3,
+            4
+          ],
+          "3": [
+            3,
+            4,
+            3
+          ]
+        },
+        "socioemotional": {
+          "1": [
+            3,
+            2,
+            3
+          ],
+          "2": [
+            4,
+            4,
+            4
+          ],
+          "3": [
+            2,
+            3,
+            2
+          ]
+        },
+        "convivencia": {
+          "1": [
+            3,
+            2,
+            3
+          ],
+          "2": [
+            4,
+            4,
+            4
+          ],
+          "3": [
+            2,
+            3,
+            2
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "BAL_2X",
+      "lambda_0": 0.5,
+      "lambda_1": 1.0,
+      "lambda_ratio": 0.5,
+      "status": "optimal",
+      "optimal": true,
+      "objective": 4.166666666666667,
+      "satisfied": 24,
+      "unsatisfied": 3,
+      "satisfaction_percent": 88.88888888888889,
+      "T": 2.666666666666667,
+      "F_academic": 2.666666666666667,
+      "F_socioemotional": 2.666666666666667,
+      "F_convivencia": 2.666666666666667,
+      "flow_8A": "3/4/2",
+      "flow_8B": "4/3/2",
+      "flow_8C": "2/2/5",
+      "solution_id": "4C088B46C1",
+      "solve_time_s": 20.0,
+      "nodes": 1249,
+      "gap": 0.0,
+      "dual_bound": 4.166666666666666,
+      "reporting_relabeling": {
+        "1M-A": "1M-A",
+        "1M-B": "1M-B",
+        "1M-C": "1M-C"
+      },
+      "representative_policy": "solver_solution_with_destination_relabeling",
+      "solver_selected_components": {
+        "satisfied": 24,
+        "unsatisfied": 3,
+        "T": 2.666666666666667,
+        "F": {
+          "academic": 2.666666666666667,
+          "socioemotional": 2.666666666666667,
+          "convivencia": 2.666666666666667
+        },
+        "objective": 4.166666666666667
+      },
+      "hamming_distance_to_reference": 16,
+      "raw_assignment": {
+        "SYN-0001": "1M-A",
+        "SYN-0002": "1M-B",
+        "SYN-0003": "1M-B",
+        "SYN-0004": "1M-B",
+        "SYN-0005": "1M-B",
+        "SYN-0006": "1M-A",
+        "SYN-0007": "1M-A",
+        "SYN-0008": "1M-C",
+        "SYN-0009": "1M-C",
+        "SYN-0010": "1M-B",
+        "SYN-0011": "1M-B",
+        "SYN-0012": "1M-B",
+        "SYN-0013": "1M-C",
+        "SYN-0014": "1M-A",
+        "SYN-0015": "1M-A",
+        "SYN-0016": "1M-A",
+        "SYN-0017": "1M-A",
+        "SYN-0018": "1M-C",
+        "SYN-0019": "1M-C",
+        "SYN-0020": "1M-C",
+        "SYN-0021": "1M-A",
+        "SYN-0022": "1M-B",
+        "SYN-0023": "1M-B",
+        "SYN-0024": "1M-A",
+        "SYN-0025": "1M-C",
+        "SYN-0026": "1M-C",
+        "SYN-0027": "1M-C"
+      },
+      "assignment": {
+        "SYN-0001": "1M-A",
+        "SYN-0002": "1M-B",
+        "SYN-0003": "1M-B",
+        "SYN-0004": "1M-B",
+        "SYN-0005": "1M-B",
+        "SYN-0006": "1M-A",
+        "SYN-0007": "1M-A",
+        "SYN-0008": "1M-C",
+        "SYN-0009": "1M-C",
+        "SYN-0010": "1M-B",
+        "SYN-0011": "1M-B",
+        "SYN-0012": "1M-B",
+        "SYN-0013": "1M-C",
+        "SYN-0014": "1M-A",
+        "SYN-0015": "1M-A",
+        "SYN-0016": "1M-A",
+        "SYN-0017": "1M-A",
+        "SYN-0018": "1M-C",
+        "SYN-0019": "1M-C",
+        "SYN-0020": "1M-C",
+        "SYN-0021": "1M-A",
+        "SYN-0022": "1M-B",
+        "SYN-0023": "1M-B",
+        "SYN-0024": "1M-A",
+        "SYN-0025": "1M-C",
+        "SYN-0026": "1M-C",
+        "SYN-0027": "1M-C"
+      },
+      "satisfied_by_student": {
+        "SYN-0001": true,
+        "SYN-0002": true,
+        "SYN-0003": true,
+        "SYN-0004": true,
+        "SYN-0005": true,
+        "SYN-0006": true,
+        "SYN-0007": true,
+        "SYN-0008": true,
+        "SYN-0009": true,
+        "SYN-0010": true,
+        "SYN-0011": true,
+        "SYN-0012": true,
+        "SYN-0013": false,
+        "SYN-0014": true,
+        "SYN-0015": true,
+        "SYN-0016": true,
+        "SYN-0017": true,
+        "SYN-0018": true,
+        "SYN-0019": true,
+        "SYN-0020": true,
+        "SYN-0021": false,
+        "SYN-0022": true,
+        "SYN-0023": true,
+        "SYN-0024": false,
+        "SYN-0025": true,
+        "SYN-0026": true,
+        "SYN-0027": true
+      },
+      "profile_counts": {
+        "academic": {
+          "1": [
+            2,
+            2,
+            2
+          ],
+          "2": [
+            4,
+            4,
+            3
+          ],
+          "3": [
+            3,
+            3,
+            4
+          ]
+        },
+        "socioemotional": {
+          "1": [
+            3,
+            2,
+            3
+          ],
+          "2": [
+            4,
+            4,
+            4
+          ],
+          "3": [
+            2,
+            3,
+            2
+          ]
+        },
+        "convivencia": {
+          "1": [
+            2,
+            3,
+            3
+          ],
+          "2": [
+            4,
+            4,
+            4
+          ],
+          "3": [
+            3,
+            2,
+            2
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "BASE_DRAFT",
+      "lambda_0": 1.0,
+      "lambda_1": 1.0,
+      "lambda_ratio": 1.0,
+      "status": "optimal",
+      "optimal": true,
+      "objective": 5.666666666666667,
+      "satisfied": 26,
+      "unsatisfied": 1,
+      "satisfaction_percent": 96.29629629629629,
+      "T": 4.666666666666667,
+      "F_academic": 4.666666666666667,
+      "F_socioemotional": 4.666666666666667,
+      "F_convivencia": 4.666666666666667,
+      "flow_8A": "3/3/3",
+      "flow_8B": "4/2/3",
+      "flow_8C": "2/4/3",
+      "solution_id": "2A1D468B74",
+      "solve_time_s": 35.0,
+      "nodes": 2333,
+      "gap": 0.0,
+      "dual_bound": 5.666666666666668,
+      "reporting_relabeling": null,
+      "representative_policy": "draft_reference_verified_at_certified_optimum",
+      "solver_selected_components": {
+        "satisfied": 24,
+        "unsatisfied": 3,
+        "T": 2.666666666666667,
+        "F": {
+          "academic": 2.666666666666667,
+          "socioemotional": 2.666666666666667,
+          "convivencia": 2.666666666666667
+        },
+        "objective": 5.666666666666667
+      },
+      "hamming_distance_to_reference": 0,
+      "raw_assignment": {
+        "SYN-0001": "1M-B",
+        "SYN-0002": "1M-C",
+        "SYN-0003": "1M-C",
+        "SYN-0004": "1M-C",
+        "SYN-0005": "1M-C",
+        "SYN-0006": "1M-B",
+        "SYN-0007": "1M-B",
+        "SYN-0008": "1M-A",
+        "SYN-0009": "1M-A",
+        "SYN-0010": "1M-C",
+        "SYN-0011": "1M-C",
+        "SYN-0012": "1M-A",
+        "SYN-0013": "1M-A",
+        "SYN-0014": "1M-B",
+        "SYN-0015": "1M-B",
+        "SYN-0016": "1M-B",
+        "SYN-0017": "1M-C",
+        "SYN-0018": "1M-A",
+        "SYN-0019": "1M-A",
+        "SYN-0020": "1M-C",
+        "SYN-0021": "1M-A",
+        "SYN-0022": "1M-A",
+        "SYN-0023": "1M-C",
+        "SYN-0024": "1M-B",
+        "SYN-0025": "1M-B",
+        "SYN-0026": "1M-B",
+        "SYN-0027": "1M-A"
+      },
+      "assignment": {
+        "SYN-0001": "1M-A",
+        "SYN-0002": "1M-B",
+        "SYN-0003": "1M-B",
+        "SYN-0004": "1M-B",
+        "SYN-0005": "1M-C",
+        "SYN-0006": "1M-A",
+        "SYN-0007": "1M-A",
+        "SYN-0008": "1M-C",
+        "SYN-0009": "1M-C",
+        "SYN-0010": "1M-A",
+        "SYN-0011": "1M-A",
+        "SYN-0012": "1M-B",
+        "SYN-0013": "1M-C",
+        "SYN-0014": "1M-A",
+        "SYN-0015": "1M-B",
+        "SYN-0016": "1M-C",
+        "SYN-0017": "1M-C",
+        "SYN-0018": "1M-A",
+        "SYN-0019": "1M-A",
+        "SYN-0020": "1M-A",
+        "SYN-0021": "1M-C",
+        "SYN-0022": "1M-C",
+        "SYN-0023": "1M-C",
+        "SYN-0024": "1M-B",
+        "SYN-0025": "1M-B",
+        "SYN-0026": "1M-B",
+        "SYN-0027": "1M-B"
+      },
+      "satisfied_by_student": {
+        "SYN-0001": true,
+        "SYN-0002": true,
+        "SYN-0003": true,
+        "SYN-0004": true,
+        "SYN-0005": true,
+        "SYN-0006": true,
+        "SYN-0007": true,
+        "SYN-0008": true,
+        "SYN-0009": true,
+        "SYN-0010": true,
+        "SYN-0011": true,
+        "SYN-0012": true,
+        "SYN-0013": true,
+        "SYN-0014": true,
+        "SYN-0015": false,
+        "SYN-0016": true,
+        "SYN-0017": true,
+        "SYN-0018": true,
+        "SYN-0019": true,
+        "SYN-0020": true,
+        "SYN-0021": true,
+        "SYN-0022": true,
+        "SYN-0023": true,
+        "SYN-0024": true,
+        "SYN-0025": true,
+        "SYN-0026": true,
+        "SYN-0027": true
+      },
+      "profile_counts": {
+        "academic": {
+          "1": [
+            1,
+            3,
+            2
+          ],
+          "2": [
+            4,
+            3,
+            4
+          ],
+          "3": [
+            4,
+            3,
+            3
+          ]
+        },
+        "socioemotional": {
+          "1": [
+            3,
+            3,
+            2
+          ],
+          "2": [
+            3,
+            4,
+            5
+          ],
+          "3": [
+            3,
+            2,
+            2
+          ]
+        },
+        "convivencia": {
+          "1": [
+            3,
+            3,
+            2
+          ],
+          "2": [
+            4,
+            3,
+            5
+          ],
+          "3": [
+            2,
+            3,
+            2
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "PREF_2X",
+      "lambda_0": 1.0,
+      "lambda_1": 0.5,
+      "lambda_ratio": 2.0,
+      "status": "optimal",
+      "optimal": true,
+      "objective": 3.333333333333334,
+      "satisfied": 27,
+      "unsatisfied": 0,
+      "satisfaction_percent": 100.0,
+      "T": 6.666666666666668,
+      "F_academic": 6.666666666666667,
+      "F_socioemotional": 6.666666666666668,
+      "F_convivencia": 2.666666666666667,
+      "flow_8A": "3/3/3",
+      "flow_8B": "3/4/2",
+      "flow_8C": "3/2/4",
+      "solution_id": "F55A2E01BC",
+      "solve_time_s": 15.0,
+      "nodes": 1233,
+      "gap": 0.0,
+      "dual_bound": 3.333333333333332,
+      "reporting_relabeling": {
+        "1M-A": "1M-B",
+        "1M-B": "1M-C",
+        "1M-C": "1M-A"
+      },
+      "representative_policy": "solver_solution_with_destination_relabeling",
+      "solver_selected_components": {
+        "satisfied": 27,
+        "unsatisfied": 0,
+        "T": 6.666666666666668,
+        "F": {
+          "academic": 6.666666666666667,
+          "socioemotional": 6.666666666666668,
+          "convivencia": 2.666666666666667
+        },
+        "objective": 3.333333333333334
+      },
+      "hamming_distance_to_reference": 12,
+      "raw_assignment": {
+        "SYN-0001": "1M-C",
+        "SYN-0002": "1M-A",
+        "SYN-0003": "1M-A",
+        "SYN-0004": "1M-A",
+        "SYN-0005": "1M-B",
+        "SYN-0006": "1M-C",
+        "SYN-0007": "1M-C",
+        "SYN-0008": "1M-B",
+        "SYN-0009": "1M-B",
+        "SYN-0010": "1M-A",
+        "SYN-0011": "1M-A",
+        "SYN-0012": "1M-A",
+        "SYN-0013": "1M-B",
+        "SYN-0014": "1M-C",
+        "SYN-0015": "1M-C",
+        "SYN-0016": "1M-C",
+        "SYN-0017": "1M-A",
+        "SYN-0018": "1M-B",
+        "SYN-0019": "1M-A",
+        "SYN-0020": "1M-A",
+        "SYN-0021": "1M-B",
+        "SYN-0022": "1M-B",
+        "SYN-0023": "1M-B",
+        "SYN-0024": "1M-C",
+        "SYN-0025": "1M-C",
+        "SYN-0026": "1M-C",
+        "SYN-0027": "1M-B"
+      },
+      "assignment": {
+        "SYN-0001": "1M-A",
+        "SYN-0002": "1M-B",
+        "SYN-0003": "1M-B",
+        "SYN-0004": "1M-B",
+        "SYN-0005": "1M-C",
+        "SYN-0006": "1M-A",
+        "SYN-0007": "1M-A",
+        "SYN-0008": "1M-C",
+        "SYN-0009": "1M-C",
+        "SYN-0010": "1M-B",
+        "SYN-0011": "1M-B",
+        "SYN-0012": "1M-B",
+        "SYN-0013": "1M-C",
+        "SYN-0014": "1M-A",
+        "SYN-0015": "1M-A",
+        "SYN-0016": "1M-A",
+        "SYN-0017": "1M-B",
+        "SYN-0018": "1M-C",
+        "SYN-0019": "1M-B",
+        "SYN-0020": "1M-B",
+        "SYN-0021": "1M-C",
+        "SYN-0022": "1M-C",
+        "SYN-0023": "1M-C",
+        "SYN-0024": "1M-A",
+        "SYN-0025": "1M-A",
+        "SYN-0026": "1M-A",
+        "SYN-0027": "1M-C"
+      },
+      "satisfied_by_student": {
+        "SYN-0001": true,
+        "SYN-0002": true,
+        "SYN-0003": true,
+        "SYN-0004": true,
+        "SYN-0005": true,
+        "SYN-0006": true,
+        "SYN-0007": true,
+        "SYN-0008": true,
+        "SYN-0009": true,
+        "SYN-0010": true,
+        "SYN-0011": true,
+        "SYN-0012": true,
+        "SYN-0013": true,
+        "SYN-0014": true,
+        "SYN-0015": true,
+        "SYN-0016": true,
+        "SYN-0017": true,
+        "SYN-0018": true,
+        "SYN-0019": true,
+        "SYN-0020": true,
+        "SYN-0021": true,
+        "SYN-0022": true,
+        "SYN-0023": true,
+        "SYN-0024": true,
+        "SYN-0025": true,
+        "SYN-0026": true,
+        "SYN-0027": true
+      },
+      "profile_counts": {
+        "academic": {
+          "1": [
+            2,
+            3,
+            1
+          ],
+          "2": [
+            4,
+            4,
+            3
+          ],
+          "3": [
+            3,
+            2,
+            5
+          ]
+        },
+        "socioemotional": {
+          "1": [
+            3,
+            4,
+            1
+          ],
+          "2": [
+            4,
+            3,
+            5
+          ],
+          "3": [
+            2,
+            2,
+            3
+          ]
+        },
+        "convivencia": {
+          "1": [
+            2,
+            3,
+            3
+          ],
+          "2": [
+            4,
+            4,
+            4
+          ],
+          "3": [
+            3,
+            2,
+            2
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "PREF_4X",
+      "lambda_0": 1.0,
+      "lambda_1": 0.25,
+      "lambda_ratio": 4.0,
+      "status": "optimal",
+      "optimal": true,
+      "objective": 1.666666666666667,
+      "satisfied": 27,
+      "unsatisfied": 0,
+      "satisfaction_percent": 100.0,
+      "T": 6.666666666666668,
+      "F_academic": 6.666666666666667,
+      "F_socioemotional": 6.666666666666668,
+      "F_convivencia": 2.666666666666667,
+      "flow_8A": "3/3/3",
+      "flow_8B": "3/4/2",
+      "flow_8C": "3/2/4",
+      "solution_id": "F55A2E01BC",
+      "solve_time_s": 9.0,
+      "nodes": 536,
+      "gap": 0.0,
+      "dual_bound": 1.6666666666666679,
+      "reporting_relabeling": {
+        "1M-A": "1M-C",
+        "1M-B": "1M-B",
+        "1M-C": "1M-A"
+      },
+      "representative_policy": "solver_solution_with_destination_relabeling",
+      "solver_selected_components": {
+        "satisfied": 27,
+        "unsatisfied": 0,
+        "T": 6.666666666666668,
+        "F": {
+          "academic": 6.666666666666667,
+          "socioemotional": 6.666666666666668,
+          "convivencia": 2.666666666666667
+        },
+        "objective": 1.666666666666667
+      },
+      "hamming_distance_to_reference": 12,
+      "raw_assignment": {
+        "SYN-0001": "1M-C",
+        "SYN-0002": "1M-B",
+        "SYN-0003": "1M-B",
+        "SYN-0004": "1M-B",
+        "SYN-0005": "1M-A",
+        "SYN-0006": "1M-C",
+        "SYN-0007": "1M-C",
+        "SYN-0008": "1M-A",
+        "SYN-0009": "1M-A",
+        "SYN-0010": "1M-B",
+        "SYN-0011": "1M-B",
+        "SYN-0012": "1M-B",
+        "SYN-0013": "1M-A",
+        "SYN-0014": "1M-C",
+        "SYN-0015": "1M-C",
+        "SYN-0016": "1M-C",
+        "SYN-0017": "1M-B",
+        "SYN-0018": "1M-A",
+        "SYN-0019": "1M-B",
+        "SYN-0020": "1M-B",
+        "SYN-0021": "1M-A",
+        "SYN-0022": "1M-A",
+        "SYN-0023": "1M-A",
+        "SYN-0024": "1M-C",
+        "SYN-0025": "1M-C",
+        "SYN-0026": "1M-C",
+        "SYN-0027": "1M-A"
+      },
+      "assignment": {
+        "SYN-0001": "1M-A",
+        "SYN-0002": "1M-B",
+        "SYN-0003": "1M-B",
+        "SYN-0004": "1M-B",
+        "SYN-0005": "1M-C",
+        "SYN-0006": "1M-A",
+        "SYN-0007": "1M-A",
+        "SYN-0008": "1M-C",
+        "SYN-0009": "1M-C",
+        "SYN-0010": "1M-B",
+        "SYN-0011": "1M-B",
+        "SYN-0012": "1M-B",
+        "SYN-0013": "1M-C",
+        "SYN-0014": "1M-A",
+        "SYN-0015": "1M-A",
+        "SYN-0016": "1M-A",
+        "SYN-0017": "1M-B",
+        "SYN-0018": "1M-C",
+        "SYN-0019": "1M-B",
+        "SYN-0020": "1M-B",
+        "SYN-0021": "1M-C",
+        "SYN-0022": "1M-C",
+        "SYN-0023": "1M-C",
+        "SYN-0024": "1M-A",
+        "SYN-0025": "1M-A",
+        "SYN-0026": "1M-A",
+        "SYN-0027": "1M-C"
+      },
+      "satisfied_by_student": {
+        "SYN-0001": true,
+        "SYN-0002": true,
+        "SYN-0003": true,
+        "SYN-0004": true,
+        "SYN-0005": true,
+        "SYN-0006": true,
+        "SYN-0007": true,
+        "SYN-0008": true,
+        "SYN-0009": true,
+        "SYN-0010": true,
+        "SYN-0011": true,
+        "SYN-0012": true,
+        "SYN-0013": true,
+        "SYN-0014": true,
+        "SYN-0015": true,
+        "SYN-0016": true,
+        "SYN-0017": true,
+        "SYN-0018": true,
+        "SYN-0019": true,
+        "SYN-0020": true,
+        "SYN-0021": true,
+        "SYN-0022": true,
+        "SYN-0023": true,
+        "SYN-0024": true,
+        "SYN-0025": true,
+        "SYN-0026": true,
+        "SYN-0027": true
+      },
+      "profile_counts": {
+        "academic": {
+          "1": [
+            2,
+            3,
+            1
+          ],
+          "2": [
+            4,
+            4,
+            3
+          ],
+          "3": [
+            3,
+            2,
+            5
+          ]
+        },
+        "socioemotional": {
+          "1": [
+            3,
+            4,
+            1
+          ],
+          "2": [
+            4,
+            3,
+            5
+          ],
+          "3": [
+            2,
+            2,
+            3
+          ]
+        },
+        "convivencia": {
+          "1": [
+            2,
+            3,
+            3
+          ],
+          "2": [
+            4,
+            4,
+            4
+          ],
+          "3": [
+            3,
+            2,
+            2
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "PREF_10X",
+      "lambda_0": 1.0,
+      "lambda_1": 0.1,
+      "lambda_ratio": 10.0,
+      "status": "optimal",
+      "optimal": true,
+      "objective": 0.6666666666666669,
+      "satisfied": 27,
+      "unsatisfied": 0,
+      "satisfaction_percent": 100.0,
+      "T": 6.666666666666668,
+      "F_academic": 6.666666666666667,
+      "F_socioemotional": 6.666666666666668,
+      "F_convivencia": 2.666666666666667,
+      "flow_8A": "3/3/3",
+      "flow_8B": "3/4/2",
+      "flow_8C": "3/2/4",
+      "solution_id": "F55A2E01BC",
+      "solve_time_s": 6.0,
+      "nodes": 284,
+      "gap": 0.0,
+      "dual_bound": 0.6666666666666679,
+      "reporting_relabeling": {
+        "1M-A": "1M-A",
+        "1M-B": "1M-B",
+        "1M-C": "1M-C"
+      },
+      "representative_policy": "solver_solution_with_destination_relabeling",
+      "solver_selected_components": {
+        "satisfied": 27,
+        "unsatisfied": 0,
+        "T": 6.666666666666668,
+        "F": {
+          "academic": 6.666666666666667,
+          "socioemotional": 6.666666666666668,
+          "convivencia": 2.666666666666667
+        },
+        "objective": 0.6666666666666669
+      },
+      "hamming_distance_to_reference": 12,
+      "raw_assignment": {
+        "SYN-0001": "1M-A",
+        "SYN-0002": "1M-B",
+        "SYN-0003": "1M-B",
+        "SYN-0004": "1M-B",
+        "SYN-0005": "1M-C",
+        "SYN-0006": "1M-A",
+        "SYN-0007": "1M-A",
+        "SYN-0008": "1M-C",
+        "SYN-0009": "1M-C",
+        "SYN-0010": "1M-B",
+        "SYN-0011": "1M-B",
+        "SYN-0012": "1M-B",
+        "SYN-0013": "1M-C",
+        "SYN-0014": "1M-A",
+        "SYN-0015": "1M-A",
+        "SYN-0016": "1M-A",
+        "SYN-0017": "1M-B",
+        "SYN-0018": "1M-C",
+        "SYN-0019": "1M-B",
+        "SYN-0020": "1M-B",
+        "SYN-0021": "1M-C",
+        "SYN-0022": "1M-C",
+        "SYN-0023": "1M-C",
+        "SYN-0024": "1M-A",
+        "SYN-0025": "1M-A",
+        "SYN-0026": "1M-A",
+        "SYN-0027": "1M-C"
+      },
+      "assignment": {
+        "SYN-0001": "1M-A",
+        "SYN-0002": "1M-B",
+        "SYN-0003": "1M-B",
+        "SYN-0004": "1M-B",
+        "SYN-0005": "1M-C",
+        "SYN-0006": "1M-A",
+        "SYN-0007": "1M-A",
+        "SYN-0008": "1M-C",
+        "SYN-0009": "1M-C",
+        "SYN-0010": "1M-B",
+        "SYN-0011": "1M-B",
+        "SYN-0012": "1M-B",
+        "SYN-0013": "1M-C",
+        "SYN-0014": "1M-A",
+        "SYN-0015": "1M-A",
+        "SYN-0016": "1M-A",
+        "SYN-0017": "1M-B",
+        "SYN-0018": "1M-C",
+        "SYN-0019": "1M-B",
+        "SYN-0020": "1M-B",
+        "SYN-0021": "1M-C",
+        "SYN-0022": "1M-C",
+        "SYN-0023": "1M-C",
+        "SYN-0024": "1M-A",
+        "SYN-0025": "1M-A",
+        "SYN-0026": "1M-A",
+        "SYN-0027": "1M-C"
+      },
+      "satisfied_by_student": {
+        "SYN-0001": true,
+        "SYN-0002": true,
+        "SYN-0003": true,
+        "SYN-0004": true,
+        "SYN-0005": true,
+        "SYN-0006": true,
+        "SYN-0007": true,
+        "SYN-0008": true,
+        "SYN-0009": true,
+        "SYN-0010": true,
+        "SYN-0011": true,
+        "SYN-0012": true,
+        "SYN-0013": true,
+        "SYN-0014": true,
+        "SYN-0015": true,
+        "SYN-0016": true,
+        "SYN-0017": true,
+        "SYN-0018": true,
+        "SYN-0019": true,
+        "SYN-0020": true,
+        "SYN-0021": true,
+        "SYN-0022": true,
+        "SYN-0023": true,
+        "SYN-0024": true,
+        "SYN-0025": true,
+        "SYN-0026": true,
+        "SYN-0027": true
+      },
+      "profile_counts": {
+        "academic": {
+          "1": [
+            2,
+            3,
+            1
+          ],
+          "2": [
+            4,
+            4,
+            3
+          ],
+          "3": [
+            3,
+            2,
+            5
+          ]
+        },
+        "socioemotional": {
+          "1": [
+            3,
+            4,
+            1
+          ],
+          "2": [
+            4,
+            3,
+            5
+          ],
+          "3": [
+            2,
+            2,
+            3
+          ]
+        },
+        "convivencia": {
+          "1": [
+            2,
+            3,
+            3
+          ],
+          "2": [
+            4,
+            4,
+            4
+          ],
+          "3": [
+            3,
+            2,
+            2
+          ]
+        }
+      }
+    }
+  ]
+}

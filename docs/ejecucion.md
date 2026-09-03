@@ -1,87 +1,118 @@
-# Cómo correr el experimento completo
+# Protocolo de ejecución del benchmark
 
-El benchmark se ejecuta en una máquina local o servidor persistente: son hasta
-480 × 3600 s de cómputo.
+Este documento describe la campaña futura de 480 instancias. No es necesario
+ejecutarla para revisar el código, validar la grilla o reproducir el ejemplo
+I00C.
 
-## 1. Requisitos (una sola vez)
+## 1. Condiciones que deben registrarse
 
-```bash
+Para que los tiempos sean comparables, la corrida reportada en el artículo debe
+usar:
+
+- límite de 3600 segundos por instancia;
+- un hilo por proceso;
+- brecha objetivo igual a cero;
+- ejecución secuencial o recursos aislados;
+- versión de Python, PySCIPOpt y SCIP;
+- procesador, memoria RAM y sistema operativo;
+- fecha y comando de ejecución.
+
+La cota máxima teórica es de 480 horas de cómputo secuencial si todas las
+instancias agotan el límite. Esto no es una estimación del tiempo real.
+
+## 2. Preparación y validación
+
+```powershell
 python -m pip install -r requirements.txt
+python src\validar_repositorio.py
 ```
 
-## 2. Generar las 480 instancias
+Las 480 instancias ya están en `instancias/`. Solo para regenerarlas de manera
+determinística:
 
-Ya vienen generadas en `instancias/`. Si quieres rehacerlas (son idénticas,
-la semilla depende solo de los parámetros), el comando reemplaza los archivos
-generados de cualquier grilla anterior:
-
-```bash
-python src/generar_instancias.py --todas
+```powershell
+python src\generar_instancias.py --todas
 ```
 
-## 3. Resolver
+Ese comando reemplaza los archivos de la grilla; no debe ejecutarse si solo se
+quiere revisar o resolver las instancias existentes.
 
-```bash
-python src/resolver_lote.py --instancias instancias --tiempo 3600 --hilos 1
+## 3. Ejecución secuencial
+
+La campaña completa:
+
+```powershell
+python src\resolver_lote.py --instancias instancias --tiempo 3600 --hilos 1
 ```
 
-Esto escribe:
+Por familia de número de cursos:
 
-- `resultados/resultados.csv` → nombre de instancia, tiempo y gap (+ columnas de análisis)
-- `soluciones/sol_<instancia>.txt` → la solución de cada instancia
-
-**Es reanudable.** Si lo cortas con Ctrl+C, al volver a lanzarlo omite las
-instancias ya registradas. Puedes cerrarlo y retomarlo cuantas veces quieras.
-
-### Correr por partes (recomendado)
-
-Empieza por lo barato para tener datos rápido:
-
-```bash
-python src/resolver_lote.py --patron "c_n_*_s_4_*.txt" --tiempo 3600   # 160 instancias
-python src/resolver_lote.py --patron "c_n_*_s_5_*.txt" --tiempo 3600   # 160 instancias
-python src/resolver_lote.py --patron "c_n_*_s_6_*.txt" --tiempo 3600   # 160 instancias
+```powershell
+python src\resolver_lote.py --patron "c_n_*_s_4_*.txt" --tiempo 3600 --hilos 1  # 120
+python src\resolver_lote.py --patron "c_n_*_s_5_*.txt" --tiempo 3600 --hilos 1  # 120
+python src\resolver_lote.py --patron "c_n_*_s_6_*.txt" --tiempo 3600 --hilos 1  # 120
+python src\resolver_lote.py --patron "c_n_*_s_7_*.txt" --tiempo 3600 --hilos 1  # 120
 ```
 
-### Ejecución paralela exploratoria
+La alternativa equivalente en PowerShell es:
 
-Si el objetivo es obtener soluciones con mayor rapidez, se puede lanzar una
-terminal por familia con salidas separadas y después concatenar los CSV:
-
-```bash
-python src/resolver_lote.py --patron "c_n_9_*"  --salida res_n9  --soluciones soluciones &
-python src/resolver_lote.py --patron "c_n_18_*" --salida res_n18 --soluciones soluciones &
-python src/resolver_lote.py --patron "c_n_36_*" --salida res_n36 --soluciones soluciones &
-python src/resolver_lote.py --patron "c_n_72_*" --salida res_n72 --soluciones soluciones &
+```powershell
+.\correr.ps1 -Modo s4
+.\correr.ps1 -Modo s5
+.\correr.ps1 -Modo s6
+.\correr.ps1 -Modo s7
 ```
 
-Mantén `--hilos 1` en cada proceso. Sin embargo, los tiempos obtenidos mediante
-procesos concurrentes pueden verse afectados por la competencia por CPU y RAM.
-Para el benchmark que se reportará en el artículo, ejecuta las instancias de
-forma secuencial o en recursos aislados y documenta el hardware utilizado.
+El ejecutor es reanudable. Conserva una fila previa solo cuando corresponde al
+mismo protocolo y ya terminó a óptimo o alcanzó un límite igual o mayor al
+solicitado.
 
-## 4. Construir las tablas del reporte
+## 4. Salidas
 
-```bash
-python src/analizar_resultados.py --resultados resultados/resultados.csv --salida analisis
-```
-
-Produce, en el estilo de Pérez-Galarce et al. (2014):
-
-| Archivo | Contenido |
+| Ruta | Contenido |
 |---|---|
-| `tabla1_optimalidad.txt` | instancias resueltas a optimalidad por celda (n,l,s) |
-| `tabla2_tiempos.txt` | Min / Prom / Mediana / Máx del tiempo, sobre las que cerraron |
-| `tabla3_gaps.txt` | gap promedio y máximo de las que llegaron al límite |
-| `efecto_marginal.txt` | efecto aislado de l, de s y de n — la pregunta del experimento |
-| `perfil_desempeno.csv` | perfil de desempeño (% acumulado vs. tiempo) |
+| `resultados/resultados.csv` | estado, tiempo, brecha, objetivo, cota y métricas |
+| `soluciones/sol_<instancia>.txt` | mejor solución disponible de cada caso |
+| `analisis/` | tablas construidas desde el CSV |
 
-## Estimación de tiempo
+En resultados con límite de tiempo deben distinguirse al menos:
 
-La calibración de 15 segundos disponible corresponde a la grilla anterior de
-360 instancias y no debe extrapolarse al protocolo final. Antes del benchmark
-se recomienda calibrar una réplica por cada una de las 48 configuraciones.
+- óptimo certificado;
+- límite de tiempo con incumbente;
+- límite de tiempo sin incumbente;
+- infactibilidad demostrada;
+- error de ejecución.
 
-La cota máxima teórica es de **480 horas de cómputo secuencial** si todas las
-instancias agotan el límite de 3600 segundos. El tiempo real solo podrá
-estimarse con rigor después de la nueva calibración.
+Un caso sin incumbente al alcanzar el límite no constituye una demostración de
+infactibilidad.
+
+## 5. Construcción de tablas
+
+```powershell
+python src\analizar_resultados.py --resultados resultados\resultados.csv --salida analisis
+```
+
+Las tablas resumen optimalidad, tiempos de los casos certificados, brechas de
+los casos truncados y efectos por factor. No deben combinarse con la
+calibración histórica de 15 segundos.
+
+## 6. Paralelización exploratoria
+
+Para obtener soluciones preliminares pueden separarse los cuatro tamaños:
+
+```powershell
+python src\resolver_lote.py --patron "c_n_9_*"  --tiempo 3600 --hilos 1 --salida res_n9
+python src\resolver_lote.py --patron "c_n_18_*" --tiempo 3600 --hilos 1 --salida res_n18
+python src\resolver_lote.py --patron "c_n_27_*" --tiempo 3600 --hilos 1 --salida res_n27
+python src\resolver_lote.py --patron "c_n_36_*" --tiempo 3600 --hilos 1 --salida res_n36
+```
+
+Si se ejecutan simultáneamente, la competencia por CPU y memoria puede sesgar
+los tiempos. Esas mediciones no deben presentarse como benchmark final salvo que
+los recursos estén aislados y la configuración quede documentada.
+
+## 7. Alcance de la evidencia actual
+
+La carpeta `calibracion_15s_grilla_360/` contiene 36 corridas exploratorias de
+una grilla anterior. No representa las 48 configuraciones vigentes y no permite
+concluir cuál factor domina la dificultad del protocolo de 480 instancias.

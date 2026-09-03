@@ -1,0 +1,38 @@
+{
+  "schema_version": "draft-illustrative-v1.0",
+  "instance_id": "I00C_DRAFT_ILUSTRATIVO_27",
+  "family": "I",
+  "transition": "8° básico → 1° medio",
+  "n_students": 27,
+  "origin_courses": ["8A", "8B", "8C"],
+  "destination_courses": ["1M-A", "1M-B", "1M-C"],
+  "capacity": {
+    "maximum": 9
+  },
+  "gender_delta": 2,
+  "origin_alpha": {
+    "8A": 2,
+    "8B": 2,
+    "8C": 2
+  },
+  "academic_thresholds": {
+    "level_1": "grade_average < 4.0",
+    "level_2": "4.0 <= grade_average < 5.5",
+    "level_3": "grade_average >= 5.5"
+  },
+  "balancing_criteria": ["academic", "socioemotional", "convivencia"],
+  "preference_policy": {
+    "max_preferences_per_student": 5,
+    "hard_constraint": false,
+    "objective_component": true
+  },
+  "lambda_0": 1.0,
+  "lambda_1": 1.0,
+  "separations_authoritative_file": "separations.csv",
+  "reference_solution_file": "reference_solution.csv",
+  "counts": {
+    "preference_arcs": 49,
+    "separation_pairs": 8
+  },
+  "data_provenance": "Instancia sintética ilustrativa del draft; no contiene datos reales de estudiantes."
+}

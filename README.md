@@ -1,186 +1,156 @@
 # Student–Course Reassignment
 
-Repositorio reproducible para el modelo exacto de reasignación de estudiantes con restricciones sociales y educativas.
+Repositorio reproducible para un modelo exacto de reasignación de estudiantes
+con restricciones sociales, de capacidad, composición y balance educativo.
+Todos los datos versionados son **sintéticos**.
+
+## Estado del proyecto
+
+| Componente | Estado verificable |
+|---|---|
+| Formulación MILP ponderada | Implementada en `src/modelo.py` |
+| Grilla experimental | 480 instancias y 480 testigos disponibles |
+| Validación estructural de la grilla | Disponible, sin resolver el MILP |
+| Ejemplo ilustrativo I00C (27 estudiantes) | Completo y reproducible |
+| Sensibilidad de los pesos en I00C | 7 escenarios resueltos a optimalidad |
+| Benchmark de 480 instancias a 3600 s | Pendiente; no se publican resultados todavía |
+
+La ausencia de resultados del benchmark es deliberada: las instancias quedan
+preparadas para una ejecución posterior en un computador cuya configuración de
+hardware y software deberá documentarse.
+
+## Comprobación rápida, sin resolver instancias
+
+Desde la raíz del repositorio:
+
+```powershell
+python src\validar_repositorio.py
+```
+
+La validación comprueba la grilla completa, la coherencia interna de cada
+instancia, la factibilidad de los 480 testigos y la consistencia de los
+resultados versionados del ejemplo I00C. **No invoca SCIP ni ejecuta la campaña
+computacional.**
+
+## Modelo vigente
+
+La función objetivo implementada es
+
+\[
+\min\; \lambda_0\left(|S|-\sum_{i\in S}z_i\right)+\lambda_1T,
+\]
+
+donde la primera componente cuenta estudiantes sin al menos una preferencia
+satisfecha y `T` representa la máxima dispersión de los perfiles considerados.
+Las preferencias son **blandas**: `z_i` no se fija obligatoriamente en uno.
+
+La implementación incluye:
+
+- asignación única y capacidad;
+- pares de separación;
+- balance de género;
+- representación mínima por curso de origen;
+- satisfacción blanda de preferencias;
+- balance de perfiles académico, socioemocional y de convivencia.
+
+No se ha reemplazado esta formulación por epsilon-constraint, prioridades
+lexicográficas ni otra formulación biobjetivo.
 
 ## Protocolo experimental definitivo
 
-El experimento computacional considera:
+| Factor | Símbolo documental | Valores |
+|---|---:|---|
+| Estudiantes por curso | `L` | 9, 18, 27, 36 |
+| Preferencias por estudiante | `P` | 3, 5, 7 |
+| Cursos de origen y destino | `C` | 4, 5, 6, 7 |
+| Réplicas | `i` | 0, ..., 9 |
+| Límite por instancia | — | 3600 s |
+| Hilos por ejecución | — | 1 |
 
-| Factor | Valores |
-|---|---|
-| Estudiantes por curso \(L\) | 9, 18, 27, 36 |
-| Preferencias por estudiante \(P\) | 3, 5, 7 |
-| Número de cursos \(C\) | 4, 5, 6, 7 |
-| Réplicas | 10 por combinación |
-| Límite exacto | 3600 s por instancia |
-| Hilos | 1 |
-
-Por tanto:
+La grilla contiene
 
 \[
-4 \times 3 \times 4 \times 10 = \mathbf{480}
+4\times3\times4\times10=480
 \]
 
-instancias.
+instancias. Para cada valor de `C` hay 120 archivos; el total de estudiantes de
+una instancia es `N=L*C` y varía entre 36 y 252.
 
-Cada combinación \((L,P,C)\) tiene 10 réplicas independientes, con identificadores \(i=0,\ldots,9\).
-
-### Familias por número de cursos
-
-Cada valor de \(C\) contiene:
-
-\[
-4 \times 3 \times 10 = 120
-\]
-
-instancias:
-
-- `s4`: 120
-- `s5`: 120
-- `s6`: 120
-- `s7`: 120
-
-Total: **480**.
-
-## Convención de nombres
+### Convención de nombres
 
 ```text
-c_n_[L]_l_[P]_s_[C]_i_[i].txt
+c_n_[L]_l_[P]_s_[C]_i_[réplica].txt
 ```
 
-Ejemplo:
+Por compatibilidad histórica, el nombre del archivo utiliza `n`, `l` y `s`;
+en la documentación se presentan como `L`, `P` y `C`, respectivamente. Ejemplo:
 
 ```text
 c_n_36_l_7_s_4_i_0.txt
 ```
 
-## Generación
+## Dos experimentos, dos alcances
 
-Para regenerar exactamente la grilla:
+1. [Sensibilidad computacional](experimentos/sensibilidad_computacional/README.md):
+   estudia el efecto de `L`, `P` y `C` sobre el esfuerzo de resolución. Las 480
+   instancias están disponibles, pero la campaña definitiva sigue pendiente.
+2. [Sensibilidad de los pesos](experimentos/sensibilidad_lambda/README.md):
+   utiliza solo `I00C_DRAFT_ILUSTRATIVO_27` y contiene datos, scripts,
+   resultados, figura y texto LaTeX.
 
-```powershell
-python src\generar_instancias.py --todas
-```
+Los resultados históricos de la antigua grilla de 360 instancias están
+claramente aislados en
+`experimentos/sensibilidad_computacional/calibracion_15s_grilla_360/` y no son
+evidencia del protocolo actual.
 
-El modo `--todas` elimina primero las instancias/testigos generados por la grilla anterior y crea nuevamente las 480 instancias de la grilla vigente.
+## Ejecución futura del benchmark
 
-Una instancia individual:
-
-```powershell
-python src\generar_instancias.py --caso 36 7 4 0
-```
-
-## Ejecución exacta
-
-Cada instancia se resuelve con un límite de **3600 segundos** y un hilo:
+Instala las dependencias:
 
 ```powershell
-python src\resolver_lote.py --instancias instancias --tiempo 3600 --hilos 1
+python -m pip install -r requirements.txt
 ```
 
-También se puede ejecutar por familia:
+Luego consulta:
 
-```powershell
-.\correr.ps1 -Modo s4
-.\correr.ps1 -Modo s5
-.\correr.ps1 -Modo s6
-.\correr.ps1 -Modo s7
-```
+- [protocolo y ejecución reproducible](docs/ejecucion.md);
+- [guía paso a paso para Windows](docs/guia_windows.md).
 
-o todo el experimento:
+La ejecución completa se inicia con:
 
 ```powershell
 .\correr.ps1 -Modo todo
 ```
 
-## Resultados
-
-Para cada instancia se registra como mínimo:
-
-- nombre de la instancia;
-- tiempo de resolución;
-- gap de optimalidad.
-
-Además, el registro contiene las métricas necesarias para el análisis:
-
-- estado;
-- objetivo;
-- mejor cota;
-- número de nodos;
-- variables y restricciones;
-- componente social;
-- \(T\).
-
-Las soluciones se almacenan separadamente como:
-
-```text
-soluciones/sol_<nombre_de_instancia>.txt
-```
-
-## Pregunta experimental
-
-El análisis busca determinar qué características de la instancia aumentan principalmente la dificultad computacional del modelo exacto:
-
-1. tamaño de cada curso \(L\);
-2. densidad de preferencias \(P\);
-3. número de cursos \(C\).
-
-Se reportará:
-
-- número y porcentaje de instancias resueltas a optimalidad;
-- tiempos de resolución;
-- gaps de las instancias que alcanzan el límite;
-- comportamiento por familia;
-- relación entre tamaño del modelo y esfuerzo de búsqueda.
-
-## Sensibilidad de los pesos \(\lambda\)
-
-La sensibilidad de los pesos de la función objetivo se mantiene separada del benchmark de las 480 instancias.
-
-La grilla principal es:
-
-| \(\lambda_0\) | \(\lambda_1\) |
-|---:|---:|
-| 0,00 | 1,00 |
-| 0,25 | 0,75 |
-| 0,50 | 0,50 |
-| 0,75 | 0,25 |
-| 1,00 | 0,00 |
-
-con:
-
-\[
-\lambda_0+\lambda_1=1.
-\]
-
-Esta sensibilidad se utiliza para estudiar el compromiso entre satisfacción de preferencias y balance educativo en el ejemplo ilustrativo.
-
-## Reproducibilidad
-
-La instancia contiene todos sus datos de entrada. La semilla se deriva determinísticamente de \(L,P,C,i\), de modo que la misma combinación reproduce la misma instancia.
-
-Los testigos factibles se almacenan en `testigos/` únicamente para auditar el generador. No se utilizan como warm start durante el benchmark exacto.
+Este comando se documenta para uso futuro; no es necesario ejecutarlo para
+revisar el repositorio o incorporar el ejemplo al manuscrito.
 
 ## Estructura
 
 ```text
 student-course-reassignment/
-├── instancias/
-├── testigos/
-├── src/
-│   ├── generar_instancias.py
-│   ├── modelo.py
-│   ├── resolver_lote.py
-│   ├── auditar_instancia.py
-│   └── analizar_resultados.py
-├── resultados/
-├── soluciones/
-├── analisis/
-├── calibracion_15s_referencia/
-├── COMO_CORRER.md
-├── PASO_A_PASO.md
+├── docs/                         # protocolo y guías de uso
+├── experimentos/
+│   ├── sensibilidad_computacional/
+│   └── sensibilidad_lambda/      # paquete reproducible de I00C
+├── instancias/                   # 480 entradas del benchmark
+├── src/                          # generador, modelo, ejecución y validación
+├── testigos/                     # 480 testigos de factibilidad
 ├── correr.ps1
+├── requirements.txt
 └── README.md
 ```
 
-La carpeta `calibracion_15s_referencia/` corresponde a una etapa exploratoria anterior y no forma parte del benchmark definitivo de 3600 s.
+Las carpetas raíz `resultados/`, `soluciones/` y `analisis/` se crean solo al
+ejecutar el benchmark y se excluyen del control de versiones. Los resultados
+pequeños y auditados de I00C sí se conservan dentro de su experimento.
+
+## Reproducibilidad y límites
+
+- Las semillas de la grilla se derivan de sus parámetros y réplica.
+- Los testigos se usan únicamente para verificar factibilidad; no se entregan
+  al solver como *warm start*.
+- Un límite de tiempo con una solución incumbente no implica optimalidad.
+- La calibración histórica no debe combinarse con el benchmark vigente.
+- Los resultados de I00C ilustran el comportamiento de una instancia sintética;
+  no calibran automáticamente los pesos para una aplicación real.

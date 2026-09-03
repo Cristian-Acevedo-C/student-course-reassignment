@@ -1,1 +1,2 @@
 PySCIPOpt==6.2.1
+reportlab==4.4.9

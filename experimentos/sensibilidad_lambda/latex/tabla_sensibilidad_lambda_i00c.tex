@@ -1,0 +1,28 @@
+\begingroup
+\renewcommand{\tablename}{Tabla}
+\begin{table}[htbp]
+\centering
+\caption{Sensibilidad del ejemplo ilustrativo respecto de los pesos de la función objetivo.}
+\label{tab:i00c-sensibilidad-lambda}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrrrl}
+\toprule
+Escenario & $\lambda_0$ & $\lambda_1$ & $\lambda_0/\lambda_1$ & Satisfechos & $U$ & $T$ & $(F_{ac},F_{se},F_{cv})$ & $Z$ & Flujos 8A; 8B; 8C \\
+\midrule
+Balance 10:1 & 0,10 & 1,00 & 0,10 & 24/27 & 3 & 2,6667 & (2,6667; 2,6667; 2,6667) & 2,9667 & 4/2/3; 2/3/4; 3/4/2 \\
+Balance 4:1 & 0,25 & 1,00 & 0,25 & 24/27 & 3 & 2,6667 & (2,6667; 2,6667; 2,6667) & 3,4167 & 4/2/3; 2/3/4; 3/4/2 \\
+Balance 2:1 & 0,50 & 1,00 & 0,50 & 24/27 & 3 & 2,6667 & (2,6667; 2,6667; 2,6667) & 4,1667 & 3/4/2; 4/3/2; 2/2/5 \\
+Base del draft & 1,00 & 1,00 & 1,00 & 26/27 & 1 & 4,6667 & (4,6667; 4,6667; 4,6667) & 5,6667 & 3/3/3; 4/2/3; 2/4/3 \\
+Preferencias 2:1 & 1,00 & 0,50 & 2,00 & 27/27 & 0 & 6,6667 & (6,6667; 6,6667; 2,6667) & 3,3333 & 3/3/3; 3/4/2; 3/2/4 \\
+Preferencias 4:1 & 1,00 & 0,25 & 4,00 & 27/27 & 0 & 6,6667 & (6,6667; 6,6667; 2,6667) & 1,6667 & 3/3/3; 3/4/2; 3/2/4 \\
+Preferencias 10:1 & 1,00 & 0,10 & 10,00 & 27/27 & 0 & 6,6667 & (6,6667; 6,6667; 2,6667) & 0,6667 & 3/3/3; 3/4/2; 3/2/4 \\
+\bottomrule
+\end{tabular}%
+}
+\vspace{2pt}
+\begin{minipage}{\textwidth}
+\footnotesize\textit{Nota:} $U=|S|-\sum_i z_i$ es el número de estudiantes sin una preferencia satisfecha. Las dispersiones se presentan como $(F_{ac};F_{se};F_{cv})$ y los flujos, en el orden 1M-A/1M-B/1M-C.
+\end{minipage}
+\end{table}
+\endgroup

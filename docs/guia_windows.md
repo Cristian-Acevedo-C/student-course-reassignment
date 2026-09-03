@@ -1,164 +1,109 @@
-# Paso a paso en PowerShell (Windows)
+# Guía paso a paso para Windows
 
-## Qué contiene el repositorio
+Esta guía está pensada para la persona que ejecutará posteriormente el
+benchmark. Para revisar el repositorio no es necesario iniciar la campaña.
 
-| Carpeta | Qué es |
-|---|---|
-| `instancias\` | **Los 480 casos de prueba.** Un archivo `.txt` por caso. Son los datos de entrada: alumnos, preferencias, separaciones. |
-| `src\` | **Los programas del experimento.** Generan, resuelven, auditan y construyen las tablas. |
-| `testigos\` | Una solución de ejemplo de cada caso, usada solo para comprobar que el caso tiene solución. **No se usa al resolver.** |
-| `resultados\` | **Todavía no existe.** Se crea sola en la primera corrida, con el `resultados.csv`: nombre, tiempo y gap de cada caso. |
-| `soluciones\` | Se crea sola. Van los `sol_<caso>.txt`, uno por caso resuelto. |
-| `analisis\` | Se crea sola. Las tablas finales, estilo artículo. |
-| `experimentos\sensibilidad_computacional\calibracion_15s_grilla_360\` | Archivo histórico de una grilla anterior. No corresponde al protocolo final ni debe copiarse a `resultados\`. |
-| `correr.ps1` | Automatiza la instalación, ejecución y construcción de tablas. |
+## 1. Obtener el proyecto
 
-En una frase: `instancias\` son las preguntas, `soluciones\` son las respuestas,
-y `resultados\resultados.csv` es la planilla con cuánto costó cada una.
+En GitHub selecciona **Code → Download ZIP** y extrae el archivo, o clona el
+repositorio. Abre PowerShell en la carpeta `student-course-reassignment`.
 
----
-
-## Paso 1 — Descargar el repositorio
-
-En GitHub selecciona **Code → Download ZIP** y luego **Extraer todo**, o clona
-el repositorio con Git. Abre la carpeta `student-course-reassignment` resultante.
-
-## Paso 2 — Abrir PowerShell en esa carpeta
-
-Abre la carpeta `student-course-reassignment` en el Explorador de Windows. En
-la barra de direcciones escribe `powershell` y presiona Enter. Se abrirá una
-ventana ubicada en la carpeta correcta.
-
-Para confirmar que estás en la carpeta correcta, escribe:
+Comprueba que estás en la raíz:
 
 ```powershell
 dir
 ```
 
-Debes ver `instancias`, `src`, `correr.ps1`, etc.
+Debes ver `instancias`, `testigos`, `src`, `experimentos` y `correr.ps1`.
 
-## Paso 3 — Permitir que corran scripts
+## 2. Preparar Python
 
-Windows puede bloquear los `.ps1` por defecto. Escribe esto una vez por ventana:
+Si `python --version` no funciona, instala Python desde python.org y activa
+**Add Python to PATH**. Luego abre una nueva ventana de PowerShell.
+
+Instala las dependencias:
+
+```powershell
+python -m pip install -r requirements.txt
+```
+
+## 3. Validar sin resolver
+
+```powershell
+python src\validar_repositorio.py
+```
+
+Este comando revisa las 480 instancias, los 480 testigos y el paquete I00C. No
+usa SCIP y no genera resultados masivos.
+
+## 4. Prueba técnica corta
+
+PowerShell puede requerir habilitar scripts solo para la ventana actual:
 
 ```powershell
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-```
-
-Solo afecta a esta ventana, no cambia nada permanente en tu PC.
-
-## Paso 4 — Prueba corta (5 minutos)
-
-Antes de comprometer días de cómputo, verifica que todo funciona:
-
-```powershell
 .\correr.ps1 -Modo prueba
 ```
 
-Esto instala el solver si falta, resuelve 3 casos pequeños con 30 segundos de
-tope, y arma las tablas. Si termina diciendo **LISTO**, todo está en orden.
+El modo `prueba` resuelve **una** instancia pequeña con un límite de 30 segundos
+y comprueba que el flujo completo funciona. Sus salidas son técnicas y no deben
+mezclarse con el benchmark del artículo.
 
-> Si el sistema indica que no encuentra Python, instálalo desde python.org y **marca
-> la casilla "Add Python to PATH"** durante la instalación. Después cierra y
-> vuelve a abrir PowerShell.
+## 5. Campaña definitiva
 
-## Paso 5 — La corrida en serio
-
-Van por partes, de la más fácil a la más difícil. Cada una es un comando:
+Cada familia contiene 120 instancias:
 
 ```powershell
-.\correr.ps1 -Modo s4        # 160 casos de 4 cursos.
-.\correr.ps1 -Modo s5        # 160 casos de 5 cursos.
-.\correr.ps1 -Modo s6        # 160 casos de 6 cursos.
+.\correr.ps1 -Modo s4
+.\correr.ps1 -Modo s5
+.\correr.ps1 -Modo s6
+.\correr.ps1 -Modo s7
 ```
 
-Todo va sumándose al mismo `resultados\resultados.csv`.
-
-**Puedes interrumpir con Ctrl+C.** Al volver a lanzar el mismo comando, el
-programa omite los casos compatibles ya resueltos y continúa la corrida.
-
-Un caso se salta solo si ya cerró a óptimo, o si ya se corrió con un límite de
-tiempo **igual o mayor** al solicitado. Si aumentas el límite, los
-casos que habían quedado cortados se vuelven a resolver solos, para que el CSV
-no mezcle dos protocolos distintos.
-
-Si necesitas comenzar desde cero:
-
-```powershell
-.\correr.ps1 -Modo s4 -Limpiar
-```
-
-Para ejecutar la grilla completa y dejar el equipo trabajando:
+Para ejecutar las 480 de manera secuencial:
 
 ```powershell
 .\correr.ps1 -Modo todo
 ```
 
-## Paso 6 — Ver las tablas
+El límite predeterminado es 3600 segundos y se usa un hilo. La ejecución puede
+interrumpirse con `Ctrl+C` y reanudarse después.
 
-Se generan al final de cada corrida. Para regenerarlas sin resolver
-nada:
+La opción `-Limpiar` elimina las salidas previas de `resultados`, `soluciones` y
+`analisis`; úsala solo cuando realmente se quiera comenzar desde cero.
+
+## 6. Regenerar tablas sin resolver
 
 ```powershell
 .\correr.ps1 -Modo analizar
 ```
 
-Quedan en la carpeta `analisis\`:
+Las tablas se escriben en `analisis/`. Las soluciones individuales quedan en
+`soluciones/` y el registro consolidado en `resultados/resultados.csv`.
 
-| Archivo | Qué muestra |
-|---|---|
-| `tabla1_optimalidad.txt` | Cuántos casos cerraron a óptimo, por combinación |
-| `tabla2_tiempos.txt` | Mínimo, promedio y máximo de tiempo |
-| `tabla3_gaps.txt` | El gap de los que no alcanzaron a cerrar |
-| `efecto_marginal.txt` | **La respuesta a tu pregunta**: cuánto pesa `l` vs. `s` |
-| `perfil_desempeno.csv` | Para graficar el % acumulado de casos resueltos |
+## 7. Paralelización exploratoria
 
-Ábrelos con el Bloc de notas o impórtalos en Excel si son `.csv`.
-
----
-
-## Ejecución paralela exploratoria
-
-Si tu equipo tiene 4 núcleos o más, abre **4 ventanas de PowerShell** en la carpeta
-`student-course-reassignment` y ejecuta una línea distinta en cada una:
+Los cuatro tamaños vigentes son 9, 18, 27 y 36 estudiantes por curso:
 
 ```powershell
-# ventana 1
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 python src\resolver_lote.py --patron "c_n_9_*"  --tiempo 3600 --hilos 1 --salida res_n9
-
-# ventana 2
 python src\resolver_lote.py --patron "c_n_18_*" --tiempo 3600 --hilos 1 --salida res_n18
-
-# ventana 3
+python src\resolver_lote.py --patron "c_n_27_*" --tiempo 3600 --hilos 1 --salida res_n27
 python src\resolver_lote.py --patron "c_n_36_*" --tiempo 3600 --hilos 1 --salida res_n36
-
-# ventana 4
-python src\resolver_lote.py --patron "c_n_72_*" --tiempo 3600 --hilos 1 --salida res_n72
 ```
 
-Mantén `--hilos 1` en todas. Esta modalidad reduce el tiempo total, pero la
-competencia por CPU y RAM puede sesgar los tiempos individuales. No uses esos
-tiempos como benchmark final salvo que cada proceso disponga de recursos
-aislados y esa configuración quede documentada.
-
-Cuando terminen, combina los cuatro CSV en uno:
+Para combinar las salidas:
 
 ```powershell
 $destino = "resultados\resultados.csv"
 New-Item -ItemType Directory -Force -Path resultados | Out-Null
 Get-Content res_n9\resultados.csv | Select-Object -First 1 | Set-Content $destino
-foreach ($d in @("res_n9","res_n18","res_n36","res_n72")) {
+foreach ($d in @("res_n9","res_n18","res_n27","res_n36")) {
     Get-Content "$d\resultados.csv" | Select-Object -Skip 1 | Add-Content $destino
 }
 python src\analizar_resultados.py --resultados $destino --salida analisis
 ```
 
----
-
-## Cuánto va a demorar
-
-La calibración guardada corresponde a la grilla anterior y no permite estimar
-el tiempo del protocolo final. Si las 480 instancias agotaran el límite de una
-hora, la cota máxima sería de **480 horas secuenciales**. Primero debe ejecutarse
-una calibración de las 48 configuraciones actuales.
+La ejecución simultánea puede sesgar los tiempos por competencia de recursos.
+Consulta [el protocolo de ejecución](ejecucion.md) antes de producir resultados
+para el artículo.

@@ -4,9 +4,26 @@ venv/
 __pycache__/
 *.py[cod]
 
-# Salidas pesadas o temporales de las corridas
-soluciones/
-res_n*/
+# Salidas pesadas o temporales de las corridas masivas. Las rutas están
+# ancladas a la raíz para no ocultar los resultados pequeños y versionados de
+# experimentos/sensibilidad_lambda/.
+/resultados/
+/soluciones/
+/analisis/
+/res_n*/
+
+# Respaldos y scripts locales de la migración a 480 instancias
+/backup_pre_480/
+/corregir_protocolo_480.ps1
+
+# Archivos auxiliares de compilación LaTeX
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
 
 # Archivos del sistema y del editor
 .DS_Store

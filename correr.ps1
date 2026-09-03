@@ -1,5 +1,5 @@
 # =====================================================================
-#  Experimento de sensibilidad - modelo exacto de reasignacion
+#  Benchmark computacional - modelo exacto de reasignacion
 #  Script para Windows PowerShell
 #
 #  Uso:
@@ -32,7 +32,7 @@ Set-Location -Path $PSScriptRoot
 
 Write-Host ""
 Write-Host "=====================================================" -ForegroundColor Cyan
-Write-Host " Experimento de sensibilidad - modo: $Modo" -ForegroundColor Cyan
+Write-Host " Benchmark computacional - modo: $Modo" -ForegroundColor Cyan
 Write-Host "=====================================================" -ForegroundColor Cyan
 Write-Host ""
 
@@ -129,8 +129,8 @@ if (Test-Path $csv) {
     Write-Host ""
     Write-Host "LISTO." -ForegroundColor Green
     Write-Host "  Registro  : $csv"
-    Write-Host "  Soluciones: $Soluciones\"
-    Write-Host "  Tablas    : analisis\"
+    Write-Host "  Soluciones: $Soluciones"
+    Write-Host "  Tablas    : analisis"
 } else {
     Write-Host "Todavia no hay resultados que analizar." -ForegroundColor Yellow
 }
