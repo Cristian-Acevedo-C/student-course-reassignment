@@ -50,7 +50,11 @@ Write-Host "=====================================================" -ForegroundCo
 
 # --- 1. Python --------------------------------------------------------
 $python = $null
+if (Test-Path -LiteralPath "$PSScriptRoot\.venv\Scripts\python.exe") {
+    $python = "$PSScriptRoot\.venv\Scripts\python.exe"
+}
 foreach ($cmd in @("python", "py", "python3")) {
+    if ($python) { break }
     if (Get-Command $cmd -ErrorAction SilentlyContinue) { $python = $cmd; break }
 }
 if (-not $python) {
@@ -60,7 +64,7 @@ if (-not $python) {
 Write-Host ("Python    : " + (& $python --version 2>&1))
 
 # --- 2. PySCIPOpt con la version fijada en requirements.txt -----------
-$esperada = (Get-Content requirements.txt | Where-Object { $_ -match "^PySCIPOpt==" }) -replace "PySCIPOpt==", ""
+$esperada = "6.2.1"
 $instalada = & $python -c "import pyscipopt; print(pyscipopt.__version__)" 2>$null
 if ($LASTEXITCODE -ne 0) {
     Write-Host "ERROR: PySCIPOpt no esta instalado. Ejecuta:" -ForegroundColor Red
@@ -70,8 +74,9 @@ if ($LASTEXITCODE -ne 0) {
 $scip = & $python -c "import pyscipopt; m = pyscipopt.Model(); print('%d.%d.%d' % (m.getMajorVersion(), m.getMinorVersion(), m.getTechVersion()))"
 Write-Host "PySCIPOpt : $instalada (requirements.txt fija $esperada)"
 Write-Host "SCIP      : $scip"
-if ($instalada -ne $esperada) {
-    Write-Host "ADVERTENCIA: la version de PySCIPOpt no coincide con requirements.txt." -ForegroundColor Yellow
+if ($LASTEXITCODE -ne 0) { exit 1 }
+if ($instalada -ne $esperada -or $scip -ne "10.0.2") {
+    Write-Host "ADVERTENCIA: el protocolo requiere PySCIPOpt 6.2.1 y SCIP 10.0.2." -ForegroundColor Yellow
     if (-not $Preflight) {
         Write-Host "La corrida oficial requiere la version fijada. Abortando." -ForegroundColor Red
         exit 1

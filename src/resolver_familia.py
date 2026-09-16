@@ -32,6 +32,7 @@ import argparse
 import csv
 import datetime as dt
 import hashlib
+import json
 import math
 import os
 import platform
@@ -51,6 +52,9 @@ L_VALORES, P_VALORES, C_VALORES = (9, 18, 27, 36), (3, 5, 7), (4, 5, 6, 7)
 REPLICAS_ESPERADAS = 10
 PROTOCOLO_OFICIAL = {"tiempo": 3600.0, "hilos": 1, "gap": 0.0,
                      "lambda_0": 1.0, "lambda_1": 1.0}
+VERSIONES_OFICIALES = {"pyscipopt": "6.2.1", "scip": "10.0.2"}
+ESTADOS_TERMINADOS = {"optimal", "timelimit_with_incumbent",
+                     "timelimit_without_incumbent", "infeasible"}
 
 COLUMNAS = [
     # identificacion
@@ -59,6 +63,7 @@ COLUMNAS = [
     # estado y tiempos
     "estado", "estado_scip", "tiempo_total_seg", "tiempo_scip_seg",
     "tiempo_presolve_seg", "tiempo_construccion_seg",
+    "tiempo_optimizacion_pared_seg",
     # protocolo
     "limite_seg", "hilos", "gap_objetivo", "lambda_0", "lambda_1",
     # cotas
@@ -80,8 +85,95 @@ COLUMNAS = [
     "checksol_scip",
     # archivos
     "log_scip", "stats_scip", "stats_json", "trayectoria_incumbentes",
-    "trayectoria_log", "solucion", "error",
+    "trayectoria_log", "solucion", "solucion_completa", "auditoria",
+    "artefactos_sha256", "error",
 ]
+
+
+def configurar_scip(m, hilos):
+    """Parametros de ejecucion; no cambia variables, restricciones ni objetivo."""
+    m.setParam("parallel/maxnthreads", hilos)
+    if "lp/threads" in m.getParams():
+        m.setParam("lp/threads", hilos)
+    m.setParam("timing/clocktype", 2)
+
+
+def versiones_solver(m):
+    import pyscipopt
+    return {"pyscipopt": pyscipopt.__version__,
+            "scip": f"{m.getMajorVersion()}.{m.getMinorVersion()}.{m.getTechVersion()}"}
+
+
+def verificar_versiones(m, modo):
+    versiones = versiones_solver(m)
+    if modo == "oficial" and versiones != VERSIONES_OFICIALES:
+        raise ValueError(f"Corrida oficial requiere {VERSIONES_OFICIALES}; instalado: {versiones}")
+    return versiones
+
+
+def escribir_json(ruta, datos):
+    ruta.write_text(json.dumps(datos, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def manifiesto_corrida(a, modo, archivos, m):
+    return {
+        "esquema": 2, "modo": modo, "familia": [a.L, a.P, a.C],
+        "replicas": a.replicas,
+        "protocolo": {k: getattr(a, k) for k in PROTOCOLO_OFICIAL},
+        "versiones": verificar_versiones(m, modo),
+        "parametros_scip": {k: m.getParam(k) for k in
+                            ("lp/threads", "parallel/maxnthreads", "timing/clocktype")
+                            if k in m.getParams()},
+        "fuentes": {n: sha256(RAIZ / "src" / n) for n in
+                    ("modelo.py", "resolver_familia.py", "auditar_solucion.py")},
+        "instancias": {p.stem: sha256(p) for p in archivos},
+    }
+
+
+def cargar_previas(out, manifiesto):
+    """Nunca mezcla protocolos, fuentes o entradas; una fila completa exige evidencia."""
+    ruta = out / "manifiesto.json"
+    if not ruta.exists() or json.loads(ruta.read_text(encoding="utf-8")) != manifiesto:
+        raise ValueError("Reanudacion incompatible o sin manifiesto: usa otra -Salida; "
+                         "no se mezclan versiones, codigo, instancias ni protocolos.")
+    csv_res = out / "resultados_familia.csv"
+    if not csv_res.exists():
+        return {}
+    previas = {}
+    with csv_res.open(encoding="utf-8", newline="") as f:
+        lector = csv.DictReader(f)
+        if lector.fieldnames != COLUMNAS:
+            raise ValueError("CSV de reanudacion incompatible o incompleto")
+        for r in lector:
+            nombre = r["instancia"]
+            if nombre in previas:
+                raise ValueError(f"Replica duplicada en CSV: {nombre}")
+            if r["estado"] not in ESTADOS_TERMINADOS:
+                continue
+            if (r["sha256_instancia"] != manifiesto["instancias"].get(nombre)
+                    or r["modo"] != manifiesto["modo"]):
+                raise ValueError(f"Identidad incompatible en CSV: {nombre}")
+            esperados = {"limite_seg": "tiempo", "hilos": "hilos", "gap_objetivo": "gap",
+                         "lambda_0": "lambda_0", "lambda_1": "lambda_1"}
+            if any(float(r[c]) != manifiesto["protocolo"][p] for c, p in esperados.items()):
+                raise ValueError(f"Protocolo incompatible en CSV: {nombre}")
+            hashes = json.loads(r["artefactos_sha256"] or "{}")
+            requeridos = ["log_scip", "stats_scip", "stats_json", "trayectoria_incumbentes",
+                          "trayectoria_log", "solucion", "auditoria"]
+            if r["tiene_incumbente"] == "TRUE":
+                requeridos.append("solucion_completa")
+            completos = True
+            for c in requeridos:
+                archivo = (out / (r[c] or "")).resolve()
+                if (not archivo.is_relative_to(out.resolve()) or not archivo.is_file()
+                        or hashes.get(c) != sha256(archivo)):
+                    completos = False
+                    break
+            if completos:
+                previas[nombre] = convertir_previa(r)
+            else:
+                print(f"  {nombre}: artefactos ausentes/modificados; queda pendiente")
+    return previas
 
 
 # ----------------------------------------------------------------------
@@ -268,7 +360,7 @@ def escribir_entorno(ruta, a, modo, archivos, comando, m_ref):
         f"lambda_1              : {a.lambda_1}",
         "warm_start            : NO (no se llama addSol/readSol; testigos/ no se lee)",
         f"timing/clocktype      : {m_ref.getParam('timing/clocktype')} (1=CPU, 2=reloj de pared)",
-        f"lp/threads            : {m_ref.getParam('lp/threads')}",
+        f"lp/threads            : {m_ref.getParams().get('lp/threads', 'no soportado')}",
         f"parallel/maxnthreads  : {m_ref.getParam('parallel/maxnthreads')}",
         f"randomization/randomseedshift : {m_ref.getParam('randomization/randomseedshift')}",
         f"limits/memory (MB)    : {m_ref.getParam('limits/memory')}",
@@ -358,7 +450,7 @@ def escribir_solucion(ruta, inst, fila, aud):
     with open(ruta, "w", encoding="utf-8", newline="\n") as f:
         w = f.write
         w(f"# Solucion de {inst['nombre']}  (modo={fila['modo']})\n")
-        for k in ("estado", "estado_scip", "tiempo_total_seg", "limite_seg", "hilos",
+        for k in ("estado", "estado_scip", "tiempo_scip_seg", "tiempo_optimizacion_pared_seg", "limite_seg", "hilos",
                   "gap_objetivo", "lambda_0", "lambda_1", "objetivo_incumbente",
                   "dual_bound", "gap", "T", "suma_z", "no_satisfechos", "nodos",
                   "tiempo_primera_solucion_factible", "tiempo_mejor_incumbente_final",
@@ -425,6 +517,7 @@ def escribir_solucion(ruta, inst, fila, aud):
 def resolver_replica(ruta, out, a, modo):
     from pyscipopt import SCIP_EVENTTYPE
 
+    inicio_total = time.perf_counter()
     nombre = ruta.stem
     fila = {c: None for c in COLUMNAS}
     rel = lambda p: p.relative_to(out).as_posix()  # noqa: E731
@@ -435,6 +528,8 @@ def resolver_replica(ruta, out, a, modo):
         "trayectoria_incumbentes": out / "trayectorias" / f"{nombre}_incumbentes.csv",
         "trayectoria_log": out / "trayectorias" / f"{nombre}_log.csv",
         "solucion": out / "soluciones" / f"sol_{nombre}.txt",
+        "solucion_completa": out / "soluciones" / f"{nombre}.sol",
+        "auditoria": out / "auditorias" / f"{nombre}.json",
     }
     for p in rutas.values():
         p.parent.mkdir(parents=True, exist_ok=True)
@@ -453,6 +548,8 @@ def resolver_replica(ruta, out, a, modo):
     t0 = time.perf_counter()
     m, vars_ = construir_modelo(inst, lambda_0=a.lambda_0, lambda_1=a.lambda_1,
                                 tiempo=a.tiempo, hilos=a.hilos, gap=a.gap)
+    configurar_scip(m, a.hilos)
+    verificar_versiones(m, modo)
     fila["tiempo_construccion_seg"] = time.perf_counter() - t0
     fila["variables"] = m.getNVars()
     fila["restricciones"] = m.getNConss()
@@ -478,7 +575,7 @@ def resolver_replica(ruta, out, a, modo):
 
     t0 = time.perf_counter()
     m.optimize()
-    fila["tiempo_total_seg"] = time.perf_counter() - t0
+    fila["tiempo_optimizacion_pared_seg"] = time.perf_counter() - t0
 
     estado_scip = m.getStatus()
     n_sols = m.getNSols()
@@ -492,20 +589,23 @@ def resolver_replica(ruta, out, a, modo):
     # SCIP representa infinito como +-1e20; se escribe como inf/-inf
     infinito = lambda v: (math.copysign(math.inf, v) if v is not None and abs(v) >= 1e19 else v)  # noqa: E731
     fila["dual_bound"] = infinito(m.getDualbound())
+    fila["primal_bound"] = infinito(m.getPrimalbound())
+    fila["gap"] = infinito(m.getGap())
+    fila["gap_pct"] = 100 * fila["gap"]
+    fila["gap_absoluto"] = (fila["primal_bound"] - fila["dual_bound"]
+                            if n_sols > 0 else None)
     try:
         fila["dual_bound_raiz"] = infinito(m.getDualboundRoot())
     except Exception:
         fila["dual_bound_raiz"] = None
 
     m.writeStatistics(str(rutas["stats_scip"]))
-    try:
-        m.writeStatisticsJson(str(rutas["stats_json"]))
-    except Exception:
-        rutas["stats_json"] = None
+    m.writeStatisticsJson(str(rutas["stats_json"]))
 
     aud = None
     if n_sols > 0:
         sol = m.getBestSol()
+        m.writeBestSol(str(rutas["solucion_completa"]), write_zeros=True)
         primal = m.getObjVal()
         fila["objetivo_incumbente"] = primal
         fila["primal_bound"] = m.getPrimalbound()
@@ -523,6 +623,9 @@ def resolver_replica(ruta, out, a, modo):
             fila["checksol_scip"] = None
         aud = auditar(inst, valores_x, a.lambda_0, a.lambda_1,
                       objetivo_solver=primal, suma_z_solver=suma_z, T_solver=T)
+        if fila["checksol_scip"] is not True:
+            aud["violaciones"].append("SCIP checkSol no confirma factibilidad de la solucion completa")
+            aud["solucion_auditada"] = False
         fila.update({
             "solucion_auditada": aud["solucion_auditada"],
             "n_violaciones": len(aud["violaciones"]),
@@ -563,11 +666,19 @@ def resolver_replica(ruta, out, a, modo):
 
     m.setLogfile(None)  # cierra el archivo de log antes de parsearlo
     parsear_log(rutas["log_scip"], rutas["trayectoria_log"])
+    escribir_json(rutas["auditoria"], {"instancia": nombre, "estado_scip": estado_scip,
+                                      "checksol_scip": fila["checksol_scip"],
+                                      "auditoria": aud,
+                                      "motivo": None if aud else "sin incumbente"})
+    m.freeProb()
+    fila["tiempo_total_seg"] = time.perf_counter() - inicio_total
     escribir_solucion(rutas["solucion"], inst, {k: num(v) for k, v in fila.items()}, aud)
 
     for k, p in rutas.items():
         fila[k] = rel(p) if p is not None and p.exists() else None
-    m.freeProb()
+    fila["artefactos_sha256"] = json.dumps({k: sha256(p) for k, p in rutas.items()
+                                          if p is not None and p.is_file()}, sort_keys=True)
+    fila["tiempo_total_seg"] = time.perf_counter() - inicio_total
     return fila
 
 
@@ -583,16 +694,19 @@ def media_sd(valores):
 
 
 def resumir(filas, a, modo, out):
-    validas = [r for r in filas if r["estado"] not in ("error", "interrupted")]
+    validas = [r for r in filas if r["estado"] in ESTADOS_TERMINADOS]
     con_inc = [r for r in validas if r["tiene_incumbente"]]
-    gap_finito = [r for r in con_inc if r["gap"] is not None and not math.isinf(r["gap"])]
-    gap_tl = [r for r in gap_finito if r["estado"] != "optimal"]
+    gap_finito = [r for r in con_inc if r["gap"] is not None and math.isfinite(r["gap"])]
+    absoluto_finito = [r for r in con_inc if r["gap_absoluto"] is not None
+                       and math.isfinite(r["gap_absoluto"])]
+    gap_tl = [r for r in gap_finito if r["estado"] == "timelimit_with_incumbent"]
     primera = [r for r in validas if r["tiempo_primera_solucion_factible"] is not None]
 
     t_m, t_s = media_sd([r["tiempo_total_seg"] for r in validas])
+    ts_m, ts_s = media_sd([r["tiempo_scip_seg"] for r in validas])
     g_m, g_s = media_sd([r["gap"] for r in gap_finito])
     gtl_m, gtl_s = media_sd([r["gap"] for r in gap_tl])
-    ga_m, ga_s = media_sd([r["gap_absoluto"] for r in con_inc])
+    ga_m, ga_s = media_sd([r["gap_absoluto"] for r in absoluto_finito])
     p_m, p_s = media_sd([r["tiempo_primera_solucion_factible"] for r in primera])
     b_m, b_s = media_sd([r["tiempo_mejor_incumbente_final"] for r in primera])
     n_m, n_s = media_sd([r["nodos"] for r in validas])
@@ -603,6 +717,8 @@ def resumir(filas, a, modo, out):
         "limite_seg": a.tiempo, "hilos": a.hilos, "gap_objetivo": a.gap,
         "lambda_0": a.lambda_0, "lambda_1": a.lambda_1,
         "numero_replicas": len(filas),
+        "numero_pendientes": len(a.replicas) - len(validas),
+        "familia_completa": len(validas) == REPLICAS_ESPERADAS,
         "numero_optimas": sum(r["estado"] == "optimal" for r in filas),
         "numero_time_limit_con_incumbente": sum(r["estado"] == "timelimit_with_incumbent" for r in filas),
         "numero_time_limit_sin_incumbente": sum(r["estado"] == "timelimit_without_incumbent" for r in filas),
@@ -614,6 +730,8 @@ def resumir(filas, a, modo, out):
         "numero_soluciones_auditadas_ok": sum(r["solucion_auditada"] is True for r in filas),
         "numero_soluciones_auditoria_fallida": sum(r["solucion_auditada"] is False for r in filas),
         "tiempo_promedio_seg": t_m, "tiempo_desviacion_estandar_seg": t_s,
+        "tiempo_total_promedio_seg": t_m, "tiempo_total_desviacion_estandar_seg": t_s,
+        "tiempo_scip_promedio_seg": ts_m, "tiempo_scip_desviacion_estandar_seg": ts_s,
         "n_tiempo": len(validas),
         "gap_promedio": g_m, "gap_desviacion_estandar": g_s,
         "gap_promedio_pct": pct(g_m), "gap_desviacion_estandar_pct": pct(g_s),
@@ -623,7 +741,8 @@ def resumir(filas, a, modo, out):
         "gap_desviacion_estandar_solo_timelimit_pct": pct(gtl_s),
         "n_gap_solo_timelimit": len(gap_tl),
         "gap_absoluto_promedio": ga_m, "gap_absoluto_desviacion_estandar": ga_s,
-        "n_gap_absoluto": len(con_inc),
+        "n_gap_absoluto": len(absoluto_finito),
+        "n_gap_absoluto_no_finito": len(con_inc) - len(absoluto_finito),
         "tiempo_primera_factible_promedio": p_m,
         "tiempo_primera_factible_desviacion_estandar": p_s,
         "n_primera_factible": len(primera),
@@ -643,18 +762,22 @@ suficientes"; nunca se reemplaza por cero.
 
 | Estadistica | Subconjunto sobre el que se calcula | n |
 |---|---|---|
-| tiempo_promedio / sd | replicas sin error ni interrupcion (optimas y time limit; las time limit aportan ~limite_seg) | {res['n_tiempo']} |
+| tiempo_total_promedio_seg / sd | lectura, construccion, optimizacion y exportacion por replica; estados terminados | {res['n_tiempo']} |
+| tiempo_scip_promedio_seg / sd | getSolvingTime(), incluye presolve; mismos estados terminados | {res['n_tiempo']} |
 | gap_promedio / sd (y _pct) | replicas con incumbente y gap SCIP finito, incluidas las optimas (gap 0) | {res['n_gap']} |
-| gap_promedio_solo_timelimit_pct | replicas con incumbente, gap finito y NO optimas | {res['n_gap_solo_timelimit']} |
-| gap_absoluto (primal - dual) | replicas con incumbente | {res['n_gap_absoluto']} |
+| gap_promedio_solo_timelimit_pct | solo timelimit con incumbente y gap finito | {res['n_gap_solo_timelimit']} |
+| gap_absoluto (primal - dual) | replicas con incumbente y diferencia finita | {res['n_gap_absoluto']} |
 | tiempo_primera_factible | replicas donde SCIP encontro al menos una solucion | {res['n_primera_factible']} |
 | tiempo_mejor_incumbente | idem | {res['n_primera_factible']} |
 | nodos | replicas sin error ni interrupcion | {res['n_nodos']} |
 
 gap SCIP = |primal - dual| / min(|primal|, |dual|). Es infinito si la cota dual
-es 0 o de distinto signo que la primal; esos casos se cuentan en
+es 0 (salvo ambas cotas iguales) o de distinto signo que la primal; esos casos se cuentan en
 n_gap_infinito = {res['n_gap_infinito']} y se excluyen del promedio del gap
-relativo (pero no del gap absoluto).
+relativo. El resumen absoluto usa diferencias finitas y cuenta aparte las no finitas.
+
+tiempo_promedio_seg y tiempo_desviacion_estandar_seg son alias del tiempo total.
+Familia completa: {res['familia_completa']}. Pendientes: {res['numero_pendientes']}.
 
 Tiempo de primera solucion: tiempo SCIP (reloj de pared, incluye presolve)
 registrado por un manejador del evento BESTSOLFOUND y contrastado con la
@@ -678,7 +801,7 @@ def main():
     ap.add_argument("--L", type=int, required=True, choices=L_VALORES)
     ap.add_argument("--P", type=int, required=True, choices=P_VALORES)
     ap.add_argument("--C", type=int, required=True, choices=C_VALORES)
-    ap.add_argument("--tiempo", type=float, default=3600.0)
+    ap.add_argument("--tiempo", type=float, default=None)
     ap.add_argument("--hilos", type=int, default=1)
     ap.add_argument("--gap", type=float, default=0.0)
     ap.add_argument("--lambda-0", type=float, default=1.0)
@@ -686,7 +809,7 @@ def main():
     ap.add_argument("--instancias", default=str(RAIZ / "instancias"))
     ap.add_argument("--salida", default=None,
                     help="carpeta de salida (default: corridas/prueba_familia_L*_P*_C*_T*s)")
-    ap.add_argument("--replicas", type=int, nargs="+", default=list(range(REPLICAS_ESPERADAS)),
+    ap.add_argument("--replicas", type=int, nargs="+", default=None,
                     help="subconjunto de replicas a resolver (solo para preflight)")
     ap.add_argument("--preflight", action="store_true",
                     help="marca la corrida como prueba tecnica; se guarda en corridas/preflight/")
@@ -694,12 +817,20 @@ def main():
                     help="conserva replicas ya resueltas con el mismo protocolo en la carpeta")
     ap.add_argument("--comando", default=None, help="comando original (lo pasa correr_familia.ps1)")
     a = ap.parse_args()
+    if a.tiempo is None:
+        a.tiempo = 60.0 if a.preflight else 3600.0
 
-    if a.tiempo <= 0 or a.hilos < 1 or not 0 <= a.gap <= 1:
+    if (not all(math.isfinite(v) for v in (a.tiempo, a.gap, a.lambda_0, a.lambda_1))
+            or a.tiempo <= 0 or a.hilos < 1 or not 0 <= a.gap <= 1
+            or a.lambda_0 < 0 or a.lambda_1 < 0):
         ap.error("parametros invalidos de tiempo, hilos o gap")
+    if a.replicas is None:
+        a.replicas = [0] if a.preflight else list(range(REPLICAS_ESPERADAS))
     if sorted(set(a.replicas)) != sorted(a.replicas) or any(not 0 <= r < REPLICAS_ESPERADAS for r in a.replicas):
         ap.error("--replicas debe contener valores distintos entre 0 y 9")
     a.replicas = sorted(a.replicas)
+    if not a.preflight and a.replicas != list(range(REPLICAS_ESPERADAS)):
+        ap.error("una familia requiere exactamente i_0..i_9; subconjuntos solo con --preflight")
 
     protocolo = {"tiempo": a.tiempo, "hilos": a.hilos, "gap": a.gap,
                  "lambda_0": a.lambda_0, "lambda_1": a.lambda_1}
@@ -730,6 +861,18 @@ def main():
         sys.exit(2)
     print(f"Familia verificada: {len(archivos)} replicas distintas.")
 
+    # Valida tambien el acceso directo por Python, antes de crear salidas.
+    from pyscipopt import Model
+    ref = Model("protocolo")
+    ref.hideOutput(True)
+    ref.setParam("limits/time", a.tiempo)
+    ref.setParam("limits/gap", a.gap)
+    configurar_scip(ref, a.hilos)
+    try:
+        manifiesto = manifiesto_corrida(a, modo, archivos, ref)
+    except ValueError as exc:
+        ap.error(str(exc))
+
     csv_res = out / "resultados_familia.csv"
     previas = {}
     if out.exists() and any(out.iterdir()):
@@ -738,50 +881,49 @@ def main():
                   "Usa --reanudar para continuar o elige otra --salida. "
                   "No se sobrescriben corridas previas.")
             sys.exit(3)
-        if csv_res.exists():
-            with open(csv_res, encoding="utf-8", newline="") as f:
-                for r in csv.DictReader(f):
-                    mismo = (r["modo"] == modo and float(r["limite_seg"]) == a.tiempo
-                             and int(r["hilos"]) == a.hilos and float(r["gap_objetivo"]) == a.gap
-                             and float(r["lambda_0"]) == a.lambda_0
-                             and float(r["lambda_1"]) == a.lambda_1)
-                    if mismo and r["estado"] not in ("error", "interrupted"):
-                        previas[r["instancia"]] = r
+        try:
+            previas = cargar_previas(out, manifiesto)
+        except (ValueError, KeyError, TypeError) as exc:
+            ap.error(str(exc))
     out.mkdir(parents=True, exist_ok=True)
+    if not (out / "manifiesto.json").exists():
+        escribir_json(out / "manifiesto.json", manifiesto)
     (out / "verificacion_familia.txt").write_text("\n".join(lineas) + "\n", encoding="utf-8")
 
     comando = a.comando or " ".join([Path(sys.executable).name] + sys.argv)
-    ref, _ = construir_modelo(leer_instancia(archivos[0]), lambda_0=a.lambda_0,
-                              lambda_1=a.lambda_1, tiempo=a.tiempo, hilos=a.hilos, gap=a.gap)
     # al reanudar se conserva el entorno original y se agrega uno por reanudacion
     ruta_entorno = out / "entorno.txt"
-    if previas and ruta_entorno.exists():
+    if ruta_entorno.exists():
         ruta_entorno = out / f"entorno_reanudacion_{dt.datetime.now():%Y%m%d_%H%M%S}.txt"
     escribir_entorno(ruta_entorno, a, modo, archivos, comando, ref)
     ref.freeProb()
 
     seleccion = [p for p in archivos if int(p.stem.rsplit("_", 1)[1]) in a.replicas]
-    print(f"Modo: {modo}.  Replicas a resolver: {len(seleccion)}.  "
+    print(f"Modo: {modo}.  Replicas pendientes: {len(seleccion) - len(previas)}.  "
           f"Limite: {a.tiempo:g} s.  Salida: {out}\n")
 
-    filas = []
+    # Conserva TODAS las terminadas, incluso si se interrumpe una pendiente anterior.
+    registros = dict(previas)
+    filas = [registros[p.stem] for p in seleccion if p.stem in registros]
+    interrumpido = False
     for k, ruta in enumerate(seleccion, 1):
         if ruta.stem in previas:
             print(f"[{k}/{len(seleccion)}] {ruta.stem}: ya resuelta, se conserva")
-            filas.append(convertir_previa(previas[ruta.stem]))
             continue
         print(f"[{k}/{len(seleccion)}] {ruta.stem}: resolviendo...", flush=True)
         try:
             fila = resolver_replica(ruta, out, a, modo)
         except KeyboardInterrupt:
             print("Interrumpido por el usuario. Las replicas terminadas quedan guardadas.")
+            interrumpido = True
             break
         except Exception:
             fila = {c: None for c in COLUMNAS}
             fila.update({"instancia": ruta.stem, "modo": modo, "estado": "error",
                          "error": traceback.format_exc(limit=3).replace("\n", " | ")})
             print(fila["error"])
-        filas.append(fila)
+        registros[ruta.stem] = fila
+        filas = [registros[p.stem] for p in seleccion if p.stem in registros]
         escribir_resultados(csv_res, filas)
         print(f"    estado={fila['estado']}  t={num(fila['tiempo_total_seg'], 2)} s  "
               f"primal={num(fila['objetivo_incumbente'])}  dual={num(fila['dual_bound'])}  "
@@ -789,6 +931,7 @@ def main():
               f"auditada={num(fila['solucion_auditada'])}", flush=True)
         if fila["estado"] == "interrupted":
             print("SCIP fue interrumpido (Ctrl+C). Se detiene la familia.")
+            interrumpido = True
             break
 
     escribir_resultados(csv_res, filas)
@@ -800,30 +943,39 @@ def main():
     for k in ("numero_replicas", "numero_optimas", "numero_time_limit_con_incumbente",
               "numero_time_limit_sin_incumbente", "numero_infeasible_demostradas",
               "numero_errores", "numero_soluciones_auditadas_ok",
-              "tiempo_promedio_seg", "tiempo_desviacion_estandar_seg",
+              "tiempo_total_promedio_seg", "tiempo_total_desviacion_estandar_seg",
+              "tiempo_scip_promedio_seg", "tiempo_scip_desviacion_estandar_seg",
               "gap_promedio_pct", "gap_desviacion_estandar_pct", "n_gap_infinito",
               "tiempo_primera_factible_promedio", "nodos_promedio"):
         print(f"  {k:40s} {num(res[k], 4)}")
     print(f"\nArchivos en: {out}")
+    if interrumpido:
+        sys.exit(130)
     if res["numero_soluciones_auditoria_fallida"] or res["numero_errores"]:
+        sys.exit(1)
+    if res["numero_pendientes"]:
         sys.exit(1)
 
 
 def escribir_resultados(ruta, filas):
-    with open(ruta, "w", encoding="utf-8", newline="") as f:
+    temporal = ruta.with_suffix(".csv.tmp")
+    with open(temporal, "w", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, fieldnames=COLUMNAS)
         w.writeheader()
         for r in filas:
             w.writerow({c: num(r.get(c)) for c in COLUMNAS})
+        f.flush()
+        os.fsync(f.fileno())
+    os.replace(temporal, ruta)
 
 
 def convertir_previa(r):
     """Relee una fila del CSV con tipos numericos para el resumen."""
     out = dict(r)
-    for c in ("tiempo_total_seg", "gap", "gap_absoluto", "tiempo_primera_solucion_factible",
+    for c in ("tiempo_total_seg", "tiempo_scip_seg", "gap", "gap_absoluto", "tiempo_primera_solucion_factible",
               "tiempo_mejor_incumbente_final", "nodos"):
         v = r.get(c, "")
-        out[c] = None if v == "" else (math.inf if v == "inf" else float(v))
+        out[c] = None if v == "" else (int(v) if c == "nodos" else float(v))
     for c in ("tiene_incumbente", "solucion_auditada"):
         out[c] = {"TRUE": True, "FALSE": False}.get(r.get(c, ""), None)
     return out

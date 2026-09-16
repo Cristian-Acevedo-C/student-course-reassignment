@@ -48,7 +48,10 @@ Protecciones del ejecutor:
   contenido (perfiles, preferencias y separaciones);
 - ejecuta antes `src/validar_repositorio.py` (grilla de 480 y testigos);
 - exige la versión de PySCIPOpt fijada en `requirements.txt` para la corrida
-  oficial;
+  oficial, junto con SCIP 10.0.2; ambos se verifican también en Python;
+- fija explícitamente `parallel/maxnthreads=1`, `lp/threads=1` y reloj de pared;
+- al reanudar exige el mismo manifiesto (versiones, protocolo, código e instancias)
+  y verifica hashes de los artefactos antes de omitir una réplica;
 - marca la corrida como `oficial` solo si son las 10 réplicas con 3600 s, 1 hilo,
   gap 0 y λ = (1, 1); si no, `no_oficial` o `preflight`.
 
@@ -61,6 +64,7 @@ Protecciones del ejecutor:
 | `resumen_familia.md` | el resumen con el subconjunto usado en cada estadística |
 | `verificacion_familia.txt` | semillas, SHA-256 y diferencias entre los 45 pares de réplicas |
 | `entorno.txt` | fecha, SO, CPU, RAM, Python, PySCIPOpt, SCIP, parámetros, commit, comando |
+| `manifiesto.json` | identidad verificable de versiones, protocolo, código e instancias para reanudar |
 | `parametros_scip.set` | parámetros SCIP distintos del *default* |
 | `logs/<instancia>.log` | log completo de SCIP (presolve, tabla de progreso, estadísticas finales) |
 | `stats/<instancia>.stats` | `writeStatistics` de SCIP |
@@ -68,6 +72,8 @@ Protecciones del ejecutor:
 | `trayectorias/<instancia>_incumbentes.csv` | cada mejora del incumbente: tiempo, objetivo, cota dual, nodos |
 | `trayectorias/<instancia>_log.csv` | filas de la tabla del log: tiempo, nodo, dual, primal, gap, heurística |
 | `soluciones/sol_<instancia>.txt` | asignación, composición por curso, balance, separaciones y auditoría |
+| `soluciones/<instancia>.sol` | solución SCIP original con todas las variables, incluidos ceros; solo si hay incumbente |
+| `auditorias/<instancia>.json` | auditoría independiente completa y resultado de checkSol; ausencia explícita si no hay incumbente |
 
 ## 4. Columnas de `resultados_familia.csv`
 
@@ -76,14 +82,17 @@ Protecciones del ejecutor:
   `estado` ∈ `optimal`, `timelimit_with_incumbent`, `timelimit_without_incumbent`,
   `infeasible`, `interrupted`, `error`, u otro `<estado_scip>_with/without_incumbent`.
   Un límite de tiempo sin solución **nunca** se clasifica como `infeasible`.
-- **Tiempos:** `tiempo_total_seg` (reloj de pared alrededor de `optimize()`),
+- **Tiempos:** `tiempo_total_seg` (lectura, construcción, optimización y exportación por réplica;
+  excluye validación global, captura del entorno y CSV conjunto),
   `tiempo_scip_seg` (`getSolvingTime`, incluye presolve), `tiempo_presolve_seg`,
-  `tiempo_construccion_seg` (armar el MILP en Python; no está incluido en los anteriores).
+  `tiempo_construccion_seg` (armar el MILP en Python; incluido en el total) y
+  `tiempo_optimizacion_pared_seg` (reloj de pared alrededor de `optimize()`).
 - **Protocolo:** `limite_seg, hilos, gap_objetivo, lambda_0, lambda_1`.
 - **Cotas:** `tiene_incumbente, numero_soluciones, objetivo_incumbente, primal_bound,
   dual_bound, dual_bound_raiz, gap, gap_pct, gap_absoluto`.
   `gap` es el de SCIP: `|primal − dual| / min(|primal|, |dual|)`; se escribe `inf`
-  cuando la cota dual es 0. `gap_absoluto = primal − dual`.
+  cuando la cota dual es 0 y la primal no, o tienen signos opuestos.
+  Si ambas son iguales el gap es 0. `gap_absoluto = primal − dual`.
 - **Objetivo según SCIP:** `T, suma_z, no_satisfechos`.
 - **Tamaño y árbol:** `nodos, variables, restricciones` (modelo original, antes de presolve).
 - **Primera solución y mejor incumbente:** `tiempo_primera_solucion_factible,
@@ -93,7 +102,7 @@ Protecciones del ejecutor:
 - **Auditoría:** `solucion_auditada, n_violaciones, n_inconsistencias_objetivo,
   satisfechos_recalculado, T_recalculado, objetivo_recalculado, checksol_scip`.
 - **Rutas:** `log_scip, stats_scip, stats_json, trayectoria_incumbentes,
-  trayectoria_log, solucion, error`.
+  trayectoria_log, solucion, solucion_completa, auditoria, artefactos_sha256, error`.
 
 ### Cómo se obtienen los tiempos de primera solución
 
@@ -114,11 +123,13 @@ se deja constancia y se revisa el log; no se inventa un valor.
 balance de género (10–11) y mínimos por curso de origen (12). Además comprueba la
 coherencia con el objetivo reportado:
 
-- estudiantes realmente satisfechos ≥ `suma_z` de SCIP (z solo está acotada arriba);
+- estudiantes realmente satisfechos **=** `suma_z` de SCIP (igualdad exacta
+  de conteos: el MILP impone `z_i >= w_ij` y `z_i <= sum_j w_ij`);
 - `T` recalculado ≤ `T` de SCIP (T solo está acotada abajo);
 - `objetivo = λ0 (N − Σz) + λ1 T`.
 
-`solucion_auditada = TRUE` exige cero violaciones y cero inconsistencias. Si no
+`solucion_auditada = TRUE` exige cero violaciones, cero inconsistencias y
+`checkSol` de SCIP aprobado para la solución completa. Si no
 hay incumbente, queda vacía (no hay nada que auditar).
 
 ## 5. Estadísticas del resumen y subconjuntos
@@ -128,15 +139,26 @@ datos suficientes; nunca se reemplaza por cero.
 
 | Estadística | Subconjunto |
 |---|---|
-| `tiempo_promedio_seg`, `tiempo_desviacion_estandar_seg` | réplicas sin error ni interrupción (óptimas y con límite de tiempo) |
+| `tiempo_total_promedio_seg`, `tiempo_total_desviacion_estandar_seg` | réplicas terminadas: óptimas, time limit con/sin incumbente e infactibles demostradas |
+| `tiempo_scip_promedio_seg`, `tiempo_scip_desviacion_estandar_seg` | mismo subconjunto; tiempo interno SCIP, separado del total |
 | `gap_promedio`, `gap_desviacion_estandar` (y `_pct`) | réplicas con incumbente y gap SCIP finito, incluidas las óptimas (gap 0) |
-| `gap_promedio_solo_timelimit_pct` | réplicas con incumbente, gap finito y no óptimas |
+| `gap_promedio_solo_timelimit_pct` | solo time limit con incumbente y gap finito |
 | `n_gap_infinito` | réplicas con incumbente pero cota dual 0 (excluidas del gap relativo) |
-| `gap_absoluto_promedio` | réplicas con incumbente |
+| `gap_absoluto_promedio` | réplicas con incumbente y diferencia finita; se cuentan aparte las no finitas |
 | `tiempo_primera_factible_*`, `tiempo_mejor_incumbente_*` | réplicas donde SCIP encontró al menos una solución |
 | `nodos_promedio`, `nodos_desviacion_estandar` | réplicas sin error ni interrupción |
 
-Cada estadística trae su `n_*` en el CSV.
+Cada estadística trae su `n_*` en el CSV. Los nombres antiguos
+`tiempo_promedio_seg` y `tiempo_desviacion_estandar_seg` son alias del total.
+`familia_completa` y `numero_pendientes` permiten distinguir una familia completa
+de un resumen parcial. `modo=oficial` solo identifica el protocolo.
+
+El CSV de resultados se reemplaza atómicamente después de cada réplica y conserva
+las terminadas posteriores aunque otra pendiente se interrumpa. La reanudación
+reinicia cada pendiente desde cero, no recupera el árbol SCIP. Una carpeta antigua
+sin manifiesto exige una nueva `-Salida`; no se mezcla automáticamente. Los archivos
+de una réplica incompleta se reemplazan al repetirla. No iniciar dos procesos sobre
+la misma salida ni mantener el CSV bloqueado en Excel.
 
 ## 6. Qué mirar en los logs (pregunta de la reunión)
 
@@ -159,5 +181,6 @@ encontró un incumbente). La sección `Primal Heuristics`, `Separators` y
   se repite con 3600 s, el gap relativo puede ser grande aunque la diferencia
   absoluta sea de pocas unidades. Por eso se reportan también `gap_absoluto` y
   `dual_bound_raiz`.
-- La columna `tiempo_total_seg` incluye unos milisegundos de Python fuera de SCIP;
-  para comparar con el límite usar `tiempo_scip_seg`.
+- La columna `tiempo_total_seg` incluye construcción y exportación; para comparar
+  con el límite usar `tiempo_scip_seg`. La suma de límites (10 h) no es un límite
+  estricto para la duración de pared de toda la campaña.

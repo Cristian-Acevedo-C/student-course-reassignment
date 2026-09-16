@@ -104,15 +104,100 @@ claramente aislados en
 `experimentos/sensibilidad_computacional/calibracion_15s_grilla_360/` y no son
 evidencia del protocolo actual.
 
-## Primer paso: una familia de 10 réplicas
+## Requisitos e instalación
+
+Windows PowerShell 5.1 o PowerShell 7, Python de 64 bits (verificado con 3.13),
+**PySCIPOpt 6.2.1 y SCIP 10.0.2**. La versión de SCIP se comprueba en ejecución;
+no basta con que coincida la versión de PySCIPOpt. Desde la raíz:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+`correr_familia.ps1` prioriza `.venv\Scripts\python.exe`; no hace falta activar
+el entorno. Si no existe, busca Python en PATH. El instalador necesita red.
+
+## Validación sin resolver
+
+```powershell
+.\.venv\Scripts\python.exe src\validar_repositorio.py
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+```
+
+La primera orden revisa estructura y testigos, sin optimización. Las pruebas
+usan réplicas simuladas para comprobar secuencia, reanudación, interrupciones,
+resúmenes y errores; **no resuelven las diez instancias**.
+
+## Preflight, corrida oficial y reanudación
 
 Antes de la campaña completa se valida una familia (acuerdo de la reunión del
 8-sep-2026). Ver [docs/prueba_familia.md](docs/prueba_familia.md).
+La [auditoría del pipeline y preflight del 16-sep-2026](docs/auditoria_pipeline_familia_2026-09-16.md)
+documenta los controles ejecutados, resultados y riesgos pendientes.
 
 ```powershell
-.\correr_familia.ps1 -L 9 -P 3 -C 4 -Preflight     # prueba técnica, 60 s
-.\correr_familia.ps1 -L 9 -P 3 -C 4 -Tiempo 3600   # corrida oficial de la familia
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\correr_familia.ps1 -L 9 -P 3 -C 4 -Preflight -Tiempo 60 -Replicas 0
 ```
+
+Resuelve únicamente `c_n_9_l_3_s_4_i_0`. El límite de 60 s corresponde a SCIP;
+la validación, construcción y exportación agregan tiempo de pared. Salida:
+`corridas\preflight\prueba_familia_L9_P3_C4_T60s_i0\`.
+
+Para iniciar **la familia oficial** después de revisar el preflight:
+
+```powershell
+.\correr_familia.ps1 -L 9 -P 3 -C 4 -Tiempo 3600
+```
+
+Ejecuta automáticamente **i_0, i_1, …, i_9, en ese orden y de forma secuencial**.
+Cada optimalidad o time limit (con o sin incumbente) da paso a la siguiente.
+Usa λ₀ = λ₁ = 1, gap objetivo 0, `parallel/maxnthreads=1` y `lp/threads=1`
+(soportado y verificado con SCIP 10.0.2). No utiliza testigos como warm start.
+El modo oficial exige ambas versiones, los parámetros y las diez réplicas,
+incluso cuando se llama directamente al ejecutor Python.
+
+Para continuar una corrida interrumpida:
+
+```powershell
+.\correr_familia.ps1 -L 9 -P 3 -C 4 -Tiempo 3600 -Reanudar
+```
+
+Salida oficial: `corridas\prueba_familia_L9_P3_C4_T3600s\`. `-Reanudar` omite
+solo réplicas terminadas con artefactos íntegros; vuelve a ejecutar desde cero
+las pendientes, fallidas, interrumpidas o con archivos ausentes/modificados.
+No continúa el árbol interno de SCIP. Un manifiesto comprueba versiones,
+parámetros, hashes de instancias y código. Si cambian o es una corrida antigua
+sin manifiesto, rechaza la mezcla: hay que escoger otra `-Salida`.
+Si se usó `-Salida`, repetir esa misma ruta al reanudar.
+
+Por réplica guarda log SCIP, estadísticas de texto y JSON, cotas primal/dual,
+gap relativo y absoluto, nodos, objetivo, T, suma_z, primera solución factible,
+trayectoria de incumbentes, asignación legible, **todas las variables en `.sol`**
+y auditoría independiente en JSON. Sin incumbente deja explícita su ausencia;
+no inventa solución ni tiempos de primera factibilidad.
+
+`resultados_familia.csv` se actualiza atómicamente después de cada réplica.
+Al terminar se generan `resumen_familia.csv` y `.md`, con media y desviación
+estándar **muestral** de `tiempo_scip_seg`, `tiempo_total_seg` y gaps. El tiempo
+total abarca lectura, construcción, optimización y exportación por réplica;
+el tiempo SCIP incluye presolve. No incluye en ese total la validación global,
+captura del entorno ni escritura del CSV conjunto. Se conserva además
+`tiempo_optimizacion_pared_seg` para medir solo la llamada `optimize()`.
+Con una sola réplica, la desviación estándar queda vacía. Los gaps no finitos
+se cuentan por separado y se excluyen de la media correspondiente.
+
+Revisar `familia_completa`, `numero_pendientes`, errores y auditorías antes de
+usar el resumen: `modo=oficial` identifica el protocolo, no certifica que la
+familia haya terminado. Una interrupción devuelve código 130; fallos, auditoría
+no aprobada o réplicas pendientes devuelven código 1.
+
+El máximo de 10 h es la suma de límites SCIP; el tiempo real será mayor por
+preparación y exportación. Mantener el equipo conectado, sin suspensión ni
+cargas intensivas, y ejecutar un solo proceso sobre cada carpeta de salida.
+No editar código o instancias entre una corrida y su reanudación. No abrir
+el CSV en una aplicación que bloquee su escritura durante la ejecución.
 
 ## Ejecución futura del benchmark
 

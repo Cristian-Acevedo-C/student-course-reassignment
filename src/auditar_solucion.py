@@ -14,11 +14,12 @@ Restricciones duras auditadas (numeracion del manuscrito):
   (12)     representacion de origen  sum_{i en o} x_ic >= alpha_o
 
 Consistencia con el objetivo reportado por el solver:
-  - satisfechos_recalculado >= suma_z_solver   (z_i solo esta acotado arriba)
+  - satisfechos_recalculado == suma_z_solver   (igualdad exacta de conteos)
   - T_recalculado <= T_solver + tol            (T solo esta acotado abajo)
   - objetivo_solver == lambda_0 (N - suma_z) + lambda_1 T_solver
-Estas son desigualdades porque la formulacion no fuerza z_i ni T a su valor
-exacto en soluciones no optimas; en una solucion optima deberian coincidir.
+El modelo impone z_i >= w_ij y z_i <= sum_j w_ij: z representa exactamente
+la disyuncion de preferencias satisfechas, incluso sin optimalidad. T solo
+esta acotada abajo y puede tener holgura en un incumbente no optimo.
 """
 TOL = 1e-6
 
@@ -110,9 +111,9 @@ def auditar(inst, valores_x, lambda_0, lambda_1,
     objetivo_recalc = lambda_0 * (len(S) - satisfechos) + lambda_1 * T
 
     consistencia = []
-    if suma_z_solver is not None and satisfechos < suma_z_solver:
+    if suma_z_solver is not None and satisfechos != suma_z_solver:
         consistencia.append(
-            f"suma_z_solver={suma_z_solver} > satisfechos_recalculado={satisfechos}")
+            f"suma_z_solver={suma_z_solver} != satisfechos_recalculado={satisfechos}")
     if T_solver is not None and T > T_solver + TOL:
         consistencia.append(f"T_recalculado={T} > T_solver={T_solver}")
     if None not in (objetivo_solver, suma_z_solver, T_solver):
