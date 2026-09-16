@@ -10,7 +10,7 @@ import sys
 import tempfile
 from types import SimpleNamespace
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 import resolver_familia as rf
@@ -172,12 +172,14 @@ class ResumenGlobalTest(unittest.TestCase):
         self.addCleanup(self.tmp.cleanup)
         self.out = Path(self.tmp.name)
         self.a = SimpleNamespace(L=9, P=3, C=4, tiempo=3600., hilos=1,
-                                 gap=0., lambda_0=1., lambda_1=1., replicas=list(range(10)))
+                                 gap=0., lambda_0=1., lambda_1=1., replicas=list(range(10)),
+                                 preflight=False)
         self.ruta = self.out / "resumen_global_familia_L9_P3_C4.txt"
         self.filas = []
         for i in range(10):
             r = {c: None for c in rf.COLUMNAS}
             r.update(instancia=f"c_n_9_l_3_s_4_i_{i}", replica=i,
+                     lambda_0=1., lambda_1=1., modo="oficial",
                      estado="optimal" if i % 2 == 0 else "timelimit_with_incumbent",
                      tiempo_scip_seg=10.+i, tiempo_total_seg=20.+i,
                      primal_bound=10. if i % 2 == 0 else 15., dual_bound=10.,
@@ -253,6 +255,71 @@ class ResumenGlobalTest(unittest.TestCase):
         self.assertIn("numero_infeasible_demostradas: 1\n", contenido)
         self.assertIn("numero_errores: 1\n", contenido)
         self.assertIn("auditoria: FALLIDA\n", contenido)
+
+    def test_lambdas_y_paridad_txt_csv_en_diez_replicas(self):
+        with patch.dict(sys.modules, {"pyscipopt": None}):
+            rf.escribir_resultados(self.out / "resultados_familia.csv", self.filas, self.a, "oficial")
+            rf.resumir(self.filas, self.a, "oficial", self.out)
+        for nombre in (self.ruta.name, "resumen_familia.txt", "resultados_familia.txt"):
+            contenido = (self.out / nombre).read_text(encoding="utf-8")
+            for clave in ("lambda_0", "lambda_1"):
+                self.assertIn(f"{clave} = 1\n", contenido)
+        resumen_txt = (self.out / "resumen_familia.txt").read_text(encoding="utf-8")
+        with (self.out / "resumen_familia.csv").open(encoding="utf-8") as f:
+            resumen_csv = next(csv.DictReader(f))
+        for clave, valor in resumen_csv.items():
+            esperado = "1" if clave in ("lambda_0", "lambda_1") else valor or "NO DISPONIBLE"
+            self.assertIn(f"{clave} = {esperado}\n", resumen_txt)
+        resultados_txt = (self.out / "resultados_familia.txt").read_text(encoding="utf-8")
+        with (self.out / "resultados_familia.csv").open(encoding="utf-8") as f:
+            for r in csv.DictReader(f):
+                bloque = resultados_txt.split(f"[{r['instancia']}]\n", 1)[1].split("\n\n", 1)[0]
+                for clave, valor in r.items():
+                    esperado = "1" if clave in ("lambda_0", "lambda_1") else valor or "NO DISPONIBLE"
+                    self.assertIn(f"{clave} = {esperado}", bloque.splitlines())
+
+    def test_lambdas_en_entorno_y_solucion_sin_solver(self):
+        modelo_simulado = MagicMock()
+        modelo_simulado.writeParams.side_effect = lambda ruta, **kw: Path(ruta).write_text("lp/threads = 1\n")
+        modelo_simulado.getMajorVersion.return_value = 10
+        modelo_simulado.getMinorVersion.return_value = 0
+        modelo_simulado.getTechVersion.return_value = 2
+        modelo_simulado.getParams.return_value = {"lp/threads": 1}
+        modelo_simulado.getParam.return_value = 1
+        with patch.dict(sys.modules, {"pyscipopt": SimpleNamespace(__version__="6.2.1")}), \
+             patch.object(rf, "cpu_y_ram", return_value=("CPU simulada", "RAM simulada")), \
+             patch.object(rf, "git_info", return_value=("simulado", "simulado")):
+            rf.escribir_entorno(self.out / "entorno.txt", self.a, "oficial", [], "prueba", modelo_simulado)
+        for r in self.filas:
+            inst = {"nombre": r["instancia"], "estudiantes": {}, "cursos": []}
+            rf.escribir_solucion(self.out / f"sol_{r['instancia']}.txt", inst, r, None)
+        for ruta in [self.out / "entorno.txt", *self.out.glob("sol_*.txt")]:
+            contenido = ruta.read_text(encoding="utf-8")
+            for clave in ("lambda_0", "lambda_1"):
+                self.assertIn(f"{clave} = 1\n", contenido)
+
+    def test_lambdas_distintos_no_son_oficiales_y_no_se_redondean_a_uno(self):
+        self.assertEqual(rf.clasificar_modo(self.a), "oficial")
+        for clave in ("lambda_0", "lambda_1"):
+            for valor in (0., 2., 1.000000001):
+                with self.subTest(clave=clave, valor=valor):
+                    setattr(self.a, clave, valor)
+                    captura = io.StringIO()
+                    with contextlib.redirect_stdout(captura):
+                        self.assertEqual(rf.clasificar_modo(self.a), "no_oficial")
+                    self.assertIn("ADVERTENCIA", captura.getvalue())
+                    self.assertNotEqual(rf.valor_txt(clave, valor), "1")
+                    with patch.dict(sys.modules, {"pyscipopt": None}), self.assertRaises(ValueError):
+                        rf.resolver_replica(None, self.out, self.a, "oficial")
+                    setattr(self.a, clave, 1.)
+
+    def test_rechaza_replica_con_lambda_distinto_antes_de_escribir_oficial(self):
+        self.filas[7]["lambda_1"] = 2.
+        with self.assertRaisesRegex(ValueError, "i_7"):
+            rf.resumir(self.filas, self.a, "oficial", self.out)
+        with self.assertRaisesRegex(ValueError, "i_7"):
+            rf.escribir_resultados(self.out / "resultados_familia.csv", self.filas, self.a, "oficial")
+        self.assertEqual(list(self.out.iterdir()), [])
 
 
 class AuditoriaTest(unittest.TestCase):

@@ -10,7 +10,9 @@ No lee la carpeta testigos/ y no entrega ninguna solucion inicial a SCIP.
 Salida (una carpeta por corrida):
   <salida>/
     resultados_familia.csv        una fila por replica
+    resultados_familia.txt        los mismos campos por replica, para revision
     resumen_familia.csv           una fila para la familia
+    resumen_familia.txt           los mismos estadisticos y parametros
     resumen_familia.md            mismo resumen, con los subconjuntos usados
     resumen_global_familia_L*_P*_C*.txt   detalle de i_0..i_9 y resumen global
     verificacion_familia.txt      chequeo de que las 10 replicas son distintas
@@ -91,6 +93,42 @@ COLUMNAS = [
 ]
 
 
+def clasificar_modo(a):
+    protocolo = {k: getattr(a, k) for k in PROTOCOLO_OFICIAL}
+    if a.preflight:
+        return "preflight"
+    if (a.lambda_0, a.lambda_1) != (1.0, 1.0):
+        print("ADVERTENCIA: lambda_0 y lambda_1 deben ser exactamente 1 y 1 "
+              "para una corrida oficial. Esta corrida es no_oficial.")
+    if a.replicas == list(range(REPLICAS_ESPERADAS)) and protocolo == PROTOCOLO_OFICIAL:
+        return "oficial"
+    return "no_oficial"
+
+
+def validar_lambdas_oficiales(a, modo, filas=()):
+    if modo != "oficial":
+        return
+    if (a.lambda_0, a.lambda_1) != (1.0, 1.0):
+        raise ValueError("Corrida oficial exige lambda_0 = 1 y lambda_1 = 1")
+    for r in filas:
+        if any(r.get(k) is None or float(r[k]) != 1.0 for k in ("lambda_0", "lambda_1")):
+            raise ValueError(f"{r.get('instancia')}: lambdas incompatibles con corrida oficial")
+
+
+def valor_txt(clave, valor):
+    if valor is None or valor == "":
+        return "NO DISPONIBLE"
+    if clave in ("lambda_0", "lambda_1"):
+        valor = float(valor)
+        return str(int(valor)) if valor.is_integer() else repr(valor)
+    return str(num(valor))
+
+
+def lineas_lambdas(lambda_0, lambda_1):
+    return [f"lambda_0 = {valor_txt('lambda_0', lambda_0)}",
+            f"lambda_1 = {valor_txt('lambda_1', lambda_1)}"]
+
+
 def configurar_scip(m, hilos):
     """Parametros de ejecucion; no cambia variables, restricciones ni objetivo."""
     m.setParam("parallel/maxnthreads", hilos)
@@ -117,6 +155,7 @@ def escribir_json(ruta, datos):
 
 
 def manifiesto_corrida(a, modo, archivos, m):
+    validar_lambdas_oficiales(a, modo)
     return {
         "esquema": 2, "modo": modo, "familia": [a.L, a.P, a.C],
         "replicas": a.replicas,
@@ -332,6 +371,7 @@ def git_info():
 
 
 def escribir_entorno(ruta, a, modo, archivos, comando, m_ref):
+    validar_lambdas_oficiales(a, modo)
     import pyscipopt
     cpu, ram = cpu_y_ram()
     commit, estado_git = git_info()
@@ -357,8 +397,7 @@ def escribir_entorno(ruta, a, modo, archivos, comando, m_ref):
         f"limite_seg            : {a.tiempo}",
         f"hilos                 : {a.hilos}",
         f"gap_objetivo          : {a.gap}",
-        f"lambda_0              : {a.lambda_0}",
-        f"lambda_1              : {a.lambda_1}",
+        *lineas_lambdas(a.lambda_0, a.lambda_1),
         "warm_start            : NO (no se llama addSol/readSol; testigos/ no se lee)",
         f"timing/clocktype      : {m_ref.getParam('timing/clocktype')} (1=CPU, 2=reloj de pared)",
         f"lp/threads            : {m_ref.getParams().get('lp/threads', 'no soportado')}",
@@ -456,7 +495,10 @@ def escribir_solucion(ruta, inst, fila, aud):
                   "dual_bound", "gap", "T", "suma_z", "no_satisfechos", "nodos",
                   "tiempo_primera_solucion_factible", "tiempo_mejor_incumbente_final",
                   "solucion_auditada"):
-            w(f"# {k}={fila[k]}\n")
+            if k in ("lambda_0", "lambda_1"):
+                w(f"# {k} = {valor_txt(k, fila[k])}\n")
+            else:
+                w(f"# {k}={fila[k]}\n")
         if aud is None:
             w("\n# SCIP no encontro ninguna solucion factible dentro del limite.\n"
               "# Esto NO demuestra infactibilidad salvo que estado=infeasible.\n")
@@ -516,6 +558,7 @@ def escribir_solucion(ruta, inst, fila, aud):
 # ----------------------------------------------------------------------
 
 def resolver_replica(ruta, out, a, modo):
+    validar_lambdas_oficiales(a, modo)
     from pyscipopt import SCIP_EVENTTYPE
 
     inicio_total = time.perf_counter()
@@ -696,9 +739,11 @@ def media_sd(valores):
 
 def escribir_resumen_global(filas, a, modo, out, res):
     """Consolida resultados existentes; no construye ni ejecuta el solver."""
+    validar_lambdas_oficiales(a, modo, filas)
     por_instancia = {r["instancia"]: r for r in filas}
     lineas = [f"RESUMEN GLOBAL FAMILIA L={a.L} P={a.P} C={a.C}",
               f"modo: {modo}",
+              *lineas_lambdas(res["lambda_0"], res["lambda_1"]),
               "tiempos: segundos; gap relativo: fraccion (1.2 equivale a 120 %)",
               "Desviacion estandar muestral (n-1). NO DISPONIBLE no equivale a cero.",
               "Las replicas sin resultados se muestran como pendientes.", ""]
@@ -738,6 +783,7 @@ def escribir_resumen_global(filas, a, modo, out, res):
 
 
 def resumir(filas, a, modo, out):
+    validar_lambdas_oficiales(a, modo, filas)
     validas = [r for r in filas if r["estado"] in ESTADOS_TERMINADOS]
     con_inc = [r for r in validas if r["tiene_incumbente"]]
     gap_finito = [r for r in con_inc if r["gap"] is not None and math.isfinite(r["gap"])]
@@ -832,6 +878,13 @@ fuente_tiempos_incumbente de resultados_familia.csv).
         nota += ("\n**ADVERTENCIA:** esta corrida NO cumple el protocolo oficial "
                  "(10 replicas, 3600 s, 1 hilo, gap 0, lambda 1/1). No usar como benchmark.\n")
     (out / "resumen_familia.md").write_text(nota, encoding="utf-8")
+    lineas = ["RESUMEN DE FAMILIA - mismos datos que resumen_familia.csv",
+              "NO DISPONIBLE corresponde a una celda vacia del CSV.", ""]
+    lineas += [f"{k} = {valor_txt(k, v)}" for k, v in res.items()]
+    lineas += ["", "Desviacion estandar muestral (n-1).",
+               "Tiempos: replicas terminadas (optimal, timelimit con/sin incumbente, infeasible).",
+               "Gap: replicas terminadas con incumbente y gap finito; incluye optimas con gap 0."]
+    (out / "resumen_familia.txt").write_text("\n".join(lineas) + "\n", encoding="utf-8")
     escribir_resumen_global(filas, a, modo, out, res)
     return res
 
@@ -877,15 +930,7 @@ def main():
     if not a.preflight and a.replicas != list(range(REPLICAS_ESPERADAS)):
         ap.error("una familia requiere exactamente i_0..i_9; subconjuntos solo con --preflight")
 
-    protocolo = {"tiempo": a.tiempo, "hilos": a.hilos, "gap": a.gap,
-                 "lambda_0": a.lambda_0, "lambda_1": a.lambda_1}
-    completo = a.replicas == list(range(REPLICAS_ESPERADAS))
-    if a.preflight:
-        modo = "preflight"
-    elif completo and protocolo == PROTOCOLO_OFICIAL:
-        modo = "oficial"
-    else:
-        modo = "no_oficial"
+    modo = clasificar_modo(a)
 
     etiqueta = f"prueba_familia_L{a.L}_P{a.P}_C{a.C}_T{a.tiempo:g}s"
     if a.salida:
@@ -965,11 +1010,12 @@ def main():
         except Exception:
             fila = {c: None for c in COLUMNAS}
             fila.update({"instancia": ruta.stem, "modo": modo, "estado": "error",
+                         "lambda_0": a.lambda_0, "lambda_1": a.lambda_1,
                          "error": traceback.format_exc(limit=3).replace("\n", " | ")})
             print(fila["error"])
         registros[ruta.stem] = fila
         filas = [registros[p.stem] for p in seleccion if p.stem in registros]
-        escribir_resultados(csv_res, filas)
+        escribir_resultados(csv_res, filas, a, modo)
         print(f"    estado={fila['estado']}  t={num(fila['tiempo_total_seg'], 2)} s  "
               f"primal={num(fila['objetivo_incumbente'])}  dual={num(fila['dual_bound'])}  "
               f"gap={num(fila['gap_pct'], 2)}%  1a_sol={num(fila['tiempo_primera_solucion_factible'], 2)} s  "
@@ -979,7 +1025,7 @@ def main():
             interrumpido = True
             break
 
-    escribir_resultados(csv_res, filas)
+    escribir_resultados(csv_res, filas, a, modo)
     res = resumir(filas, a, modo, out)
     with open(ruta_entorno, "a", encoding="utf-8") as f:
         f.write(f"\nfecha_fin             : {dt.datetime.now().astimezone().isoformat(timespec='seconds')}\n")
@@ -1002,7 +1048,9 @@ def main():
         sys.exit(1)
 
 
-def escribir_resultados(ruta, filas):
+def escribir_resultados(ruta, filas, a=None, modo=None):
+    if a is not None:
+        validar_lambdas_oficiales(a, modo, filas)
     temporal = ruta.with_suffix(".csv.tmp")
     with open(temporal, "w", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, fieldnames=COLUMNAS)
@@ -1012,6 +1060,16 @@ def escribir_resultados(ruta, filas):
         f.flush()
         os.fsync(f.fileno())
     os.replace(temporal, ruta)
+    lineas = ["RESULTADOS DE FAMILIA - mismos campos que resultados_familia.csv",
+              "NO DISPONIBLE corresponde a una celda vacia del CSV."]
+    if a is not None:
+        lineas += [f"modo = {modo}", *lineas_lambdas(a.lambda_0, a.lambda_1)]
+    for r in filas:
+        lineas += ["", f"[{r.get('instancia', 'replica')}]"]
+        lineas += [f"{c} = {valor_txt(c, r.get(c))}" for c in COLUMNAS]
+    temporal_txt = ruta.with_suffix(".txt.tmp")
+    temporal_txt.write_text("\n".join(lineas) + "\n", encoding="utf-8")
+    os.replace(temporal_txt, ruta.with_suffix(".txt"))
 
 
 def convertir_previa(r):

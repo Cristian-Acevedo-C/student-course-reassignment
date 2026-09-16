@@ -158,6 +158,20 @@ Usa λ₀ = λ₁ = 1, gap objetivo 0, `parallel/maxnthreads=1` y `lp/threads=1`
 El modo oficial exige ambas versiones, los parámetros y las diez réplicas,
 incluso cuando se llama directamente al ejecutor Python.
 
+Los pesos de la familia piloto oficial son fijos para **todas las réplicas**:
+
+```text
+lambda_0 = 1
+lambda_1 = 1
+```
+
+El lanzador pasa esos mismos valores al ejecutor y este los comprueba antes de
+resolver cada réplica y antes de guardar resultados oficiales. No hay variación
+de lambdas ni análisis de sensibilidad en esta corrida. Si se solicitan otros
+pesos por Python, se emite una advertencia y el modo es `no_oficial`; si se intenta
+forzar el modo oficial internamente, se rechaza antes de construir el modelo.
+También se rechaza un resumen oficial que contenga una réplica con pesos distintos.
+
 Para continuar una corrida interrumpida:
 
 ```powershell
@@ -191,6 +205,16 @@ captura del entorno ni escritura del CSV conjunto. Se conserva además
 `tiempo_optimizacion_pared_seg` para medir solo la llamada `optimize()`.
 Con una sola réplica, la desviación estándar queda vacía. Los gaps no finitos
 se cuentan por separado y se excluyen de la media correspondiente.
+
+Para revisión en texto se generan además `resumen_familia.txt` (todos los campos
+de `resumen_familia.csv`) y `resultados_familia.txt` (todos los campos por réplica
+de `resultados_familia.csv`, actualizado junto con el CSV). Ambos provienen de
+los mismos datos en memoria, sin recalcular ni cambiar resultados. Una celda
+vacía del CSV se representa como `NO DISPONIBLE` en el TXT.
+Los dos pesos aparecen explícitos como `lambda_0 = 1` y `lambda_1 = 1` en esos
+TXT, en el consolidado global, en `entorno.txt` y en cada TXT individual de
+solución. Los CSV y el manifiesto conservan también ambos pesos. Los archivos
+históricos no se reescriben automáticamente para aplicar este formato.
 
 Revisar `familia_completa`, `numero_pendientes`, errores y auditorías antes de
 usar el resumen: `modo=oficial` identifica el protocolo, no certifica que la

@@ -55,12 +55,21 @@ Protecciones del ejecutor:
 - marca la corrida como `oficial` solo si son las 10 réplicas con 3600 s, 1 hilo,
   gap 0 y λ = (1, 1); si no, `no_oficial` o `preflight`.
 
+Los pesos oficiales son invariables entre réplicas: `lambda_0 = 1` y
+`lambda_1 = 1`. Se validan antes de construir cada modelo y al exportar una
+familia oficial. Un peso diferente en una sola fila impide guardar el resumen
+como oficial. Pedir otros pesos en la CLI Python produce una advertencia y
+modo `no_oficial`. Esta familia no hace sensibilidad de lambdas ni cambia la
+función objetivo. El manifiesto y los controles de reanudación preservan los pesos.
+
 ## 3. Archivos generados
 
 | Archivo | Contenido |
 |---|---|
 | `resultados_familia.csv` | una fila por réplica (columnas abajo) |
+| `resultados_familia.txt` | todos los campos del mismo registro usado en el CSV, incluidos lambda_0 y lambda_1 por réplica |
 | `resumen_familia.csv` | una fila para la familia |
+| `resumen_familia.txt` | todos los campos del mismo resumen usado en el CSV, incluidos lambda_0 y lambda_1 |
 | `resumen_familia.md` | el resumen con el subconjunto usado en cada estadística |
 | `resumen_global_familia_L9_P3_C4.txt` | nombre según L/P/C; detalle de i_0 a i_9, auditorías, conteos y medias/desviaciones del CSV; réplicas sin resultados marcadas pendientes |
 | `verificacion_familia.txt` | semillas, SHA-256 y diferencias entre los 45 pares de réplicas |
@@ -75,6 +84,13 @@ Protecciones del ejecutor:
 | `soluciones/sol_<instancia>.txt` | asignación, composición por curso, balance, separaciones y auditoría |
 | `soluciones/<instancia>.sol` | solución SCIP original con todas las variables, incluidos ceros; solo si hay incumbente |
 | `auditorias/<instancia>.json` | auditoría independiente completa y resultado de checkSol; ausencia explícita si no hay incumbente |
+
+Los TXT global, de resumen, de resultados, de entorno y de solución individual
+declaran los valores con el formato `lambda_0 = 1` y `lambda_1 = 1` en una corrida
+oficial. Los CSV se mantienen. Los datos numéricos y estadísticos de los nuevos
+TXT proceden de los mismos registros que los CSV; `NO DISPONIBLE` representa
+una celda vacía, nunca un cero inventado. Los archivos de corridas históricas
+se conservan sin cambiar su trazabilidad.
 
 ## 4. Columnas de `resultados_familia.csv`
 
