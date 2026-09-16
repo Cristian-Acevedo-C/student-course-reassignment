@@ -62,6 +62,7 @@ Protecciones del ejecutor:
 | `resultados_familia.csv` | una fila por réplica (columnas abajo) |
 | `resumen_familia.csv` | una fila para la familia |
 | `resumen_familia.md` | el resumen con el subconjunto usado en cada estadística |
+| `resumen_global_familia_L9_P3_C4.txt` | nombre según L/P/C; detalle de i_0 a i_9, auditorías, conteos y medias/desviaciones del CSV; réplicas sin resultados marcadas pendientes |
 | `verificacion_familia.txt` | semillas, SHA-256 y diferencias entre los 45 pares de réplicas |
 | `entorno.txt` | fecha, SO, CPU, RAM, Python, PySCIPOpt, SCIP, parámetros, commit, comando |
 | `manifiesto.json` | identidad verificable de versiones, protocolo, código e instancias para reanudar |

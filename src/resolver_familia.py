@@ -12,6 +12,7 @@ Salida (una carpeta por corrida):
     resultados_familia.csv        una fila por replica
     resumen_familia.csv           una fila para la familia
     resumen_familia.md            mismo resumen, con los subconjuntos usados
+    resumen_global_familia_L*_P*_C*.txt   detalle de i_0..i_9 y resumen global
     verificacion_familia.txt      chequeo de que las 10 replicas son distintas
     entorno.txt                   hardware, software, parametros y comando
     parametros_scip.set           parametros SCIP distintos del default
@@ -693,6 +694,49 @@ def media_sd(valores):
     return st.mean(valores), (st.stdev(valores) if len(valores) >= 2 else None)
 
 
+def escribir_resumen_global(filas, a, modo, out, res):
+    """Consolida resultados existentes; no construye ni ejecuta el solver."""
+    por_instancia = {r["instancia"]: r for r in filas}
+    lineas = [f"RESUMEN GLOBAL FAMILIA L={a.L} P={a.P} C={a.C}",
+              f"modo: {modo}",
+              "tiempos: segundos; gap relativo: fraccion (1.2 equivale a 120 %)",
+              "Desviacion estandar muestral (n-1). NO DISPONIBLE no equivale a cero.",
+              "Las replicas sin resultados se muestran como pendientes.", ""]
+    campos = [("tiempo_scip_seg", "tiempo_scip_seg"),
+              ("tiempo_total_seg", "tiempo_total_seg"),
+              ("primal_bound", "primal_bound"), ("dual_bound", "dual_bound"),
+              ("gap_relativo", "gap"), ("gap_absoluto", "gap_absoluto"),
+              ("nodos", "nodos"), ("T", "T"), ("suma_z", "suma_z"),
+              ("tiempo_primera_solucion_factible_seg", "tiempo_primera_solucion_factible")]
+    mostrar = lambda v: "NO DISPONIBLE" if v is None or v == "" else str(num(v))
+    for i in range(REPLICAS_ESPERADAS):
+        nombre = nombre_instancia(a.L, a.P, a.C, i)
+        r = por_instancia.get(nombre, {})
+        lineas += [f"[i_{i}]", f"replica: i_{i}", f"instancia: {nombre}",
+                   f"estado: {r.get('estado', 'pendiente')}"]
+        lineas += [f"{etiqueta}: {mostrar(r.get(columna))}" for etiqueta, columna in campos]
+        auditoria = r.get("solucion_auditada")
+        resultado = ("APROBADA" if auditoria is True else "FALLIDA" if auditoria is False
+                     else "NO APLICA (sin incumbente)" if r.get("tiene_incumbente") is False
+                     else "NO DISPONIBLE")
+        lineas += [f"auditoria: {resultado}", ""]
+
+    lineas += ["[RESUMEN FINAL]", f"numero_replicas_esperadas: {REPLICAS_ESPERADAS}"]
+    for clave in ("numero_replicas", "numero_optimas", "numero_time_limit_con_incumbente",
+                  "numero_time_limit_sin_incumbente", "numero_infeasible_demostradas",
+                  "numero_errores", "numero_otros_estados", "familia_completa",
+                  "tiempo_scip_promedio_seg", "tiempo_scip_desviacion_estandar_seg",
+                  "tiempo_total_promedio_seg", "tiempo_total_desviacion_estandar_seg",
+                  "gap_promedio", "gap_desviacion_estandar", "n_tiempo", "n_gap",
+                  "n_gap_infinito"):
+        lineas.append(f"{clave}: {mostrar(res[clave])}")
+    lineas += ["", "Tiempos: replicas terminadas (optimal, timelimit con/sin incumbente, infeasible).",
+               "Gap: replicas terminadas con incumbente y gap finito; incluye optimas con gap 0.",
+               "Los conteos y estadisticos son los mismos de resumen_familia.csv."]
+    ruta = out / f"resumen_global_familia_L{a.L}_P{a.P}_C{a.C}.txt"
+    ruta.write_text("\n".join(lineas) + "\n", encoding="utf-8")
+
+
 def resumir(filas, a, modo, out):
     validas = [r for r in filas if r["estado"] in ESTADOS_TERMINADOS]
     con_inc = [r for r in validas if r["tiene_incumbente"]]
@@ -788,6 +832,7 @@ fuente_tiempos_incumbente de resultados_familia.csv).
         nota += ("\n**ADVERTENCIA:** esta corrida NO cumple el protocolo oficial "
                  "(10 replicas, 3600 s, 1 hilo, gap 0, lambda 1/1). No usar como benchmark.\n")
     (out / "resumen_familia.md").write_text(nota, encoding="utf-8")
+    escribir_resumen_global(filas, a, modo, out, res)
     return res
 
 

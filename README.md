@@ -180,7 +180,11 @@ no inventa solución ni tiempos de primera factibilidad.
 
 `resultados_familia.csv` se actualiza atómicamente después de cada réplica.
 Al terminar se generan `resumen_familia.csv` y `.md`, con media y desviación
-estándar **muestral** de `tiempo_scip_seg`, `tiempo_total_seg` y gaps. El tiempo
+estándar, y `resumen_global_familia_L9_P3_C4.txt` (nombre según L, P y C), con
+el detalle de las diez réplicas y los conteos y estadísticos finales. Si la
+ejecución es parcial, muestra las réplicas sin resultados como pendientes.
+El TXT conserva las mismas medias y desviaciones del CSV. La desviación estándar
+es **muestral** para `tiempo_scip_seg`, `tiempo_total_seg` y gaps. El tiempo
 total abarca lectura, construcción, optimización y exportación por réplica;
 el tiempo SCIP incluye presolve. No incluye en ese total la validación global,
 captura del entorno ni escritura del CSV conjunto. Se conserva además
