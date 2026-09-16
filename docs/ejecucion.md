@@ -37,7 +37,14 @@ python src\generar_instancias.py --todas
 Ese comando reemplaza los archivos de la grilla; no debe ejecutarse si solo se
 quiere revisar o resolver las instancias existentes.
 
-## 3. Ejecución secuencial
+## 3. Paso previo obligatorio: una familia
+
+Antes de la campaña, ejecutar y revisar una familia de 10 réplicas con
+`correr_familia.ps1` (ver [prueba_familia.md](prueba_familia.md)). Ese ejecutor
+guarda log y estadísticas de SCIP, tiempo a la primera solución y auditoría de
+cada solución, que `resolver_lote.py` todavía no registra.
+
+## 4. Ejecución secuencial de la campaña
 
 La campaña completa:
 
@@ -45,7 +52,7 @@ La campaña completa:
 python src\resolver_lote.py --instancias instancias --tiempo 3600 --hilos 1
 ```
 
-Por familia de número de cursos:
+Por bloque de número de cursos (cada bloque = 12 familias × 10 réplicas):
 
 ```powershell
 python src\resolver_lote.py --patron "c_n_*_s_4_*.txt" --tiempo 3600 --hilos 1  # 120
@@ -67,7 +74,7 @@ El ejecutor es reanudable. Conserva una fila previa solo cuando corresponde al
 mismo protocolo y ya terminó a óptimo o alcanzó un límite igual o mayor al
 solicitado.
 
-## 4. Salidas
+## 5. Salidas
 
 | Ruta | Contenido |
 |---|---|
@@ -86,7 +93,7 @@ En resultados con límite de tiempo deben distinguirse al menos:
 Un caso sin incumbente al alcanzar el límite no constituye una demostración de
 infactibilidad.
 
-## 5. Construcción de tablas
+## 6. Construcción de tablas
 
 ```powershell
 python src\analizar_resultados.py --resultados resultados\resultados.csv --salida analisis
@@ -96,7 +103,7 @@ Las tablas resumen optimalidad, tiempos de los casos certificados, brechas de
 los casos truncados y efectos por factor. No deben combinarse con la
 calibración histórica de 15 segundos.
 
-## 6. Paralelización exploratoria
+## 7. Paralelización exploratoria
 
 Para obtener soluciones preliminares pueden separarse los cuatro tamaños:
 
@@ -111,7 +118,7 @@ Si se ejecutan simultáneamente, la competencia por CPU y memoria puede sesgar
 los tiempos. Esas mediciones no deben presentarse como benchmark final salvo que
 los recursos estén aislados y la configuración quede documentada.
 
-## 7. Alcance de la evidencia actual
+## 8. Alcance de la evidencia actual
 
 La carpeta `calibracion_15s_grilla_360/` contiene 36 corridas exploratorias de
 una grilla anterior. No representa las 48 configuraciones vigentes y no permite

@@ -3,13 +3,13 @@
 Generador de instancias para el analisis de sensibilidad del modelo exacto
 de reasignacion de estudiantes.
 
-Grilla final (480 instancias):
-    n (alumnos por curso) : 9, 18, 27, 36
-    l (preferencias)      : 3, 5, 7
-    s (cursos)            : 4, 5, 6, 7
-    i (replica)           : 0..9
+Grilla final (480 instancias = 48 familias x 10 replicas):
+    n = L (alumnos por curso)        : 9, 18, 27, 36
+    l = P (preferencias por alumno)  : 3, 5, 7
+    s = C (cursos origen y destino)  : 4, 5, 6, 7
+    i (replica)                      : 0..9
 
-Nombre de archivo: c_n_[N]_l_[L]_s_[S]_i_[I].txt
+Nombre de archivo: c_n_[L]_l_[P]_s_[C]_i_[replica].txt  (N total = L*C)
 
 Cada instancia se construye alrededor de una ASIGNACION TESTIGO que satisface
 todas las restricciones duras, de modo que la instancia es factible por

@@ -10,6 +10,11 @@
 #     .\correr.ps1 -Modo s7         # 120 instancias de 7 cursos
 #     .\correr.ps1 -Modo todo       # las 480 de corrido
 #     .\correr.ps1 -Modo analizar   # solo construye las tablas
+#
+#  NOTA: los modos s4..s7 son BLOQUES por C (120 instancias = 12 familias),
+#  no familias. Antes de la campana completa debe validarse una familia de
+#  10 replicas con .\correr_familia.ps1 (ver docs/prueba_familia.md).
+#  Este ejecutor no guarda logs ni estadisticas de SCIP.
 # =====================================================================
 
 param(

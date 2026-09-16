@@ -49,9 +49,20 @@ El modo `prueba` resuelve **una** instancia pequeña con un límite de 30 segund
 y comprueba que el flujo completo funciona. Sus salidas son técnicas y no deben
 mezclarse con el benchmark del artículo.
 
-## 5. Campaña definitiva
+## 5. Familia piloto (antes de la campaña)
 
-Cada familia contiene 120 instancias:
+```powershell
+.\correr_familia.ps1 -L 9 -P 3 -C 4 -Preflight
+.\correr_familia.ps1 -L 9 -P 3 -C 4 -Tiempo 3600
+```
+
+Detalles en [prueba_familia.md](prueba_familia.md). La campaña de la sección
+siguiente se lanza solo después de validar esta familia con los profesores.
+
+## 6. Campaña definitiva
+
+Cada bloque por número de cursos `C` contiene 120 instancias (12 familias
+`(L, P)` × 10 réplicas):
 
 ```powershell
 .\correr.ps1 -Modo s4
@@ -72,7 +83,7 @@ interrumpirse con `Ctrl+C` y reanudarse después.
 La opción `-Limpiar` elimina las salidas previas de `resultados`, `soluciones` y
 `analisis`; úsala solo cuando realmente se quiera comenzar desde cero.
 
-## 6. Regenerar tablas sin resolver
+## 7. Regenerar tablas sin resolver
 
 ```powershell
 .\correr.ps1 -Modo analizar
@@ -81,7 +92,7 @@ La opción `-Limpiar` elimina las salidas previas de `resultados`, `soluciones` 
 Las tablas se escriben en `analisis/`. Las soluciones individuales quedan en
 `soluciones/` y el registro consolidado en `resultados/resultados.csv`.
 
-## 7. Paralelización exploratoria
+## 8. Paralelización exploratoria
 
 Los cuatro tamaños vigentes son 9, 18, 27 y 36 estudiantes por curso:
 

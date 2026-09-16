@@ -11,6 +11,7 @@ __pycache__/
 /soluciones/
 /analisis/
 /res_n*/
+/corridas/
 
 # Respaldos y scripts locales de la migración a 480 instancias
 /backup_pre_480/

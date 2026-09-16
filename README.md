@@ -13,6 +13,7 @@ Todos los datos versionados son **sintéticos**.
 | Validación estructural de la grilla | Disponible, sin resolver el MILP |
 | Ejemplo ilustrativo I00C (27 estudiantes) | Completo y reproducible |
 | Sensibilidad de los pesos en I00C | 7 escenarios resueltos a optimalidad |
+| Ejecutor de una familia (10 réplicas) con logs, estadísticas SCIP y auditoría | Implementado; preflight técnico superado; corrida oficial pendiente |
 | Benchmark de 480 instancias a 3600 s | Pendiente; no se publican resultados todavía |
 
 La ausencia de resultados del benchmark es deliberada: las instancias quedan
@@ -103,6 +104,16 @@ claramente aislados en
 `experimentos/sensibilidad_computacional/calibracion_15s_grilla_360/` y no son
 evidencia del protocolo actual.
 
+## Primer paso: una familia de 10 réplicas
+
+Antes de la campaña completa se valida una familia (acuerdo de la reunión del
+8-sep-2026). Ver [docs/prueba_familia.md](docs/prueba_familia.md).
+
+```powershell
+.\correr_familia.ps1 -L 9 -P 3 -C 4 -Preflight     # prueba técnica, 60 s
+.\correr_familia.ps1 -L 9 -P 3 -C 4 -Tiempo 3600   # corrida oficial de la familia
+```
+
 ## Ejecución futura del benchmark
 
 Instala las dependencias:
@@ -122,8 +133,9 @@ La ejecución completa se inicia con:
 .\correr.ps1 -Modo todo
 ```
 
-Este comando se documenta para uso futuro; no es necesario ejecutarlo para
-revisar el repositorio o incorporar el ejemplo al manuscrito.
+Este comando se documenta para uso futuro; **no debe lanzarse antes de que los
+profesores validen la familia piloto**. `resolver_lote.py` todavía no guarda logs
+ni estadísticas de SCIP.
 
 ## Estructura
 
@@ -136,12 +148,13 @@ student-course-reassignment/
 ├── instancias/                   # 480 entradas del benchmark
 ├── src/                          # generador, modelo, ejecución y validación
 ├── testigos/                     # 480 testigos de factibilidad
-├── correr.ps1
+├── correr.ps1                    # campaña por bloques de C (futuro)
+├── correr_familia.ps1            # una familia (L,P,C) = 10 réplicas
 ├── requirements.txt
 └── README.md
 ```
 
-Las carpetas raíz `resultados/`, `soluciones/` y `analisis/` se crean solo al
+Las carpetas raíz `corridas/`, `resultados/`, `soluciones/` y `analisis/` se crean solo al
 ejecutar el benchmark y se excluyen del control de versiones. Los resultados
 pequeños y auditados de I00C sí se conservan dentro de su experimento.
 

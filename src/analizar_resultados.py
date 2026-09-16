@@ -8,8 +8,12 @@ computacional en el estilo de Perez-Galarce et al. (2014), C&OR 47, 114-122:
   Tabla 3  estadisticas de gap sobre las que llegaron al limite de tiempo
   Perfil   % acumulado de instancias resueltas en funcion del tiempo
 
-Cada fila de las tablas es una celda del diseno factorial (n, l, s), que
-agrega las 10 replicas i = 0..9.
+Cada fila de las tablas es una familia del diseno factorial (n, l, s), que
+agrega las 10 replicas i = 0..9. En el CSV, n = L (estudiantes por curso),
+l = P (preferencias por estudiante) y s = C (cursos). La grilla vigente tiene
+4 x 3 x 4 = 48 familias y 480 instancias; la antigua grilla de 36 celdas / 360
+instancias es historica (experimentos/sensibilidad_computacional/
+calibracion_15s_grilla_360/) y no debe mezclarse con estos resultados.
 
 Uso:
     python analizar_resultados.py --resultados resultados/resultados.csv \
@@ -19,6 +23,9 @@ from pathlib import Path
 import argparse
 import csv
 import statistics as st
+
+# Grilla vigente (L, P, C) = (n, l, s): 4 x 3 x 4 = 48 familias.
+FAMILIAS_VIGENTES = 4 * 3 * 4
 
 
 def cargar(ruta):
@@ -213,7 +220,7 @@ def main():
     d = celdas(filas)
 
     print(f"Instancias en el registro: {len(filas)}")
-    print(f"Celdas (n,l,s) cubiertas : {len(d)} de 36\n")
+    print(f"Familias (n,l,s) = (L,P,C) cubiertas: {len(d)} de {FAMILIAS_VIGENTES}\n")
     for texto in (tabla_1(d, salida), tabla_2(d, salida), tabla_3(d, salida),
                   efecto_marginal(filas, salida), perfil(filas, salida, a.limite)):
         print(texto)
