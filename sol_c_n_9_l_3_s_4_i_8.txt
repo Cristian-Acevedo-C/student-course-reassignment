@@ -1,0 +1,92 @@
+# Solucion de c_n_9_l_3_s_4_i_8  (modo=oficial)
+# estado=optimal
+# estado_scip=optimal
+# tiempo_scip_seg=63.0
+# tiempo_optimizacion_pared_seg=62.969105
+# limite_seg=3600.0
+# hilos=1
+# gap_objetivo=0.0
+# lambda_0 = 1
+# lambda_1 = 1
+# objetivo_incumbente=5.0
+# dual_bound=5.0
+# gap=0.0
+# T=5.0
+# suma_z=36
+# no_satisfechos=0
+# nodos=6188
+# tiempo_primera_solucion_factible=0.0
+# tiempo_mejor_incumbente_final=62.0
+# solucion_auditada=TRUE
+
+[ASIGNACION]
+estudiante;curso_origen;genero;academico;socioemocional;convivencia;curso_nuevo;preferencias;preferidos_en_mismo_curso;satisfecho
+1;O1;F;2;3;1;3;31,12,29;31;1
+2;O1;F;2;2;3;1;22,7,5;7;1
+3;O1;M;1;3;2;2;18,7,29;29;1
+4;O1;M;2;2;2;2;11,24,16;11;1
+5;O1;F;2;2;1;4;31,24,13;24;1
+6;O1;F;1;1;2;1;11,4,20;20;1
+7;O1;M;2;2;1;1;18,8,6;18,6;1
+8;O1;M;2;2;2;3;11,26,15;26;1
+9;O1;M;1;3;2;1;29,20,18;20,18;1
+10;O2;M;1;3;2;3;20,14,22;22;1
+11;O2;F;3;1;2;2;28,27,2;28;1
+12;O2;M;3;3;3;1;6,23,13;6;1
+13;O2;M;3;3;1;2;17,36,22;36;1
+14;O2;M;3;3;1;4;35,36,33;35,33;1
+15;O2;F;2;1;2;2;30,32,3;3;1
+16;O2;M;1;3;2;4;6,22,30;30;1
+17;O2;F;2;3;1;3;5,19,21;21;1
+18;O2;F;3;3;1;1;28,14,12;12;1
+19;O3;M;3;1;3;2;3,8,26;3;1
+20;O3;M;3;2;1;1;22,18,35;18;1
+21;O3;M;3;2;1;3;31,15,5;31;1
+22;O3;F;1;1;3;3;18,1,14;1;1
+23;O3;M;2;1;3;3;31,9,28;31;1
+24;O3;F;2;2;3;4;4,23,35;35;1
+25;O3;F;3;1;3;4;27,24,13;24;1
+26;O3;M;3;1;2;3;17,13,6;17;1
+27;O3;F;1;1;1;1;9,15,14;9;1
+28;O4;F;3;3;3;2;9,36,33;36;1
+29;O4;M;2;3;1;2;5,32,13;13;1
+30;O4;M;3;1;1;4;10,16,14;16,14;1
+31;O4;F;3;3;1;3;17,9,12;17;1
+32;O4;M;2;1;1;1;7,23,19;7;1
+33;O4;F;1;1;2;4;14,27,20;14;1
+34;O4;M;2;3;1;4;1,7,30;30;1
+35;O4;M;3;1;2;4;15,32,14;14;1
+36;O4;F;1;2;1;2;1,9,15;15;1
+
+[COMPOSICION_POR_CURSO]
+curso;total;capacidad;genero_F;genero_M;origen_O1;origen_O2;origen_O3;origen_O4;academico_1;academico_2;academico_3;socioemocional_1;socioemocional_2;socioemocional_3;convivencia_1;convivencia_2;convivencia_3;satisfechos
+1;9;9;4;5;4;2;2;1;3;3;3;3;3;3;5;2;2;9
+2;9;9;4;5;2;3;1;3;2;3;4;3;2;4;3;4;2;9
+3;9;9;4;5;2;2;4;1;2;4;3;3;2;4;4;3;2;9
+4;9;9;4;5;1;2;2;4;2;3;4;4;2;3;4;3;2;9
+
+[BALANCE_PERFILES]
+criterio;F_recalculado
+academico;5.000000
+socioemocional;5.000000
+convivencia;4.000000
+T_recalculado;5.000000
+
+[SEPARACIONES]
+estudiante_i;estudiante_j;curso_i;curso_j;respetada
+1;15;3;2;1
+1;20;3;1;1
+1;29;3;2;1
+2;29;1;2;1
+3;35;2;4;1
+5;32;4;1;1
+13;25;2;4;1
+14;15;4;2;1
+32;34;1;4;1
+
+[AUDITORIA]
+solucion_auditada=TRUE
+satisfechos_recalculado=36
+objetivo_recalculado=5.000000
+violaciones=0
+inconsistencias_objetivo=0

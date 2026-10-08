@@ -1,0 +1,191 @@
+RESUMEN GLOBAL FAMILIA L=9 P=3 C=4
+modo: oficial
+lambda_0 = 1
+lambda_1 = 1
+tiempos: segundos; gap relativo: fraccion (1.2 equivale a 120 %)
+Desviacion estandar muestral (n-1). NO DISPONIBLE no equivale a cero.
+Las replicas sin resultados se muestran como pendientes.
+
+[i_0]
+replica: i_0
+instancia: c_n_9_l_3_s_4_i_0
+estado: timelimit_with_incumbent
+tiempo_scip_seg: 3600.0
+tiempo_total_seg: 3599.437374
+primal_bound: 6.0
+dual_bound: 5.0
+gap_relativo: 0.2
+gap_absoluto: 1.0
+nodos: 269454
+T: 6.0
+suma_z: 36
+tiempo_primera_solucion_factible_seg: 1.0
+auditoria: APROBADA
+
+[i_1]
+replica: i_1
+instancia: c_n_9_l_3_s_4_i_1
+estado: timelimit_with_incumbent
+tiempo_scip_seg: 3613.0
+tiempo_total_seg: 3614.487265
+primal_bound: 4.0
+dual_bound: 3.0
+gap_relativo: 0.333333
+gap_absoluto: 1.0
+nodos: 74807
+T: 3.0
+suma_z: 35
+tiempo_primera_solucion_factible_seg: 0.0
+auditoria: APROBADA
+
+[i_2]
+replica: i_2
+instancia: c_n_9_l_3_s_4_i_2
+estado: optimal
+tiempo_scip_seg: 954.0
+tiempo_total_seg: 953.289804
+primal_bound: 5.0
+dual_bound: 5.0
+gap_relativo: 0.0
+gap_absoluto: 0.0
+nodos: 14405
+T: 5.0
+suma_z: 36
+tiempo_primera_solucion_factible_seg: 1.0
+auditoria: APROBADA
+
+[i_3]
+replica: i_3
+instancia: c_n_9_l_3_s_4_i_3
+estado: optimal
+tiempo_scip_seg: 144.0
+tiempo_total_seg: 144.309929
+primal_bound: 5.0
+dual_bound: 5.0
+gap_relativo: 0.0
+gap_absoluto: 0.0
+nodos: 10603
+T: 5.0
+suma_z: 36
+tiempo_primera_solucion_factible_seg: 0.0
+auditoria: APROBADA
+
+[i_4]
+replica: i_4
+instancia: c_n_9_l_3_s_4_i_4
+estado: optimal
+tiempo_scip_seg: 2121.0
+tiempo_total_seg: 2121.637064
+primal_bound: 5.0
+dual_bound: 5.0
+gap_relativo: 0.0
+gap_absoluto: 0.0
+nodos: 143124
+T: 4.0
+suma_z: 35
+tiempo_primera_solucion_factible_seg: 0.0
+auditoria: APROBADA
+
+[i_5]
+replica: i_5
+instancia: c_n_9_l_3_s_4_i_5
+estado: optimal
+tiempo_scip_seg: 65.0
+tiempo_total_seg: 66.022365
+primal_bound: 5.0
+dual_bound: 5.0
+gap_relativo: 0.0
+gap_absoluto: 0.0
+nodos: 5031
+T: 5.0
+suma_z: 36
+tiempo_primera_solucion_factible_seg: 0.0
+auditoria: APROBADA
+
+[i_6]
+replica: i_6
+instancia: c_n_9_l_3_s_4_i_6
+estado: optimal
+tiempo_scip_seg: 623.0
+tiempo_total_seg: 623.592172
+primal_bound: 5.0
+dual_bound: 5.0
+gap_relativo: 0.0
+gap_absoluto: 0.0
+nodos: 73699
+T: 5.0
+suma_z: 36
+tiempo_primera_solucion_factible_seg: 0.0
+auditoria: APROBADA
+
+[i_7]
+replica: i_7
+instancia: c_n_9_l_3_s_4_i_7
+estado: optimal
+tiempo_scip_seg: 2679.0
+tiempo_total_seg: 2679.266671
+primal_bound: 5.0
+dual_bound: 5.0
+gap_relativo: 0.0
+gap_absoluto: 0.0
+nodos: 312692
+T: 4.0
+suma_z: 35
+tiempo_primera_solucion_factible_seg: 0.0
+auditoria: APROBADA
+
+[i_8]
+replica: i_8
+instancia: c_n_9_l_3_s_4_i_8
+estado: optimal
+tiempo_scip_seg: 63.0
+tiempo_total_seg: 63.160311
+primal_bound: 5.0
+dual_bound: 5.0
+gap_relativo: 0.0
+gap_absoluto: 0.0
+nodos: 6188
+T: 5.0
+suma_z: 36
+tiempo_primera_solucion_factible_seg: 0.0
+auditoria: APROBADA
+
+[i_9]
+replica: i_9
+instancia: c_n_9_l_3_s_4_i_9
+estado: optimal
+tiempo_scip_seg: 530.0
+tiempo_total_seg: 530.431894
+primal_bound: 4.0
+dual_bound: 4.0
+gap_relativo: 0.0
+gap_absoluto: 0.0
+nodos: 72938
+T: 4.0
+suma_z: 36
+tiempo_primera_solucion_factible_seg: 0.0
+auditoria: APROBADA
+
+[RESUMEN FINAL]
+numero_replicas_esperadas: 10
+numero_replicas: 10
+numero_optimas: 8
+numero_time_limit_con_incumbente: 2
+numero_time_limit_sin_incumbente: 0
+numero_infeasible_demostradas: 0
+numero_errores: 0
+numero_otros_estados: 0
+familia_completa: TRUE
+tiempo_scip_promedio_seg: 1439.2
+tiempo_scip_desviacion_estandar_seg: 1436.99376
+tiempo_total_promedio_seg: 1439.563485
+tiempo_total_desviacion_estandar_seg: 1437.01122
+gap_promedio: 0.053333
+gap_desviacion_estandar: 0.116746
+n_tiempo: 10
+n_gap: 10
+n_gap_infinito: 0
+
+Tiempos: replicas terminadas (optimal, timelimit con/sin incumbente, infeasible).
+Gap: replicas terminadas con incumbente y gap finito; incluye optimas con gap 0.
+Los conteos y estadisticos son los mismos de resumen_familia.csv.
