@@ -7,6 +7,7 @@ confundan.
 |---|---|---|---|
 | [Sensibilidad computacional](sensibilidad_computacional/README.md) | 480 instancias de la grilla `L×P×C×réplica` | Instancias, testigos y calibración histórica aislada | Benchmark definitivo pendiente |
 | [Sensibilidad de los pesos](sensibilidad_lambda/README.md) | Ejemplo I00C de 27 estudiantes | Datos, scripts, resultados, figura y LaTeX | Completo para los 7 pesos evaluados |
+| [Constructivo y warm start](../README_CONSTRUCTIVO.md) | 30 instancias piloto L=9, P=3, C∈{4,5,6} | Código, soluciones, validación independiente y resultados pareados | Constructivo completo; comparación oficial 1/30 |
 
 La sensibilidad de pesos no reemplaza el benchmark computacional. Del mismo
 modo, la calibración histórica de 15 segundos no constituye evidencia sobre el
