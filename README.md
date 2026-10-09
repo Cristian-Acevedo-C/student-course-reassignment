@@ -13,6 +13,8 @@ Todos los datos versionados son **sintéticos**.
 | Validación estructural de la grilla | Disponible, sin resolver el MILP |
 | Ejemplo ilustrativo I00C (27 estudiantes) | Completo y reproducible |
 | Sensibilidad de los pesos en I00C | 7 escenarios resueltos a optimalidad |
+| Constructivo y warm start, piloto L=9, P=3, C=4–6 | 30/30 soluciones factibles; 30/30 warm starts aceptados |
+| Comparación oficial pareada del piloto | 1/30 pares completados; 29 pendientes |
 | Benchmark de 480 instancias a 3600 s | Pendiente; no se publican resultados todavía |
 
 La ausencia de resultados del benchmark es deliberada: las instancias quedan
@@ -97,6 +99,10 @@ c_n_36_l_7_s_4_i_0.txt
 2. [Sensibilidad de los pesos](experimentos/sensibilidad_lambda/README.md):
    utiliza solo `I00C_DRAFT_ILUSTRATIVO_27` y contiene datos, scripts,
    resultados, figura y texto LaTeX.
+3. [Heurística constructiva y warm start](README_CONSTRUCTIVO.md): construye
+   soluciones factibles sin consultar testigos, aplica búsqueda local e inyecta
+   la solución completa en SCIP. Incluye resultados auditados de 30 instancias
+   piloto y un protocolo reanudable para la comparación pareada a 3600 s.
 
 Los resultados históricos de la antigua grilla de 360 instancias están
 claramente aislados en
@@ -133,8 +139,14 @@ student-course-reassignment/
 ├── experimentos/
 │   ├── sensibilidad_computacional/
 │   └── sensibilidad_lambda/      # paquete reproducible de I00C
+├── experimento_constructivo/     # constructivo, warm start y benchmark pareado
 ├── instancias/                   # 480 entradas del benchmark
+├── resultados_constructivo/      # piloto L=9, P=3, C=4–6
+├── resultados_warm_start/        # diagnósticos y pares oficiales completados
+├── resultados_resumen/           # CSV y tabla XLSX consolidada
 ├── src/                          # generador, modelo, ejecución y validación
+├── tests/                        # pruebas del constructivo y warm start
+├── tools/                        # validadores independientes del piloto
 ├── testigos/                     # 480 testigos de factibilidad
 ├── correr.ps1
 ├── requirements.txt
