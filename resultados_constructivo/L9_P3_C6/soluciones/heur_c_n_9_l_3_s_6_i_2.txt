@@ -1,0 +1,68 @@
+# Solucion heuristica constructiva - c_n_9_l_3_s_6_i_2
+# Los testigos no fueron leidos ni utilizados.
+# factible=True
+# objetivo=12.666666666666666
+# no_satisfechos=4
+# suma_z=50
+# T=8.666666666666666
+# F={"academico": 6.0, "convivencia": 8.666666666666666, "socioemocional": 8.666666666666666}
+# tiempo_construccion_s=1.545921800
+# tiempo_mejora_s=11.760816597
+# violaciones={"asignacion_unica": 0, "capacidad": 0, "separaciones": 0, "genero": 0, "origen": 0}
+
+[ASIGNACION]
+estudiante;curso_asignado
+1;2
+2;1
+3;4
+4;4
+5;2
+6;5
+7;3
+8;6
+9;5
+10;2
+11;3
+12;5
+13;3
+14;4
+15;5
+16;1
+17;2
+18;1
+19;1
+20;5
+21;3
+22;3
+23;6
+24;2
+25;1
+26;3
+27;3
+28;4
+29;1
+30;6
+31;5
+32;1
+33;4
+34;4
+35;4
+36;5
+37;3
+38;4
+39;6
+40;4
+41;6
+42;2
+43;1
+44;6
+45;2
+46;6
+47;1
+48;2
+49;5
+50;6
+51;6
+52;3
+53;5
+54;2
