@@ -1,0 +1,373 @@
+{
+  "instancia": "c_n_9_l_3_s_4_i_8",
+  "heuristica_stats": {
+    "seed": 20261009,
+    "attempts": 20,
+    "search_nodes": 720,
+    "backtracks": 0,
+    "blocked_states": 0,
+    "repair_restarts": 0,
+    "repair_swaps": 0,
+    "local_search_swaps": 32,
+    "local_search_relocations": 0,
+    "construction_seconds": 0.8086667150000721,
+    "improvement_seconds": 7.5076471630000015,
+    "first_feasible_seconds": 0.04620117900003606
+  },
+  "default": {
+    "instancia": "c_n_9_l_3_s_4_i_8",
+    "condicion": "default",
+    "seed_scip": 8,
+    "limite_scip_s": 3600.0,
+    "estado": "optimal",
+    "tiempo_scip_s": 137.830157,
+    "tiempo_wall_s": 137.83047370799977,
+    "tiempo_primer_incumbente_s": 0.089311,
+    "calidad_primer_incumbente": 34.0,
+    "tiempo_mejor_incumbente_s": 137.823304,
+    "mejor_objetivo": 5.0,
+    "cota_dual": 5.0,
+    "gap_final": 0.0,
+    "nodos": 14666,
+    "iteraciones_lp": 1599922,
+    "soluciones": 29,
+    "primal_dual_integral_scip": 5014.410009990969,
+    "warm_checked": false,
+    "warm_accepted": false,
+    "warm_reason": "no_aplica",
+    "warm_objetivo": null,
+    "warm_T": null,
+    "warm_no_satisfechos": null,
+    "final_validador_independiente": true,
+    "final_T": 5.0,
+    "final_suma_z": 36,
+    "trayectoria": [
+      {
+        "t": 0.071888,
+        "kind": "DB",
+        "pb": 1e+20,
+        "db": 0.0,
+        "nodes": 1
+      },
+      {
+        "t": 0.089311,
+        "kind": "PB",
+        "pb": 34.0,
+        "db": 0.0,
+        "nodes": 1
+      },
+      {
+        "t": 0.17793899999999999,
+        "kind": "DB",
+        "pb": 34.0,
+        "db": 0.75,
+        "nodes": 1
+      },
+      {
+        "t": 0.320127,
+        "kind": "DB",
+        "pb": 34.0,
+        "db": 1.125000000000007,
+        "nodes": 1
+      },
+      {
+        "t": 0.404727,
+        "kind": "DB",
+        "pb": 34.0,
+        "db": 1.5,
+        "nodes": 1
+      },
+      {
+        "t": 0.4755,
+        "kind": "DB",
+        "pb": 34.0,
+        "db": 2.25,
+        "nodes": 1
+      },
+      {
+        "t": 0.556881,
+        "kind": "DB",
+        "pb": 34.0,
+        "db": 2.375,
+        "nodes": 1
+      },
+      {
+        "t": 0.6524719999999999,
+        "kind": "DB",
+        "pb": 34.0,
+        "db": 3.624999999999993,
+        "nodes": 1
+      },
+      {
+        "t": 0.736462,
+        "kind": "DB",
+        "pb": 34.0,
+        "db": 5.0,
+        "nodes": 1
+      },
+      {
+        "t": 0.932651,
+        "kind": "DB",
+        "pb": 34.0,
+        "db": 5.0000000000000036,
+        "nodes": 1
+      },
+      {
+        "t": 1.162366,
+        "kind": "DB",
+        "pb": 34.0,
+        "db": 5.000000000000007,
+        "nodes": 1
+      },
+      {
+        "t": 1.6723469999999998,
+        "kind": "PB",
+        "pb": 32.0,
+        "db": 5.000000000000007,
+        "nodes": 1
+      },
+      {
+        "t": 3.421386,
+        "kind": "PB",
+        "pb": 22.5,
+        "db": 5.000000000000007,
+        "nodes": 6
+      },
+      {
+        "t": 9.742561,
+        "kind": "PB",
+        "pb": 22.0,
+        "db": 5.000000000000007,
+        "nodes": 70
+      },
+      {
+        "t": 10.01932,
+        "kind": "PB",
+        "pb": 21.5,
+        "db": 5.000000000000007,
+        "nodes": 142
+      },
+      {
+        "t": 10.120456,
+        "kind": "PB",
+        "pb": 16.5,
+        "db": 5.000000000000007,
+        "nodes": 166
+      },
+      {
+        "t": 11.583406,
+        "kind": "PB",
+        "pb": 15.5,
+        "db": 5.000000000000007,
+        "nodes": 373
+      },
+      {
+        "t": 12.115595,
+        "kind": "PB",
+        "pb": 15.0,
+        "db": 5.000000000000007,
+        "nodes": 405
+      },
+      {
+        "t": 17.450993,
+        "kind": "PB",
+        "pb": 12.5,
+        "db": 5.000000000000007,
+        "nodes": 943
+      },
+      {
+        "t": 18.966048,
+        "kind": "PB",
+        "pb": 11.500000000000004,
+        "db": 5.000000000000007,
+        "nodes": 1151
+      },
+      {
+        "t": 20.608967,
+        "kind": "PB",
+        "pb": 11.0,
+        "db": 5.000000000000007,
+        "nodes": 1374
+      },
+      {
+        "t": 22.992736,
+        "kind": "PB",
+        "pb": 10.0,
+        "db": 5.000000000000007,
+        "nodes": 1817
+      },
+      {
+        "t": 23.887148,
+        "kind": "PB",
+        "pb": 9.0,
+        "db": 5.000000000000007,
+        "nodes": 1938
+      },
+      {
+        "t": 24.533887,
+        "kind": "PB",
+        "pb": 8.5,
+        "db": 5.000000000000007,
+        "nodes": 1971
+      },
+      {
+        "t": 55.064868,
+        "kind": "PB",
+        "pb": 8.0,
+        "db": 5.000000000000007,
+        "nodes": 5900
+      },
+      {
+        "t": 80.481708,
+        "kind": "PB",
+        "pb": 7.5,
+        "db": 5.000000000000007,
+        "nodes": 9472
+      },
+      {
+        "t": 80.711939,
+        "kind": "PB",
+        "pb": 7.0,
+        "db": 5.000000000000007,
+        "nodes": 9497
+      },
+      {
+        "t": 92.863711,
+        "kind": "PB",
+        "pb": 6.0,
+        "db": 5.000000000000007,
+        "nodes": 10840
+      },
+      {
+        "t": 137.823304,
+        "kind": "PB",
+        "pb": 5.0,
+        "db": 5.000000000000007,
+        "nodes": 14666
+      }
+    ],
+    "tiempo_heuristica_s": 0.0,
+    "presupuesto_total_s": 3600.0,
+    "tiempo_pipeline_s": 137.830157,
+    "primal_integral_normalizada": 50.07768488221431
+  },
+  "warm_start": {
+    "instancia": "c_n_9_l_3_s_4_i_8",
+    "condicion": "warm_start",
+    "seed_scip": 8,
+    "limite_scip_s": 3591.683645462,
+    "estado": "optimal",
+    "tiempo_scip_s": 167.871012,
+    "tiempo_wall_s": 167.87141788300005,
+    "tiempo_primer_incumbente_s": 0.0,
+    "calidad_primer_incumbente": 7.0,
+    "tiempo_mejor_incumbente_s": 167.864364,
+    "mejor_objetivo": 5.0,
+    "cota_dual": 5.0,
+    "gap_final": 0.0,
+    "nodos": 13101,
+    "iteraciones_lp": 1500237,
+    "soluciones": 4,
+    "primal_dual_integral_scip": 3610.872336904743,
+    "warm_checked": true,
+    "warm_accepted": true,
+    "warm_reason": "ok",
+    "warm_objetivo": 7.0,
+    "warm_T": 5.0,
+    "warm_no_satisfechos": 2,
+    "final_validador_independiente": true,
+    "final_T": 5.0,
+    "final_suma_z": 36,
+    "trayectoria": [
+      {
+        "t": 0.0,
+        "kind": "PB",
+        "pb": 7.0,
+        "db": null,
+        "nodes": 0,
+        "source": "warm_start"
+      },
+      {
+        "t": 0.073128,
+        "kind": "DB",
+        "pb": 7.0,
+        "db": 0.0,
+        "nodes": 1
+      },
+      {
+        "t": 0.249473,
+        "kind": "DB",
+        "pb": 7.0,
+        "db": 0.7499999999999929,
+        "nodes": 1
+      },
+      {
+        "t": 0.31496399999999997,
+        "kind": "DB",
+        "pb": 7.0,
+        "db": 2.0,
+        "nodes": 1
+      },
+      {
+        "t": 0.40479499999999996,
+        "kind": "DB",
+        "pb": 7.0,
+        "db": 2.75,
+        "nodes": 1
+      },
+      {
+        "t": 0.511845,
+        "kind": "DB",
+        "pb": 7.0,
+        "db": 3.500000000000007,
+        "nodes": 1
+      },
+      {
+        "t": 0.7347779999999999,
+        "kind": "DB",
+        "pb": 7.0,
+        "db": 3.999999999999986,
+        "nodes": 1
+      },
+      {
+        "t": 0.84846,
+        "kind": "DB",
+        "pb": 7.0,
+        "db": 4.9999999999999964,
+        "nodes": 1
+      },
+      {
+        "t": 0.9764879999999999,
+        "kind": "DB",
+        "pb": 7.0,
+        "db": 5.0000000000000036,
+        "nodes": 1
+      },
+      {
+        "t": 2.052026,
+        "kind": "DB",
+        "pb": 7.0,
+        "db": 5.000000000000007,
+        "nodes": 1
+      },
+      {
+        "t": 65.313152,
+        "kind": "PB",
+        "pb": 6.0,
+        "db": 5.000000000000007,
+        "nodes": 3933
+      },
+      {
+        "t": 167.864364,
+        "kind": "PB",
+        "pb": 5.0,
+        "db": 5.000000000000007,
+        "nodes": 13101
+      }
+    ],
+    "tiempo_heuristica_s": 8.316354537999814,
+    "presupuesto_total_s": 3600.0,
+    "tiempo_pipeline_s": 176.18736653799982,
+    "primal_integral_normalizada": 35.75276923809523
+  }
+}
