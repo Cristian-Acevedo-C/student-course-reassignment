@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "instances": [
+    "c_n_9_l_3_s_4_i_8"
+  ],
+  "sha256_instances": {
+    "c_n_9_l_3_s_4_i_8.txt": "a77c84c0003db3e0d53df86a3103497660a2111932806bf8cb0929deac5a7544"
+  },
+  "presupuesto_s": 3600.0,
+  "seed_scip": 0,
+  "seed_heuristica": 20261001,
+  "intentos": 20,
+  "limite_nodos": 50000,
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "pyscipopt": "6.2.1",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "threads": 1,
+  "gap_target": 0.0,
+  "lambda_0": 1.0,
+  "lambda_1": 1.0,
+  "presupuesto_definicion": "Tiempo SCIP + tiempo constructivo; no incluye armado del modelo ni serialización."
+}
