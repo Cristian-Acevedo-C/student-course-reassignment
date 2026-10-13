@@ -1,0 +1,2441 @@
+RESULTADOS COMPLETOS - 90 CORRIDAS SCIP
+=================================================================
+L=9 | P=3 | C=4,5,6
+30 instancias x 3 metodos = 90 corridas
+Metodos: BASE, WARM, REPLAY
+Tiempo expresado en segundos
+Gap expresado en porcentaje
+=================================================================
+
+-----------------------------------------------------------------
+CORRIDA 1/90
+NOMBRE: c_n_9_l_3_s_4_i_0
+METODO: BASE
+TIEMPO SCIP (s): 2158.466369
+TIEMPO TOTAL (s): 2158.795179
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 6.0
+DUAL: 6.0
+NODOS: 313110.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 2/90
+NOMBRE: c_n_9_l_3_s_4_i_0
+METODO: WARM
+TIEMPO SCIP (s): 1702.694905
+TIEMPO TOTAL (s): 1702.932988
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 6.0
+DUAL: 6.0
+NODOS: 257924.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 3/90
+NOMBRE: c_n_9_l_3_s_4_i_0
+METODO: REPLAY
+TIEMPO SCIP (s): 1228.978804
+TIEMPO TOTAL (s): 1229.2254077419639
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 6.0
+DUAL: 6.0
+NODOS: 192729.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 4/90
+NOMBRE: c_n_9_l_3_s_4_i_1
+METODO: BASE
+TIEMPO SCIP (s): 1325.223789
+TIEMPO TOTAL (s): 1325.415321
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 4.0
+DUAL: 4.0
+NODOS: 147037.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 5/90
+NOMBRE: c_n_9_l_3_s_4_i_1
+METODO: WARM
+TIEMPO SCIP (s): 1105.767318
+TIEMPO TOTAL (s): 1105.997833
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 4.0
+DUAL: 4.0
+NODOS: 149085.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 6/90
+NOMBRE: c_n_9_l_3_s_4_i_1
+METODO: REPLAY
+TIEMPO SCIP (s): 527.257967
+TIEMPO TOTAL (s): 527.5068008247763
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 4.0
+DUAL: 4.0
+NODOS: 52927.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 7/90
+NOMBRE: c_n_9_l_3_s_4_i_2
+METODO: BASE
+TIEMPO SCIP (s): 137.068981
+TIEMPO TOTAL (s): 137.28764
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 14405.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 8/90
+NOMBRE: c_n_9_l_3_s_4_i_2
+METODO: WARM
+TIEMPO SCIP (s): 52.52206
+TIEMPO TOTAL (s): 52.717561
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 5467.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 9/90
+NOMBRE: c_n_9_l_3_s_4_i_2
+METODO: REPLAY
+TIEMPO SCIP (s): 0.7802779999999999
+TIEMPO TOTAL (s): 1.1405179360881448
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 1.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 10/90
+NOMBRE: c_n_9_l_3_s_4_i_3
+METODO: BASE
+TIEMPO SCIP (s): 94.283764
+TIEMPO TOTAL (s): 94.477521
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 10603.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 11/90
+NOMBRE: c_n_9_l_3_s_4_i_3
+METODO: WARM
+TIEMPO SCIP (s): 126.474557
+TIEMPO TOTAL (s): 126.713498
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 8733.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 12/90
+NOMBRE: c_n_9_l_3_s_4_i_3
+METODO: REPLAY
+TIEMPO SCIP (s): 0.8263159999999999
+TIEMPO TOTAL (s): 1.18175466300454
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 1.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 13/90
+NOMBRE: c_n_9_l_3_s_4_i_4
+METODO: BASE
+TIEMPO SCIP (s): 1201.916876
+TIEMPO TOTAL (s): 1202.224388
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 143851.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 14/90
+NOMBRE: c_n_9_l_3_s_4_i_4
+METODO: WARM
+TIEMPO SCIP (s): 828.886186
+TIEMPO TOTAL (s): 829.110507
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 92497.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 15/90
+NOMBRE: c_n_9_l_3_s_4_i_4
+METODO: REPLAY
+TIEMPO SCIP (s): 185.577644
+TIEMPO TOTAL (s): 185.93461473099887
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 14023.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 16/90
+NOMBRE: c_n_9_l_3_s_4_i_5
+METODO: BASE
+TIEMPO SCIP (s): 75.67618
+TIEMPO TOTAL (s): 75.992909
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 5031.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 17/90
+NOMBRE: c_n_9_l_3_s_4_i_5
+METODO: WARM
+TIEMPO SCIP (s): 104.081557
+TIEMPO TOTAL (s): 104.30426
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 6077.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 18/90
+NOMBRE: c_n_9_l_3_s_4_i_5
+METODO: REPLAY
+TIEMPO SCIP (s): 0.868613
+TIEMPO TOTAL (s): 1.2045696020359173
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 1.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 19/90
+NOMBRE: c_n_9_l_3_s_4_i_6
+METODO: BASE
+TIEMPO SCIP (s): 733.272927
+TIEMPO TOTAL (s): 733.596654
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 104546.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 20/90
+NOMBRE: c_n_9_l_3_s_4_i_6
+METODO: WARM
+TIEMPO SCIP (s): 813.936674
+TIEMPO TOTAL (s): 814.160906
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 84857.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 21/90
+NOMBRE: c_n_9_l_3_s_4_i_6
+METODO: REPLAY
+TIEMPO SCIP (s): 0.84442
+TIEMPO TOTAL (s): 1.2208910320186988
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 1.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 22/90
+NOMBRE: c_n_9_l_3_s_4_i_7
+METODO: BASE
+TIEMPO SCIP (s): 1307.646643
+TIEMPO TOTAL (s): 1307.935998
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 176361.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 23/90
+NOMBRE: c_n_9_l_3_s_4_i_7
+METODO: WARM
+TIEMPO SCIP (s): 1433.687396
+TIEMPO TOTAL (s): 1433.897644
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 200001.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 24/90
+NOMBRE: c_n_9_l_3_s_4_i_7
+METODO: REPLAY
+TIEMPO SCIP (s): 1472.091756
+TIEMPO TOTAL (s): 1472.4418697219808
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 196932.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 25/90
+NOMBRE: c_n_9_l_3_s_4_i_8
+METODO: BASE
+TIEMPO SCIP (s): 55.986764
+TIEMPO TOTAL (s): 56.311464
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 6188.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 26/90
+NOMBRE: c_n_9_l_3_s_4_i_8
+METODO: WARM
+TIEMPO SCIP (s): 213.416594
+TIEMPO TOTAL (s): 213.618971
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 23781.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 27/90
+NOMBRE: c_n_9_l_3_s_4_i_8
+METODO: REPLAY
+TIEMPO SCIP (s): 0.466304
+TIEMPO TOTAL (s): 0.7868946080561727
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.0
+DUAL: 5.0
+NODOS: 1.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 28/90
+NOMBRE: c_n_9_l_3_s_4_i_9
+METODO: BASE
+TIEMPO SCIP (s): 469.276105
+TIEMPO TOTAL (s): 469.681216
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 4.0
+DUAL: 4.0
+NODOS: 72938.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 29/90
+NOMBRE: c_n_9_l_3_s_4_i_9
+METODO: WARM
+TIEMPO SCIP (s): 143.091976
+TIEMPO TOTAL (s): 143.31322
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 4.0
+DUAL: 4.0
+NODOS: 18657.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 30/90
+NOMBRE: c_n_9_l_3_s_4_i_9
+METODO: REPLAY
+TIEMPO SCIP (s): 0.67306
+TIEMPO TOTAL (s): 1.0067950949305668
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 4.0
+DUAL: 4.0
+NODOS: 1.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 31/90
+NOMBRE: c_n_9_l_3_s_5_i_0
+METODO: BASE
+TIEMPO SCIP (s): 3600.000104
+TIEMPO TOTAL (s): 3600.42325
+GAP (%): 15.6250%
+ESTADO: timelimit
+PRIMAL: 7.4
+DUAL: 6.4
+NODOS: 199590.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 32/90
+NOMBRE: c_n_9_l_3_s_5_i_0
+METODO: WARM
+TIEMPO SCIP (s): 3594.243322
+TIEMPO TOTAL (s): 3594.598696
+GAP (%): 21.8750%
+ESTADO: timelimit
+PRIMAL: 7.8
+DUAL: 6.4
+NODOS: 217544.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 33/90
+NOMBRE: c_n_9_l_3_s_5_i_0
+METODO: REPLAY
+TIEMPO SCIP (s): 3600.000209
+TIEMPO TOTAL (s): 3600.4260735120624
+GAP (%): 6.2500%
+ESTADO: timelimit
+PRIMAL: 6.800000000000004
+DUAL: 6.400000000000013
+NODOS: 246283.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 34/90
+NOMBRE: c_n_9_l_3_s_5_i_1
+METODO: BASE
+TIEMPO SCIP (s): 3600.00009
+TIEMPO TOTAL (s): 3600.43306
+GAP (%): 15.6250%
+ESTADO: timelimit
+PRIMAL: 7.4
+DUAL: 6.4
+NODOS: 197632.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 35/90
+NOMBRE: c_n_9_l_3_s_5_i_1
+METODO: WARM
+TIEMPO SCIP (s): 3593.130441
+TIEMPO TOTAL (s): 3593.3597
+GAP (%): 15.6250%
+ESTADO: timelimit
+PRIMAL: 7.4
+DUAL: 6.4
+NODOS: 246781.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 36/90
+NOMBRE: c_n_9_l_3_s_5_i_1
+METODO: REPLAY
+TIEMPO SCIP (s): 2245.902936
+TIEMPO TOTAL (s): 2246.154546524398
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 7.399999999999999
+DUAL: 7.399999999999999
+NODOS: 212663.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 37/90
+NOMBRE: c_n_9_l_3_s_5_i_2
+METODO: BASE
+TIEMPO SCIP (s): 3600.00022
+TIEMPO TOTAL (s): 3600.427376
+GAP (%): 28.1250%
+ESTADO: timelimit
+PRIMAL: 8.2
+DUAL: 6.4
+NODOS: 193547.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 38/90
+NOMBRE: c_n_9_l_3_s_5_i_2
+METODO: WARM
+TIEMPO SCIP (s): 3594.564964
+TIEMPO TOTAL (s): 3594.897149
+GAP (%): 21.8750%
+ESTADO: timelimit
+PRIMAL: 7.8
+DUAL: 6.4
+NODOS: 265969.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 39/90
+NOMBRE: c_n_9_l_3_s_5_i_2
+METODO: REPLAY
+TIEMPO SCIP (s): 3600.000197
+TIEMPO TOTAL (s): 3600.3227011226118
+GAP (%): 15.6250%
+ESTADO: timelimit
+PRIMAL: 7.399999999999999
+DUAL: 6.400000000000006
+NODOS: 317730.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 40/90
+NOMBRE: c_n_9_l_3_s_5_i_3
+METODO: BASE
+TIEMPO SCIP (s): 3600.000224
+TIEMPO TOTAL (s): 3600.458255
+GAP (%): 37.5000%
+ESTADO: timelimit
+PRIMAL: 8.8
+DUAL: 6.4
+NODOS: 234227.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 41/90
+NOMBRE: c_n_9_l_3_s_5_i_3
+METODO: WARM
+TIEMPO SCIP (s): 3594.959301
+TIEMPO TOTAL (s): 3595.344699
+GAP (%): 37.5000%
+ESTADO: timelimit
+PRIMAL: 8.8
+DUAL: 6.4
+NODOS: 247481.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 42/90
+NOMBRE: c_n_9_l_3_s_5_i_3
+METODO: REPLAY
+TIEMPO SCIP (s): 3600.000317
+TIEMPO TOTAL (s): 3600.4479128140956
+GAP (%): 37.5000%
+ESTADO: timelimit
+PRIMAL: 8.799999999999983
+DUAL: 6.400000000000027
+NODOS: 214489.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 43/90
+NOMBRE: c_n_9_l_3_s_5_i_4
+METODO: BASE
+TIEMPO SCIP (s): 1427.042191
+TIEMPO TOTAL (s): 1427.367032
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 6.4
+DUAL: 6.4
+NODOS: 82759.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 44/90
+NOMBRE: c_n_9_l_3_s_5_i_4
+METODO: WARM
+TIEMPO SCIP (s): 1864.676442
+TIEMPO TOTAL (s): 1864.966565
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 6.4
+DUAL: 6.4
+NODOS: 141542.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 45/90
+NOMBRE: c_n_9_l_3_s_5_i_4
+METODO: REPLAY
+TIEMPO SCIP (s): 1.8408069999999999
+TIEMPO TOTAL (s): 2.1501402324065566
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 6.399999999999999
+DUAL: 6.399999999999999
+NODOS: 1.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 46/90
+NOMBRE: c_n_9_l_3_s_5_i_5
+METODO: BASE
+TIEMPO SCIP (s): 1159.366618
+TIEMPO TOTAL (s): 1159.690594
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.6
+DUAL: 5.6
+NODOS: 82539.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 47/90
+NOMBRE: c_n_9_l_3_s_5_i_5
+METODO: WARM
+TIEMPO SCIP (s): 2494.694362
+TIEMPO TOTAL (s): 2494.938409
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.6
+DUAL: 5.6
+NODOS: 179138.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 48/90
+NOMBRE: c_n_9_l_3_s_5_i_5
+METODO: REPLAY
+TIEMPO SCIP (s): 7.025197
+TIEMPO TOTAL (s): 7.378138101659715
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.600000000000001
+DUAL: 5.600000000000001
+NODOS: 2.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 49/90
+NOMBRE: c_n_9_l_3_s_5_i_6
+METODO: BASE
+TIEMPO SCIP (s): 3600.000147
+TIEMPO TOTAL (s): 3600.435765
+GAP (%): 6.2500%
+ESTADO: timelimit
+PRIMAL: 6.8
+DUAL: 6.4
+NODOS: 205706.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 50/90
+NOMBRE: c_n_9_l_3_s_5_i_6
+METODO: WARM
+TIEMPO SCIP (s): 3593.270455
+TIEMPO TOTAL (s): 3593.593741
+GAP (%): 21.8750%
+ESTADO: timelimit
+PRIMAL: 7.8
+DUAL: 6.4
+NODOS: 271034.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 51/90
+NOMBRE: c_n_9_l_3_s_5_i_6
+METODO: REPLAY
+TIEMPO SCIP (s): 3333.065799
+TIEMPO TOTAL (s): 3333.3591867871583
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 6.399999999999999
+DUAL: 6.399999999999999
+NODOS: 333356.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 52/90
+NOMBRE: c_n_9_l_3_s_5_i_7
+METODO: BASE
+TIEMPO SCIP (s): 2061.384416
+TIEMPO TOTAL (s): 2061.603658
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.6
+DUAL: 5.6
+NODOS: 133398.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 53/90
+NOMBRE: c_n_9_l_3_s_5_i_7
+METODO: WARM
+TIEMPO SCIP (s): 1668.971597
+TIEMPO TOTAL (s): 1669.352932
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.6
+DUAL: 5.6
+NODOS: 105520.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 54/90
+NOMBRE: c_n_9_l_3_s_5_i_7
+METODO: REPLAY
+TIEMPO SCIP (s): 1.112847
+TIEMPO TOTAL (s): 1.455436859279871
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 5.600000000000001
+DUAL: 5.600000000000001
+NODOS: 1.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 55/90
+NOMBRE: c_n_9_l_3_s_5_i_8
+METODO: BASE
+TIEMPO SCIP (s): 3600.000257
+TIEMPO TOTAL (s): 3600.389604
+GAP (%): 41.6667%
+ESTADO: timelimit
+PRIMAL: 6.8
+DUAL: 4.8
+NODOS: 226204.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 56/90
+NOMBRE: c_n_9_l_3_s_5_i_8
+METODO: WARM
+TIEMPO SCIP (s): 3592.975205
+TIEMPO TOTAL (s): 3593.341183
+GAP (%): 41.6667%
+ESTADO: timelimit
+PRIMAL: 6.8
+DUAL: 4.8
+NODOS: 242523.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 57/90
+NOMBRE: c_n_9_l_3_s_5_i_8
+METODO: REPLAY
+TIEMPO SCIP (s): 3600.0007
+TIEMPO TOTAL (s): 3600.402665128
+GAP (%): 29.1667%
+ESTADO: timelimit
+PRIMAL: 6.200000000000003
+DUAL: 4.800000000000004
+NODOS: 201417.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 58/90
+NOMBRE: c_n_9_l_3_s_5_i_9
+METODO: BASE
+TIEMPO SCIP (s): 3600.000131
+TIEMPO TOTAL (s): 3600.358324
+GAP (%): 6.2500%
+ESTADO: timelimit
+PRIMAL: 6.8
+DUAL: 6.4
+NODOS: 317028.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 59/90
+NOMBRE: c_n_9_l_3_s_5_i_9
+METODO: WARM
+TIEMPO SCIP (s): 1881.893228
+TIEMPO TOTAL (s): 1882.13518
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 6.4
+DUAL: 6.4
+NODOS: 146454.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 60/90
+NOMBRE: c_n_9_l_3_s_5_i_9
+METODO: REPLAY
+TIEMPO SCIP (s): 1773.651506
+TIEMPO TOTAL (s): 1773.9559192089364
+GAP (%): 0.0000%
+ESTADO: optimal
+PRIMAL: 6.40000000000002
+DUAL: 6.40000000000002
+NODOS: 166156.0
+OPTIMO: True
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 61/90
+NOMBRE: c_n_9_l_3_s_6_i_0
+METODO: BASE
+TIEMPO SCIP (s): 3600.000274
+TIEMPO TOTAL (s): 3600.460939
+GAP (%): 50.0000%
+ESTADO: timelimit
+PRIMAL: 11.0
+DUAL: 7.333333
+NODOS: 88832.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 62/90
+NOMBRE: c_n_9_l_3_s_6_i_0
+METODO: WARM
+TIEMPO SCIP (s): 3585.946163
+TIEMPO TOTAL (s): 3586.292791
+GAP (%): 27.2727%
+ESTADO: timelimit
+PRIMAL: 9.333333
+DUAL: 7.333333
+NODOS: 77308.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 63/90
+NOMBRE: c_n_9_l_3_s_6_i_0
+METODO: REPLAY
+TIEMPO SCIP (s): 3600.006038
+TIEMPO TOTAL (s): 3600.593389443122
+GAP (%): 50.0000%
+ESTADO: timelimit
+PRIMAL: 10.999999999999957
+DUAL: 7.333333333333329
+NODOS: 62968.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 64/90
+NOMBRE: c_n_9_l_3_s_6_i_1
+METODO: BASE
+TIEMPO SCIP (s): 3600.00032
+TIEMPO TOTAL (s): 3600.533865
+GAP (%): 50.0000%
+ESTADO: timelimit
+PRIMAL: 11.0
+DUAL: 7.333333
+NODOS: 80620.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 65/90
+NOMBRE: c_n_9_l_3_s_6_i_1
+METODO: WARM
+TIEMPO SCIP (s): 3584.115491
+TIEMPO TOTAL (s): 3584.590127
+GAP (%): 45.4545%
+ESTADO: timelimit
+PRIMAL: 10.666667
+DUAL: 7.333333
+NODOS: 94234.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 66/90
+NOMBRE: c_n_9_l_3_s_6_i_1
+METODO: REPLAY
+TIEMPO SCIP (s): 3600.000485
+TIEMPO TOTAL (s): 3600.4872274715453
+GAP (%): 36.3636%
+ESTADO: timelimit
+PRIMAL: 10.0
+DUAL: 7.33333333333335
+NODOS: 109519.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 67/90
+NOMBRE: c_n_9_l_3_s_6_i_2
+METODO: BASE
+TIEMPO SCIP (s): 3600.000935
+TIEMPO TOTAL (s): 3600.513083
+GAP (%): 111.1111%
+ESTADO: timelimit
+PRIMAL: 12.666667
+DUAL: 6.0
+NODOS: 88386.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 68/90
+NOMBRE: c_n_9_l_3_s_6_i_2
+METODO: WARM
+TIEMPO SCIP (s): 3586.693635
+TIEMPO TOTAL (s): 3587.243652
+GAP (%): 100.0000%
+ESTADO: timelimit
+PRIMAL: 12.0
+DUAL: 6.0
+NODOS: 91824.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 69/90
+NOMBRE: c_n_9_l_3_s_6_i_2
+METODO: REPLAY
+TIEMPO SCIP (s): 3600.000458
+TIEMPO TOTAL (s): 3600.549518259242
+GAP (%): 83.3333%
+ESTADO: timelimit
+PRIMAL: 10.999999999999993
+DUAL: 6.0
+NODOS: 86478.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 70/90
+NOMBRE: c_n_9_l_3_s_6_i_3
+METODO: BASE
+TIEMPO SCIP (s): 3600.000368
+TIEMPO TOTAL (s): 3600.432684
+GAP (%): 29.1667%
+ESTADO: timelimit
+PRIMAL: 10.333333
+DUAL: 8.0
+NODOS: 112283.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 71/90
+NOMBRE: c_n_9_l_3_s_6_i_3
+METODO: WARM
+TIEMPO SCIP (s): 3583.125731
+TIEMPO TOTAL (s): 3583.613422
+GAP (%): 45.8333%
+ESTADO: timelimit
+PRIMAL: 11.666667
+DUAL: 8.0
+NODOS: 85428.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 72/90
+NOMBRE: c_n_9_l_3_s_6_i_3
+METODO: REPLAY
+TIEMPO SCIP (s): 3600.000347
+TIEMPO TOTAL (s): 3600.409311933443
+GAP (%): 25.0000%
+ESTADO: timelimit
+PRIMAL: 10.0
+DUAL: 8.000000000000142
+NODOS: 97893.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 73/90
+NOMBRE: c_n_9_l_3_s_6_i_4
+METODO: BASE
+TIEMPO SCIP (s): 3600.000245
+TIEMPO TOTAL (s): 3600.468598
+GAP (%): 36.3636%
+ESTADO: timelimit
+PRIMAL: 10.0
+DUAL: 7.333333
+NODOS: 85444.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 74/90
+NOMBRE: c_n_9_l_3_s_6_i_4
+METODO: WARM
+TIEMPO SCIP (s): 3587.616795
+TIEMPO TOTAL (s): 3587.957021
+GAP (%): 31.8182%
+ESTADO: timelimit
+PRIMAL: 9.666667
+DUAL: 7.333333
+NODOS: 98126.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 75/90
+NOMBRE: c_n_9_l_3_s_6_i_4
+METODO: REPLAY
+TIEMPO SCIP (s): 3600.001011
+TIEMPO TOTAL (s): 3600.4936582669616
+GAP (%): 36.3636%
+ESTADO: timelimit
+PRIMAL: 10.0
+DUAL: 7.333333333333357
+NODOS: 85687.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 76/90
+NOMBRE: c_n_9_l_3_s_6_i_5
+METODO: BASE
+TIEMPO SCIP (s): 3600.00021
+TIEMPO TOTAL (s): 3600.382884
+GAP (%): 27.2727%
+ESTADO: timelimit
+PRIMAL: 9.333333
+DUAL: 7.333333
+NODOS: 86680.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 77/90
+NOMBRE: c_n_9_l_3_s_6_i_5
+METODO: WARM
+TIEMPO SCIP (s): 3582.894698
+TIEMPO TOTAL (s): 3583.295107
+GAP (%): 40.9091%
+ESTADO: timelimit
+PRIMAL: 10.333333
+DUAL: 7.333333
+NODOS: 96239.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 78/90
+NOMBRE: c_n_9_l_3_s_6_i_5
+METODO: REPLAY
+TIEMPO SCIP (s): 3600.000247
+TIEMPO TOTAL (s): 3600.365964302793
+GAP (%): 27.2727%
+ESTADO: timelimit
+PRIMAL: 9.333333333333329
+DUAL: 7.333333333333343
+NODOS: 68475.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 79/90
+NOMBRE: c_n_9_l_3_s_6_i_6
+METODO: BASE
+TIEMPO SCIP (s): 3600.001047
+TIEMPO TOTAL (s): 3600.513374
+GAP (%): 61.1111%
+ESTADO: timelimit
+PRIMAL: 9.666667
+DUAL: 6.0
+NODOS: 94462.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 80/90
+NOMBRE: c_n_9_l_3_s_6_i_6
+METODO: WARM
+TIEMPO SCIP (s): 3586.279764
+TIEMPO TOTAL (s): 3586.60004
+GAP (%): 38.8889%
+ESTADO: timelimit
+PRIMAL: 8.333333
+DUAL: 6.0
+NODOS: 107087.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 81/90
+NOMBRE: c_n_9_l_3_s_6_i_6
+METODO: REPLAY
+TIEMPO SCIP (s): 3600.000442
+TIEMPO TOTAL (s): 3600.436214907095
+GAP (%): 50.0000%
+ESTADO: timelimit
+PRIMAL: 9.0
+DUAL: 6.000000000000007
+NODOS: 93440.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 82/90
+NOMBRE: c_n_9_l_3_s_6_i_7
+METODO: BASE
+TIEMPO SCIP (s): 3600.000331
+TIEMPO TOTAL (s): 3600.650135
+GAP (%): 55.5556%
+ESTADO: timelimit
+PRIMAL: 9.333333
+DUAL: 6.0
+NODOS: 78361.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 83/90
+NOMBRE: c_n_9_l_3_s_6_i_7
+METODO: WARM
+TIEMPO SCIP (s): 3587.441422
+TIEMPO TOTAL (s): 3587.799494
+GAP (%): 38.8889%
+ESTADO: timelimit
+PRIMAL: 8.333333
+DUAL: 6.0
+NODOS: 99784.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 84/90
+NOMBRE: c_n_9_l_3_s_6_i_7
+METODO: REPLAY
+TIEMPO SCIP (s): 3600.000701
+TIEMPO TOTAL (s): 3600.4110973859206
+GAP (%): 50.0000%
+ESTADO: timelimit
+PRIMAL: 9.0
+DUAL: 6.000000000000007
+NODOS: 92890.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 85/90
+NOMBRE: c_n_9_l_3_s_6_i_8
+METODO: BASE
+TIEMPO SCIP (s): 3600.000177
+TIEMPO TOTAL (s): 3600.328872
+GAP (%): 13.6364%
+ESTADO: timelimit
+PRIMAL: 8.333333
+DUAL: 7.333333
+NODOS: 107808.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 86/90
+NOMBRE: c_n_9_l_3_s_6_i_8
+METODO: WARM
+TIEMPO SCIP (s): 3585.140404
+TIEMPO TOTAL (s): 3585.487095
+GAP (%): 36.3636%
+ESTADO: timelimit
+PRIMAL: 10.0
+DUAL: 7.333333
+NODOS: 110429.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 87/90
+NOMBRE: c_n_9_l_3_s_6_i_8
+METODO: REPLAY
+TIEMPO SCIP (s): 3600.00025
+TIEMPO TOTAL (s): 3600.360764965415
+GAP (%): 13.6364%
+ESTADO: timelimit
+PRIMAL: 8.333333333333329
+DUAL: 7.33333333333335
+NODOS: 94284.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 88/90
+NOMBRE: c_n_9_l_3_s_6_i_9
+METODO: BASE
+TIEMPO SCIP (s): 3600.00201
+TIEMPO TOTAL (s): 3600.509533
+GAP (%): 170.0000%
+ESTADO: timelimit
+PRIMAL: 9.0
+DUAL: 3.333333
+NODOS: 88587.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 89/90
+NOMBRE: c_n_9_l_3_s_6_i_9
+METODO: WARM
+TIEMPO SCIP (s): 3585.498141
+TIEMPO TOTAL (s): 3585.96524
+GAP (%): 210.0000%
+ESTADO: timelimit
+PRIMAL: 10.333333
+DUAL: 3.333333
+NODOS: 86932.0
+OPTIMO: False
+AUDITORIA: True
+
+-----------------------------------------------------------------
+CORRIDA 90/90
+NOMBRE: c_n_9_l_3_s_6_i_9
+METODO: REPLAY
+TIEMPO SCIP (s): 3600.00319
+TIEMPO TOTAL (s): 3600.752270920202
+GAP (%): 170.0000%
+ESTADO: timelimit
+PRIMAL: 9.0
+DUAL: 3.33333333333335
+NODOS: 70066.0
+OPTIMO: False
+AUDITORIA: True
+
+
+ANEXO: TODOS LOS CAMPOS DEL CSV ORIGINAL
+
+c_n_9_l_3_s_4_i_0
+instancia: c_n_9_l_3_s_4_i_0
+C: 4
+replica: 0
+sha256_instancia: 14c9160b3d98b5b2dcf7ae9372608b0a5f097473b216a488b30d780c43e1dd3f
+estado_base: optimal
+estado_warm: optimal
+estado_replay: optimal
+optimal_base: True
+optimal_warm: True
+optimal_replay: True
+primal_base: 6.0
+primal_warm: 6.0
+primal_replay: 6.0
+dual_base: 6.0
+dual_warm: 6.0
+dual_replay: 6.0
+gap_base: 0.0
+gap_warm: 0.0
+gap_replay: 0.0
+tiempo_scip_base: 2158.466369
+tiempo_scip_warm: 1702.694905
+tiempo_scip_replay: 1228.978804
+tiempo_total_base: 2158.795179
+tiempo_total_warm: 1702.932988
+tiempo_total_replay: 1229.2254077419639
+tiempo_previo_base_replay: 2158.795179
+tiempo_previo_mas_replay: 3388.020586741964
+nodos_base: 313110.0
+nodos_warm: 257924.0
+nodos_replay: 192729.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 6.0
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_4_i_1
+instancia: c_n_9_l_3_s_4_i_1
+C: 4
+replica: 1
+sha256_instancia: 8e8a54ce08de78d08228480557c94b659400aac0b31f5a3a0ade22705a73ed4f
+estado_base: optimal
+estado_warm: optimal
+estado_replay: optimal
+optimal_base: True
+optimal_warm: True
+optimal_replay: True
+primal_base: 4.0
+primal_warm: 4.0
+primal_replay: 4.0
+dual_base: 4.0
+dual_warm: 4.0
+dual_replay: 4.0
+gap_base: 0.0
+gap_warm: 0.0
+gap_replay: 0.0
+tiempo_scip_base: 1325.223789
+tiempo_scip_warm: 1105.767318
+tiempo_scip_replay: 527.257967
+tiempo_total_base: 1325.415321
+tiempo_total_warm: 1105.997833
+tiempo_total_replay: 527.5068008247763
+tiempo_previo_base_replay: 1325.415321
+tiempo_previo_mas_replay: 1852.9221218247762
+nodos_base: 147037.0
+nodos_warm: 149085.0
+nodos_replay: 52927.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 4.0
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_4_i_2
+instancia: c_n_9_l_3_s_4_i_2
+C: 4
+replica: 2
+sha256_instancia: e75de2c22e4ddf86d66fe019d58ae1bf7da6c3afe349eeb578b2d873c2b4acbf
+estado_base: optimal
+estado_warm: optimal
+estado_replay: optimal
+optimal_base: True
+optimal_warm: True
+optimal_replay: True
+primal_base: 5.0
+primal_warm: 5.0
+primal_replay: 5.0
+dual_base: 5.0
+dual_warm: 5.0
+dual_replay: 5.0
+gap_base: 0.0
+gap_warm: 0.0
+gap_replay: 0.0
+tiempo_scip_base: 137.068981
+tiempo_scip_warm: 52.52206
+tiempo_scip_replay: 0.7802779999999999
+tiempo_total_base: 137.28764
+tiempo_total_warm: 52.717561
+tiempo_total_replay: 1.1405179360881448
+tiempo_previo_base_replay: 137.28764
+tiempo_previo_mas_replay: 138.42815793608816
+nodos_base: 14405.0
+nodos_warm: 5467.0
+nodos_replay: 1.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 5.0
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_4_i_3
+instancia: c_n_9_l_3_s_4_i_3
+C: 4
+replica: 3
+sha256_instancia: 2ed3ad4ab50c8d45222a0d629b277803ab0621bef34b179b2d89bac09e75793b
+estado_base: optimal
+estado_warm: optimal
+estado_replay: optimal
+optimal_base: True
+optimal_warm: True
+optimal_replay: True
+primal_base: 5.0
+primal_warm: 5.0
+primal_replay: 5.0
+dual_base: 5.0
+dual_warm: 5.0
+dual_replay: 5.0
+gap_base: 0.0
+gap_warm: 0.0
+gap_replay: 0.0
+tiempo_scip_base: 94.283764
+tiempo_scip_warm: 126.474557
+tiempo_scip_replay: 0.8263159999999999
+tiempo_total_base: 94.477521
+tiempo_total_warm: 126.713498
+tiempo_total_replay: 1.18175466300454
+tiempo_previo_base_replay: 94.477521
+tiempo_previo_mas_replay: 95.65927566300454
+nodos_base: 10603.0
+nodos_warm: 8733.0
+nodos_replay: 1.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 5.0
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_4_i_4
+instancia: c_n_9_l_3_s_4_i_4
+C: 4
+replica: 4
+sha256_instancia: cc6a6609717fb94ff8316ae1df3d66ec9813ece312bd53aa7e356101fe2623bc
+estado_base: optimal
+estado_warm: optimal
+estado_replay: optimal
+optimal_base: True
+optimal_warm: True
+optimal_replay: True
+primal_base: 5.0
+primal_warm: 5.0
+primal_replay: 5.0
+dual_base: 5.0
+dual_warm: 5.0
+dual_replay: 5.0
+gap_base: 0.0
+gap_warm: 0.0
+gap_replay: 0.0
+tiempo_scip_base: 1201.916876
+tiempo_scip_warm: 828.886186
+tiempo_scip_replay: 185.577644
+tiempo_total_base: 1202.224388
+tiempo_total_warm: 829.110507
+tiempo_total_replay: 185.93461473099887
+tiempo_previo_base_replay: 1202.224388
+tiempo_previo_mas_replay: 1388.159002730999
+nodos_base: 143851.0
+nodos_warm: 92497.0
+nodos_replay: 14023.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 5.0
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_4_i_5
+instancia: c_n_9_l_3_s_4_i_5
+C: 4
+replica: 5
+sha256_instancia: ab7a3cfce9397a7e0b2ba82282495e53ec9447b6ae1e16710f10da7531d25489
+estado_base: optimal
+estado_warm: optimal
+estado_replay: optimal
+optimal_base: True
+optimal_warm: True
+optimal_replay: True
+primal_base: 5.0
+primal_warm: 5.0
+primal_replay: 5.0
+dual_base: 5.0
+dual_warm: 5.0
+dual_replay: 5.0
+gap_base: 0.0
+gap_warm: 0.0
+gap_replay: 0.0
+tiempo_scip_base: 75.67618
+tiempo_scip_warm: 104.081557
+tiempo_scip_replay: 0.868613
+tiempo_total_base: 75.992909
+tiempo_total_warm: 104.30426
+tiempo_total_replay: 1.2045696020359173
+tiempo_previo_base_replay: 75.992909
+tiempo_previo_mas_replay: 77.19747860203591
+nodos_base: 5031.0
+nodos_warm: 6077.0
+nodos_replay: 1.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 5.0
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_4_i_6
+instancia: c_n_9_l_3_s_4_i_6
+C: 4
+replica: 6
+sha256_instancia: f1b5935bfa3700955d142b6bfe145ae189db1022ecd4587c31f306275efa6da6
+estado_base: optimal
+estado_warm: optimal
+estado_replay: optimal
+optimal_base: True
+optimal_warm: True
+optimal_replay: True
+primal_base: 5.0
+primal_warm: 5.0
+primal_replay: 5.0
+dual_base: 5.0
+dual_warm: 5.0
+dual_replay: 5.0
+gap_base: 0.0
+gap_warm: 0.0
+gap_replay: 0.0
+tiempo_scip_base: 733.272927
+tiempo_scip_warm: 813.936674
+tiempo_scip_replay: 0.84442
+tiempo_total_base: 733.596654
+tiempo_total_warm: 814.160906
+tiempo_total_replay: 1.2208910320186988
+tiempo_previo_base_replay: 733.596654
+tiempo_previo_mas_replay: 734.8175450320186
+nodos_base: 104546.0
+nodos_warm: 84857.0
+nodos_replay: 1.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 5.0
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_4_i_7
+instancia: c_n_9_l_3_s_4_i_7
+C: 4
+replica: 7
+sha256_instancia: 6086dedfc9a058f04a500fdfcef36467d3949ac2ef049e3a07a0f69fdb8638a9
+estado_base: optimal
+estado_warm: optimal
+estado_replay: optimal
+optimal_base: True
+optimal_warm: True
+optimal_replay: True
+primal_base: 5.0
+primal_warm: 5.0
+primal_replay: 5.0
+dual_base: 5.0
+dual_warm: 5.0
+dual_replay: 5.0
+gap_base: 0.0
+gap_warm: 0.0
+gap_replay: 0.0
+tiempo_scip_base: 1307.646643
+tiempo_scip_warm: 1433.687396
+tiempo_scip_replay: 1472.091756
+tiempo_total_base: 1307.935998
+tiempo_total_warm: 1433.897644
+tiempo_total_replay: 1472.4418697219808
+tiempo_previo_base_replay: 1307.935998
+tiempo_previo_mas_replay: 2780.3778677219807
+nodos_base: 176361.0
+nodos_warm: 200001.0
+nodos_replay: 196932.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 5.0
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_4_i_8
+instancia: c_n_9_l_3_s_4_i_8
+C: 4
+replica: 8
+sha256_instancia: a77c84c0003db3e0d53df86a3103497660a2111932806bf8cb0929deac5a7544
+estado_base: optimal
+estado_warm: optimal
+estado_replay: optimal
+optimal_base: True
+optimal_warm: True
+optimal_replay: True
+primal_base: 5.0
+primal_warm: 5.0
+primal_replay: 5.0
+dual_base: 5.0
+dual_warm: 5.0
+dual_replay: 5.0
+gap_base: 0.0
+gap_warm: 0.0
+gap_replay: 0.0
+tiempo_scip_base: 55.986764
+tiempo_scip_warm: 213.416594
+tiempo_scip_replay: 0.466304
+tiempo_total_base: 56.311464
+tiempo_total_warm: 213.618971
+tiempo_total_replay: 0.7868946080561727
+tiempo_previo_base_replay: 56.311464
+tiempo_previo_mas_replay: 57.098358608056174
+nodos_base: 6188.0
+nodos_warm: 23781.0
+nodos_replay: 1.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 5.0
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_4_i_9
+instancia: c_n_9_l_3_s_4_i_9
+C: 4
+replica: 9
+sha256_instancia: e4c1b19e4606a65f1138d4a0c156cde2931018b570ea3427a9952b6656b6aa7a
+estado_base: optimal
+estado_warm: optimal
+estado_replay: optimal
+optimal_base: True
+optimal_warm: True
+optimal_replay: True
+primal_base: 4.0
+primal_warm: 4.0
+primal_replay: 4.0
+dual_base: 4.0
+dual_warm: 4.0
+dual_replay: 4.0
+gap_base: 0.0
+gap_warm: 0.0
+gap_replay: 0.0
+tiempo_scip_base: 469.276105
+tiempo_scip_warm: 143.091976
+tiempo_scip_replay: 0.67306
+tiempo_total_base: 469.681216
+tiempo_total_warm: 143.31322
+tiempo_total_replay: 1.0067950949305668
+tiempo_previo_base_replay: 469.681216
+tiempo_previo_mas_replay: 470.6880110949306
+nodos_base: 72938.0
+nodos_warm: 18657.0
+nodos_replay: 1.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 4.0
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_5_i_0
+instancia: c_n_9_l_3_s_5_i_0
+C: 5
+replica: 0
+sha256_instancia: 8c2d66d8e0a8bb8bf3de1e8f254d0812864bc5738539ce03afe22c866da4d023
+estado_base: timelimit
+estado_warm: timelimit
+estado_replay: timelimit
+optimal_base: False
+optimal_warm: False
+optimal_replay: False
+primal_base: 7.4
+primal_warm: 7.8
+primal_replay: 6.800000000000004
+dual_base: 6.4
+dual_warm: 6.4
+dual_replay: 6.400000000000013
+gap_base: 0.15625
+gap_warm: 0.21875
+gap_replay: 0.06249999999999854
+tiempo_scip_base: 3600.000104
+tiempo_scip_warm: 3594.243322
+tiempo_scip_replay: 3600.000209
+tiempo_total_base: 3600.42325
+tiempo_total_warm: 3594.598696
+tiempo_total_replay: 3600.4260735120624
+tiempo_previo_base_replay: 3600.42325
+tiempo_previo_mas_replay: 7200.849323512062
+nodos_base: 199590.0
+nodos_warm: 217544.0
+nodos_replay: 246283.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 7.4
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_5_i_1
+instancia: c_n_9_l_3_s_5_i_1
+C: 5
+replica: 1
+sha256_instancia: 57e3db9ac469090039f539446a6b41dfd963beafef8754f31096e4eb23b63196
+estado_base: timelimit
+estado_warm: timelimit
+estado_replay: optimal
+optimal_base: False
+optimal_warm: False
+optimal_replay: True
+primal_base: 7.4
+primal_warm: 7.4
+primal_replay: 7.399999999999999
+dual_base: 6.4
+dual_warm: 6.4
+dual_replay: 7.399999999999999
+gap_base: 0.15625
+gap_warm: 0.15625
+gap_replay: 0.0
+tiempo_scip_base: 3600.00009
+tiempo_scip_warm: 3593.130441
+tiempo_scip_replay: 2245.902936
+tiempo_total_base: 3600.43306
+tiempo_total_warm: 3593.3597
+tiempo_total_replay: 2246.154546524398
+tiempo_previo_base_replay: 3600.43306
+tiempo_previo_mas_replay: 5846.587606524397
+nodos_base: 197632.0
+nodos_warm: 246781.0
+nodos_replay: 212663.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 7.4
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_5_i_2
+instancia: c_n_9_l_3_s_5_i_2
+C: 5
+replica: 2
+sha256_instancia: afa5d7ff07cc74a77ef616b1d5e1f3feb8f1e7b2f5e83307921ef0432678b6f9
+estado_base: timelimit
+estado_warm: timelimit
+estado_replay: timelimit
+optimal_base: False
+optimal_warm: False
+optimal_replay: False
+primal_base: 8.2
+primal_warm: 7.8
+primal_replay: 7.399999999999999
+dual_base: 6.4
+dual_warm: 6.4
+dual_replay: 6.400000000000006
+gap_base: 0.28125
+gap_warm: 0.21875
+gap_replay: 0.15624999999999875
+tiempo_scip_base: 3600.00022
+tiempo_scip_warm: 3594.564964
+tiempo_scip_replay: 3600.000197
+tiempo_total_base: 3600.427376
+tiempo_total_warm: 3594.897149
+tiempo_total_replay: 3600.3227011226118
+tiempo_previo_base_replay: 3600.427376
+tiempo_previo_mas_replay: 7200.750077122611
+nodos_base: 193547.0
+nodos_warm: 265969.0
+nodos_replay: 317730.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 8.20000000000004
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_5_i_3
+instancia: c_n_9_l_3_s_5_i_3
+C: 5
+replica: 3
+sha256_instancia: bd4058cf52568f137833a6fbaab65ccd25e4da2c41ab50178234f0bb1542b123
+estado_base: timelimit
+estado_warm: timelimit
+estado_replay: timelimit
+optimal_base: False
+optimal_warm: False
+optimal_replay: False
+primal_base: 8.8
+primal_warm: 8.8
+primal_replay: 8.799999999999983
+dual_base: 6.4
+dual_warm: 6.4
+dual_replay: 6.400000000000027
+gap_base: 0.375
+gap_warm: 0.375
+gap_replay: 0.37499999999999156
+tiempo_scip_base: 3600.000224
+tiempo_scip_warm: 3594.959301
+tiempo_scip_replay: 3600.000317
+tiempo_total_base: 3600.458255
+tiempo_total_warm: 3595.344699
+tiempo_total_replay: 3600.4479128140956
+tiempo_previo_base_replay: 3600.458255
+tiempo_previo_mas_replay: 7200.906167814095
+nodos_base: 234227.0
+nodos_warm: 247481.0
+nodos_replay: 214489.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 8.79999999999998
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_5_i_4
+instancia: c_n_9_l_3_s_5_i_4
+C: 5
+replica: 4
+sha256_instancia: 80e83832631911233e9035b99183f6a1dd84e360c0b8de30432ca81543c2d776
+estado_base: optimal
+estado_warm: optimal
+estado_replay: optimal
+optimal_base: True
+optimal_warm: True
+optimal_replay: True
+primal_base: 6.4
+primal_warm: 6.4
+primal_replay: 6.399999999999999
+dual_base: 6.4
+dual_warm: 6.4
+dual_replay: 6.399999999999999
+gap_base: 0.0
+gap_warm: 0.0
+gap_replay: 0.0
+tiempo_scip_base: 1427.042191
+tiempo_scip_warm: 1864.676442
+tiempo_scip_replay: 1.8408069999999999
+tiempo_total_base: 1427.367032
+tiempo_total_warm: 1864.966565
+tiempo_total_replay: 2.1501402324065566
+tiempo_previo_base_replay: 1427.367032
+tiempo_previo_mas_replay: 1429.5171722324067
+nodos_base: 82759.0
+nodos_warm: 141542.0
+nodos_replay: 1.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 6.4
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_5_i_5
+instancia: c_n_9_l_3_s_5_i_5
+C: 5
+replica: 5
+sha256_instancia: 35a90c2291699ac039ed27e73f0cb29b6f29ef9a186bc48ea93bc7ca39e69d2a
+estado_base: optimal
+estado_warm: optimal
+estado_replay: optimal
+optimal_base: True
+optimal_warm: True
+optimal_replay: True
+primal_base: 5.6
+primal_warm: 5.6
+primal_replay: 5.600000000000001
+dual_base: 5.6
+dual_warm: 5.6
+dual_replay: 5.600000000000001
+gap_base: 0.0
+gap_warm: 0.0
+gap_replay: 0.0
+tiempo_scip_base: 1159.366618
+tiempo_scip_warm: 2494.694362
+tiempo_scip_replay: 7.025197
+tiempo_total_base: 1159.690594
+tiempo_total_warm: 2494.938409
+tiempo_total_replay: 7.378138101659715
+tiempo_previo_base_replay: 1159.690594
+tiempo_previo_mas_replay: 1167.0687321016596
+nodos_base: 82539.0
+nodos_warm: 179138.0
+nodos_replay: 2.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 5.6
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_5_i_6
+instancia: c_n_9_l_3_s_5_i_6
+C: 5
+replica: 6
+sha256_instancia: a67adeccace39a376256cd0fd4f90883ff517dfa603544c3f8c9c1b13dd27f9b
+estado_base: timelimit
+estado_warm: timelimit
+estado_replay: optimal
+optimal_base: False
+optimal_warm: False
+optimal_replay: True
+primal_base: 6.8
+primal_warm: 7.8
+primal_replay: 6.399999999999999
+dual_base: 6.4
+dual_warm: 6.4
+dual_replay: 6.399999999999999
+gap_base: 0.0625
+gap_warm: 0.21875
+gap_replay: 0.0
+tiempo_scip_base: 3600.000147
+tiempo_scip_warm: 3593.270455
+tiempo_scip_replay: 3333.065799
+tiempo_total_base: 3600.435765
+tiempo_total_warm: 3593.593741
+tiempo_total_replay: 3333.3591867871583
+tiempo_previo_base_replay: 3600.435765
+tiempo_previo_mas_replay: 6933.794951787158
+nodos_base: 205706.0
+nodos_warm: 271034.0
+nodos_replay: 333356.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 6.79999999999988
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_5_i_7
+instancia: c_n_9_l_3_s_5_i_7
+C: 5
+replica: 7
+sha256_instancia: bd038237df8df9a101ebb93eb7b6171468bf60b274c29b96dd5720fb8469b2f0
+estado_base: optimal
+estado_warm: optimal
+estado_replay: optimal
+optimal_base: True
+optimal_warm: True
+optimal_replay: True
+primal_base: 5.6
+primal_warm: 5.6
+primal_replay: 5.600000000000001
+dual_base: 5.6
+dual_warm: 5.6
+dual_replay: 5.600000000000001
+gap_base: 0.0
+gap_warm: 0.0
+gap_replay: 0.0
+tiempo_scip_base: 2061.384416
+tiempo_scip_warm: 1668.971597
+tiempo_scip_replay: 1.112847
+tiempo_total_base: 2061.603658
+tiempo_total_warm: 1669.352932
+tiempo_total_replay: 1.455436859279871
+tiempo_previo_base_replay: 2061.603658
+tiempo_previo_mas_replay: 2063.05909485928
+nodos_base: 133398.0
+nodos_warm: 105520.0
+nodos_replay: 1.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 5.6
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_5_i_8
+instancia: c_n_9_l_3_s_5_i_8
+C: 5
+replica: 8
+sha256_instancia: d60491c856f269442af8ef938b9e0f291917997bc3272da394fd77a50b32c04d
+estado_base: timelimit
+estado_warm: timelimit
+estado_replay: timelimit
+optimal_base: False
+optimal_warm: False
+optimal_replay: False
+primal_base: 6.8
+primal_warm: 6.8
+primal_replay: 6.200000000000003
+dual_base: 4.8
+dual_warm: 4.8
+dual_replay: 4.800000000000004
+gap_base: 0.416667
+gap_warm: 0.416667
+gap_replay: 0.29166666666666613
+tiempo_scip_base: 3600.000257
+tiempo_scip_warm: 3592.975205
+tiempo_scip_replay: 3600.0007
+tiempo_total_base: 3600.389604
+tiempo_total_warm: 3593.341183
+tiempo_total_replay: 3600.402665128
+tiempo_previo_base_replay: 3600.389604
+tiempo_previo_mas_replay: 7200.792269128
+nodos_base: 226204.0
+nodos_warm: 242523.0
+nodos_replay: 201417.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 6.8
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_5_i_9
+instancia: c_n_9_l_3_s_5_i_9
+C: 5
+replica: 9
+sha256_instancia: aceedceb6f2a5ef2ec96533ab791fa47cec587d3b52ddf09a3e281d8334c1490
+estado_base: timelimit
+estado_warm: optimal
+estado_replay: optimal
+optimal_base: False
+optimal_warm: True
+optimal_replay: True
+primal_base: 6.8
+primal_warm: 6.4
+primal_replay: 6.40000000000002
+dual_base: 6.4
+dual_warm: 6.4
+dual_replay: 6.40000000000002
+gap_base: 0.0625
+gap_warm: 0.0
+gap_replay: 0.0
+tiempo_scip_base: 3600.000131
+tiempo_scip_warm: 1881.893228
+tiempo_scip_replay: 1773.651506
+tiempo_total_base: 3600.358324
+tiempo_total_warm: 1882.13518
+tiempo_total_replay: 1773.9559192089364
+tiempo_previo_base_replay: 3600.358324
+tiempo_previo_mas_replay: 5374.314243208936
+nodos_base: 317028.0
+nodos_warm: 146454.0
+nodos_replay: 166156.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 6.80000000000002
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_6_i_0
+instancia: c_n_9_l_3_s_6_i_0
+C: 6
+replica: 0
+sha256_instancia: e1aae1630b0180fc928c9920f4ac44fee8d101f48ebf132b76ad84fa2d3d5e3d
+estado_base: timelimit
+estado_warm: timelimit
+estado_replay: timelimit
+optimal_base: False
+optimal_warm: False
+optimal_replay: False
+primal_base: 11.0
+primal_warm: 9.333333
+primal_replay: 10.999999999999957
+dual_base: 7.333333
+dual_warm: 7.333333
+dual_replay: 7.333333333333329
+gap_base: 0.5
+gap_warm: 0.272727
+gap_replay: 0.49999999999999517
+tiempo_scip_base: 3600.000274
+tiempo_scip_warm: 3585.946163
+tiempo_scip_replay: 3600.006038
+tiempo_total_base: 3600.460939
+tiempo_total_warm: 3586.292791
+tiempo_total_replay: 3600.593389443122
+tiempo_previo_base_replay: 3600.460939
+tiempo_previo_mas_replay: 7201.054328443122
+nodos_base: 88832.0
+nodos_warm: 77308.0
+nodos_replay: 62968.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 10.999999999999961
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_6_i_1
+instancia: c_n_9_l_3_s_6_i_1
+C: 6
+replica: 1
+sha256_instancia: e54110c8f3b14032be9a9d949a600c27787896f6ac7f2e164cb7f0b494bd9437
+estado_base: timelimit
+estado_warm: timelimit
+estado_replay: timelimit
+optimal_base: False
+optimal_warm: False
+optimal_replay: False
+primal_base: 11.0
+primal_warm: 10.666667
+primal_replay: 10.0
+dual_base: 7.333333
+dual_warm: 7.333333
+dual_replay: 7.33333333333335
+gap_base: 0.5
+gap_warm: 0.454545
+gap_replay: 0.36363636363636054
+tiempo_scip_base: 3600.00032
+tiempo_scip_warm: 3584.115491
+tiempo_scip_replay: 3600.000485
+tiempo_total_base: 3600.533865
+tiempo_total_warm: 3584.590127
+tiempo_total_replay: 3600.4872274715453
+tiempo_previo_base_replay: 3600.533865
+tiempo_previo_mas_replay: 7201.021092471545
+nodos_base: 80620.0
+nodos_warm: 94234.0
+nodos_replay: 109519.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 10.99999999999997
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_6_i_2
+instancia: c_n_9_l_3_s_6_i_2
+C: 6
+replica: 2
+sha256_instancia: 7f396e9a595241be5b1b4ffd64f4cce856bda7463a9458b68c7b49fce55764c5
+estado_base: timelimit
+estado_warm: timelimit
+estado_replay: timelimit
+optimal_base: False
+optimal_warm: False
+optimal_replay: False
+primal_base: 12.666667
+primal_warm: 12.0
+primal_replay: 10.999999999999993
+dual_base: 6.0
+dual_warm: 6.0
+dual_replay: 6.0
+gap_base: 1.111111
+gap_warm: 1.0
+gap_replay: 0.8333333333333321
+tiempo_scip_base: 3600.000935
+tiempo_scip_warm: 3586.693635
+tiempo_scip_replay: 3600.000458
+tiempo_total_base: 3600.513083
+tiempo_total_warm: 3587.243652
+tiempo_total_replay: 3600.549518259242
+tiempo_previo_base_replay: 3600.513083
+tiempo_previo_mas_replay: 7201.062601259242
+nodos_base: 88386.0
+nodos_warm: 91824.0
+nodos_replay: 86478.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 12.66666666666666
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_6_i_3
+instancia: c_n_9_l_3_s_6_i_3
+C: 6
+replica: 3
+sha256_instancia: b8d509043c3824d6148361d0c01a59745f702194c10096816df2b43c3a07d69d
+estado_base: timelimit
+estado_warm: timelimit
+estado_replay: timelimit
+optimal_base: False
+optimal_warm: False
+optimal_replay: False
+primal_base: 10.333333
+primal_warm: 11.666667
+primal_replay: 10.0
+dual_base: 8.0
+dual_warm: 8.0
+dual_replay: 8.000000000000142
+gap_base: 0.291667
+gap_warm: 0.458333
+gap_replay: 0.2499999999999778
+tiempo_scip_base: 3600.000368
+tiempo_scip_warm: 3583.125731
+tiempo_scip_replay: 3600.000347
+tiempo_total_base: 3600.432684
+tiempo_total_warm: 3583.613422
+tiempo_total_replay: 3600.409311933443
+tiempo_previo_base_replay: 3600.432684
+tiempo_previo_mas_replay: 7200.841995933442
+nodos_base: 112283.0
+nodos_warm: 85428.0
+nodos_replay: 97893.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 10.33333333333333
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_6_i_4
+instancia: c_n_9_l_3_s_6_i_4
+C: 6
+replica: 4
+sha256_instancia: 8e0806a558b16cc1e29a76fce3999ab47e34a251e06560712f403f2162ac7c73
+estado_base: timelimit
+estado_warm: timelimit
+estado_replay: timelimit
+optimal_base: False
+optimal_warm: False
+optimal_replay: False
+primal_base: 10.0
+primal_warm: 9.666667
+primal_replay: 10.0
+dual_base: 7.333333
+dual_warm: 7.333333
+dual_replay: 7.333333333333357
+gap_base: 0.363636
+gap_warm: 0.318182
+gap_replay: 0.3636363636363592
+tiempo_scip_base: 3600.000245
+tiempo_scip_warm: 3587.616795
+tiempo_scip_replay: 3600.001011
+tiempo_total_base: 3600.468598
+tiempo_total_warm: 3587.957021
+tiempo_total_replay: 3600.4936582669616
+tiempo_previo_base_replay: 3600.468598
+tiempo_previo_mas_replay: 7200.962256266961
+nodos_base: 85444.0
+nodos_warm: 98126.0
+nodos_replay: 85687.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 10.0
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_6_i_5
+instancia: c_n_9_l_3_s_6_i_5
+C: 6
+replica: 5
+sha256_instancia: 8fdf21424cbe47e17e21b75c104fad7a2492e5153a5bf50d4df3dfb53e3ffc62
+estado_base: timelimit
+estado_warm: timelimit
+estado_replay: timelimit
+optimal_base: False
+optimal_warm: False
+optimal_replay: False
+primal_base: 9.333333
+primal_warm: 10.333333
+primal_replay: 9.333333333333329
+dual_base: 7.333333
+dual_warm: 7.333333
+dual_replay: 7.333333333333343
+gap_base: 0.272727
+gap_warm: 0.409091
+gap_replay: 0.27272727272727043
+tiempo_scip_base: 3600.00021
+tiempo_scip_warm: 3582.894698
+tiempo_scip_replay: 3600.000247
+tiempo_total_base: 3600.382884
+tiempo_total_warm: 3583.295107
+tiempo_total_replay: 3600.365964302793
+tiempo_previo_base_replay: 3600.382884
+tiempo_previo_mas_replay: 7200.748848302794
+nodos_base: 86680.0
+nodos_warm: 96239.0
+nodos_replay: 68475.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 9.33333333333333
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_6_i_6
+instancia: c_n_9_l_3_s_6_i_6
+C: 6
+replica: 6
+sha256_instancia: 14225f60bd82f9ed863ef6acfd5799d37b1c429e2668bcda1c3174a5b139bd1d
+estado_base: timelimit
+estado_warm: timelimit
+estado_replay: timelimit
+optimal_base: False
+optimal_warm: False
+optimal_replay: False
+primal_base: 9.666667
+primal_warm: 8.333333
+primal_replay: 9.0
+dual_base: 6.0
+dual_warm: 6.0
+dual_replay: 6.000000000000007
+gap_base: 0.611111
+gap_warm: 0.388889
+gap_replay: 0.4999999999999982
+tiempo_scip_base: 3600.001047
+tiempo_scip_warm: 3586.279764
+tiempo_scip_replay: 3600.000442
+tiempo_total_base: 3600.513374
+tiempo_total_warm: 3586.60004
+tiempo_total_replay: 3600.436214907095
+tiempo_previo_base_replay: 3600.513374
+tiempo_previo_mas_replay: 7200.949588907095
+nodos_base: 94462.0
+nodos_warm: 107087.0
+nodos_replay: 93440.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 9.666666666666591
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_6_i_7
+instancia: c_n_9_l_3_s_6_i_7
+C: 6
+replica: 7
+sha256_instancia: 2f757b57f4d03ec865ee160edf36e571d28d9b305f1f111d4c12a12aaf2cd05d
+estado_base: timelimit
+estado_warm: timelimit
+estado_replay: timelimit
+optimal_base: False
+optimal_warm: False
+optimal_replay: False
+primal_base: 9.333333
+primal_warm: 8.333333
+primal_replay: 9.0
+dual_base: 6.0
+dual_warm: 6.0
+dual_replay: 6.000000000000007
+gap_base: 0.555556
+gap_warm: 0.388889
+gap_replay: 0.4999999999999982
+tiempo_scip_base: 3600.000331
+tiempo_scip_warm: 3587.441422
+tiempo_scip_replay: 3600.000701
+tiempo_total_base: 3600.650135
+tiempo_total_warm: 3587.799494
+tiempo_total_replay: 3600.4110973859206
+tiempo_previo_base_replay: 3600.650135
+tiempo_previo_mas_replay: 7201.06123238592
+nodos_base: 78361.0
+nodos_warm: 99784.0
+nodos_replay: 92890.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 9.33333333333333
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_6_i_8
+instancia: c_n_9_l_3_s_6_i_8
+C: 6
+replica: 8
+sha256_instancia: 092f0e727876dbacf1a9e6598d497458f70402fd4ca070f5470ad4d3d4be42f0
+estado_base: timelimit
+estado_warm: timelimit
+estado_replay: timelimit
+optimal_base: False
+optimal_warm: False
+optimal_replay: False
+primal_base: 8.333333
+primal_warm: 10.0
+primal_replay: 8.333333333333329
+dual_base: 7.333333
+dual_warm: 7.333333
+dual_replay: 7.33333333333335
+gap_base: 0.136364
+gap_warm: 0.363636
+gap_replay: 0.13636363636363316
+tiempo_scip_base: 3600.000177
+tiempo_scip_warm: 3585.140404
+tiempo_scip_replay: 3600.00025
+tiempo_total_base: 3600.328872
+tiempo_total_warm: 3585.487095
+tiempo_total_replay: 3600.360764965415
+tiempo_previo_base_replay: 3600.328872
+tiempo_previo_mas_replay: 7200.689636965415
+nodos_base: 107808.0
+nodos_warm: 110429.0
+nodos_replay: 94284.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 8.33333333333333
+replay_costo_previo_excluido: True
+
+c_n_9_l_3_s_6_i_9
+instancia: c_n_9_l_3_s_6_i_9
+C: 6
+replica: 9
+sha256_instancia: b2f329d19a658462afe4c3f1ce6d0550b995e8b13dbdbbe94dbe0c584fcc8359
+estado_base: timelimit
+estado_warm: timelimit
+estado_replay: timelimit
+optimal_base: False
+optimal_warm: False
+optimal_replay: False
+primal_base: 9.0
+primal_warm: 10.333333
+primal_replay: 9.0
+dual_base: 3.333333
+dual_warm: 3.333333
+dual_replay: 3.33333333333335
+gap_base: 1.7
+gap_warm: 2.1
+gap_replay: 1.6999999999999866
+tiempo_scip_base: 3600.00201
+tiempo_scip_warm: 3585.498141
+tiempo_scip_replay: 3600.00319
+tiempo_total_base: 3600.509533
+tiempo_total_warm: 3585.96524
+tiempo_total_replay: 3600.752270920202
+tiempo_previo_base_replay: 3600.509533
+tiempo_previo_mas_replay: 7201.2618039202025
+nodos_base: 88587.0
+nodos_warm: 86932.0
+nodos_replay: 70066.0
+auditado_base: True
+auditado_warm: True
+auditado_replay: True
+replay_checksol_original: True
+replay_aceptada_addsol: True
+replay_objetivo_inicial: 9.0
+replay_costo_previo_excluido: True
