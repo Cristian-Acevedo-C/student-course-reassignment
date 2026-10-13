@@ -1,0 +1,2 @@
+familia,L,P,C,modo,lambda_0,lambda_1,numero_replicas_esperadas,numero_replicas,numero_optimas,numero_time_limit_con_incumbente,numero_time_limit_sin_incumbente,numero_infeasible_demostradas,numero_errores,numero_otros_estados,familia_completa,tiempo_scip_promedio_seg,tiempo_scip_desviacion_estandar_seg,tiempo_total_promedio_seg,tiempo_total_desviacion_estandar_seg,gap_promedio,gap_desviacion_estandar,n_tiempo,n_gap,n_gap_infinito
+L18_P3_C4,18,3,4,oficial,1.0,1.0,10,10,8,2,0,0,0,0,TRUE,2594.2,857.835364,2595.418835,857.716978,0.135,0.286793,10,10,0
