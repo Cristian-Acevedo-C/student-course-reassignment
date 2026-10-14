@@ -1,0 +1,106 @@
+ASIGNACION FINAL DE ESTUDIANTES POR CURSO
+========================================================
+metodo = REPLAY
+instancia = c_n_9_l_3_s_6_i_2
+L = 9
+P = 3
+C = 6
+N = 54
+lambda_0 = 1
+lambda_1 = 1
+archivo_original = corridas_nlhpc/replay_scip_base_5cpu_v1/T3600/C6/i2/final.sol
+sha256_original = 65edf01a6df7d21bbc7d0867f98118a68ed342ec2a21b8e679e680377a6f8718
+verificacion_origen = SCIP checkSol y auditoría final REPLAY: TRUE
+objetivo_scip_o_greedy_reportado = 10.999999999999993
+objetivo_recalculado_con_T_minimo = 11
+no_satisfechos = 4
+satisfechos = 50
+T_recalculado = 7
+violaciones_recalculadas = 0
+auditoria_independiente = TRUE
+
+[ASIGNACION]
+estudiante;curso_origen;genero;academico;socioemocional;convivencia;curso_nuevo;preferencias;preferidos_en_mismo_curso;satisfecho
+1;O1;M;2;2;3;5;37,2,17;17;1
+2;O1;F;1;3;3;2;47,36,9;9;1
+3;O1;M;3;2;1;6;24,19,35;19;1
+4;O1;F;2;3;2;6;14,16,45;;0
+5;O1;M;1;1;2;5;23,3,42;42;1
+6;O1;M;1;3;2;4;21,41,42;41;1
+7;O1;F;2;1;2;3;2,20,22;20;1
+8;O1;M;1;2;2;2;23,4,11;11;1
+9;O1;F;3;2;2;2;15,41,4;15;1
+10;O2;F;1;1;1;5;12,27,17;17;1
+11;O2;M;2;3;1;2;13,25,15;15;1
+12;O2;F;3;2;1;6;7,53,36;36;1
+13;O2;M;1;2;1;1;26,29,2;29;1
+14;O2;M;3;1;2;2;35,37,16;;0
+15;O2;M;2;1;1;2;36,32,10;32;1
+16;O2;F;2;2;1;4;25,53,35;53;1
+17;O2;F;1;2;3;5;54,30,48;54,48;1
+18;O2;M;2;3;2;3;33,47,10;47;1
+19;O3;F;1;1;1;6;25,12,30;25,12;1
+20;O3;M;3;2;3;3;26,47,23;47,23;1
+21;O3;M;3;1;1;1;45,26,29;29;1
+22;O3;F;3;1;3;1;39,13,3;13;1
+23;O3;F;1;1;1;3;22,15,44;;0
+24;O3;F;3;2;2;5;14,2,54;54;1
+25;O3;M;3;1;2;6;12,47,1;12;1
+26;O3;M;1;2;2;6;54,25,37;25;1
+27;O3;M;1;3;3;2;11,52,39;11;1
+28;O4;F;1;1;2;1;34,48,7;34;1
+29;O4;M;2;2;3;1;35,11,18;35;1
+30;O4;M;3;3;1;4;51,45,47;51;1
+31;O4;M;1;1;2;4;41,51,1;41,51;1
+32;O4;F;3;2;1;2;3,19,2;2;1
+33;O4;M;2;3;3;1;38,13,29;13,29;1
+34;O4;F;1;3;1;1;21,50,30;21;1
+35;O4;F;3;2;2;1;7,18,33;33;1
+36;O4;M;2;3;3;6;6,27,12;12;1
+37;O5;F;3;1;1;3;43,27,48;43;1
+38;O5;M;1;3;1;3;45,20,28;20;1
+39;O5;M;1;1;3;6;52,6,46;52;1
+40;O5;M;1;2;2;1;52,35,14;35;1
+41;O5;F;3;1;3;4;11,46,2;46;1
+42;O5;M;2;1;1;5;38,43,17;17;1
+43;O5;M;1;1;3;3;23,42,19;23;1
+44;O5;F;3;2;2;4;16,39,7;16;1
+45;O5;F;2;3;1;5;10,41,35;10;1
+46;O6;M;1;1;1;4;11,22,44;44;1
+47;O6;M;3;2;2;3;48,35,29;;0
+48;O6;M;3;3;3;5;30,5,6;5;1
+49;O6;F;1;1;3;2;4,44,15;15;1
+50;O6;F;2;2;3;3;44,23,46;23;1
+51;O6;M;2;3;2;4;21,41,27;41;1
+52;O6;F;1;3;3;6;37,19,49;19;1
+53;O6;F;2;3;1;4;30,40,9;30;1
+54;O6;M;3;3;2;5;17,39,52;17;1
+
+[COMPOSICION_POR_CURSO]
+curso;total;capacidad;genero_F;genero_M;origen_O1;origen_O2;origen_O3;origen_O4;origen_O5;origen_O6;academico_1;academico_2;academico_3;socioemocional_1;socioemocional_2;socioemocional_3;convivencia_1;convivencia_2;convivencia_3;satisfechos
+1;9;9;4;5;0;1;2;5;1;0;4;2;3;3;4;2;3;3;3;9
+2;9;9;4;5;3;3;1;1;0;1;4;2;3;3;3;3;3;3;3;8
+3;9;9;4;5;1;1;2;0;3;2;3;3;3;4;3;2;3;3;3;7
+4;9;9;4;5;1;1;0;2;2;3;3;3;3;3;2;4;4;4;1;9
+5;9;9;4;5;2;2;1;0;2;2;3;3;3;3;3;3;3;3;3;9
+6;9;9;4;5;2;1;3;1;1;1;4;2;3;3;3;3;3;3;3;8
+
+[ESTUDIANTES_POR_CURSO]
+curso_1 = 13,21,22,28,29,33,34,35,40
+curso_2 = 2,8,9,11,14,15,27,32,49
+curso_3 = 7,18,20,23,37,38,43,47,50
+curso_4 = 6,16,30,31,41,44,46,51,53
+curso_5 = 1,5,10,17,24,42,45,48,54
+curso_6 = 3,4,12,19,25,26,36,39,52
+
+[BALANCE_PERFILES]
+academico = 6
+socioemocional = 7
+convivencia = 6.666666667
+
+[AUDITORIA]
+solucion_auditada = TRUE
+violaciones = 0
+instancia_sha256 = 7f396e9a595241be5b1b4ffd64f4cce856bda7463a9458b68c7b49fce55764c5
+nota = El objetivo recalculado usa T minimo. Un incumbente de SCIP puede tener T con holgura.
+nota_replay = El costo previo de obtener el incumbente BASE no se incluye en el tiempo REPLAY.
