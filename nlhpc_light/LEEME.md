@@ -55,7 +55,7 @@ nlhpc_light/lanzar.sh baseline L9_P3_C5
 - Cada instancia queda en `corridas_nlhpc/<light|baseline>_v1/T3600/L*_P*_C*/i*/` con el
   mismo contenido de siempre (CSV, TXT, log SCIP, estadísticas, solución, auditoría).
 - Relanzar es seguro: las instancias ya terminadas se omiten; las interrumpidas se repiten.
-- Walltime por tarea = límite + 15 min. 1 CPU y 4 GB por tarea.
+- Walltime por tarea = límite + 15 min. 1 CPU y 8 GB por tarea.
 - Las tareas quedan con `modo=preflight` porque el ejecutor solo llama "oficial" a una familia
   completa en un único proceso; el protocolo (3600 s, 1 hilo, gap 0, λ0 = λ1 = 1) es el oficial.
 

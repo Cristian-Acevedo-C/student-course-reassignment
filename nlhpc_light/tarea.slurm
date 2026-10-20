@@ -7,7 +7,7 @@
 #SBATCH --job-name=scrp
 #SBATCH --partition=main
 #SBATCH --cpus-per-task=1
-#SBATCH --mem=4G
+#SBATCH --mem=8G
 #SBATCH --time=01:15:00
 #SBATCH --output=slurm_logs/%x_%A_%a.out
 #SBATCH --error=slurm_logs/%x_%A_%a.err
