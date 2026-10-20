@@ -250,6 +250,17 @@ Este comando se documenta para uso futuro; **no debe lanzarse antes de que los
 profesores validen la familia piloto**. `resolver_lote.py` todavía no guarda logs
 ni estadísticas de SCIP.
 
+## Formulación light y ejecución en NLHPC
+
+`src/modelo_light.py` implementa una formulación compacta equivalente (mismo óptimo,
+mismas restricciones duras sobre `x`): cobertura de preferencias con `z` continua,
+dispersión escalada por |C|, cotas analíticas y ruptura de simetría por precedencia.
+`src/modelo.py` no cambia. Se elige con `--formulacion light` en
+`src/resolver_familia.py` o `-Formulacion light` en `correr_familia.ps1`.
+
+Para NLHPC (job array, 1 CPU por instancia, Excel de resultados que se actualiza solo)
+ver [nlhpc_light/LEEME.md](nlhpc_light/LEEME.md).
+
 ## Estructura
 
 ```text

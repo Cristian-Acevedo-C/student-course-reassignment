@@ -3,7 +3,8 @@
 Resuelve EXACTAMENTE una familia (L, P, C) de la grilla: sus 10 replicas.
 
 Es el ejecutor de la prueba piloto acordada antes de lanzar las 480 instancias.
-No modifica la formulacion: usa modelo.leer_instancia y modelo.construir_modelo
+No modifica la formulacion: usa modelo.construir_modelo (baseline, por defecto) o
+modelo_light.construir_modelo_light (--formulacion light, equivalente y compacta)
 tal como estan, con lambda_0 = lambda_1 = 1, gap objetivo 0 y 1 hilo por defecto.
 No lee la carpeta testigos/ y no entrega ninguna solucion inicial a SCIP.
 
@@ -48,6 +49,8 @@ import traceback
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from modelo import leer_instancia, construir_modelo  # noqa: E402
+from modelo_light import construir_modelo_light  # noqa: E402
+FORMULACIONES = ("baseline", "light")
 from auditar_solucion import auditar  # noqa: E402
 
 RAIZ = Path(__file__).resolve().parents[1]
@@ -167,6 +170,9 @@ def manifiesto_corrida(a, modo, archivos, m):
         "fuentes": {n: sha256(RAIZ / "src" / n) for n in
                     ("modelo.py", "resolver_familia.py", "auditar_solucion.py")},
         "instancias": {p.stem: sha256(p) for p in archivos},
+        **({"formulacion": "light",
+            "fuente_formulacion": sha256(RAIZ / "src" / "modelo_light.py")}
+           if getattr(a, "formulacion", "baseline") == "light" else {}),
     }
 
 
@@ -398,6 +404,7 @@ def escribir_entorno(ruta, a, modo, archivos, comando, m_ref):
         f"hilos                 : {a.hilos}",
         f"gap_objetivo          : {a.gap}",
         *lineas_lambdas(a.lambda_0, a.lambda_1),
+        f"formulacion           : {getattr(a, 'formulacion', 'baseline')}",
         "warm_start            : NO (no se llama addSol/readSol; testigos/ no se lee)",
         f"timing/clocktype      : {m_ref.getParam('timing/clocktype')} (1=CPU, 2=reloj de pared)",
         f"lp/threads            : {m_ref.getParams().get('lp/threads', 'no soportado')}",
@@ -590,8 +597,9 @@ def resolver_replica(ruta, out, a, modo):
     })
 
     t0 = time.perf_counter()
-    m, vars_ = construir_modelo(inst, lambda_0=a.lambda_0, lambda_1=a.lambda_1,
-                                tiempo=a.tiempo, hilos=a.hilos, gap=a.gap)
+    constructor = construir_modelo_light if getattr(a, "formulacion", "baseline") == "light" else construir_modelo
+    m, vars_ = constructor(inst, lambda_0=a.lambda_0, lambda_1=a.lambda_1,
+                           tiempo=a.tiempo, hilos=a.hilos, gap=a.gap)
     configurar_scip(m, a.hilos)
     verificar_versiones(m, modo)
     fila["tiempo_construccion_seg"] = time.perf_counter() - t0
@@ -914,6 +922,9 @@ def main():
     ap.add_argument("--reanudar", action="store_true",
                     help="conserva replicas ya resueltas con el mismo protocolo en la carpeta")
     ap.add_argument("--comando", default=None, help="comando original (lo pasa correr_familia.ps1)")
+    ap.add_argument("--formulacion", choices=FORMULACIONES, default="baseline",
+                    help="baseline = src/modelo.py (manuscrito); light = src/modelo_light.py "
+                         "(formulacion compacta equivalente)")
     a = ap.parse_args()
     if a.tiempo is None:
         a.tiempo = 60.0 if a.preflight else 3600.0
@@ -933,6 +944,8 @@ def main():
     modo = clasificar_modo(a)
 
     etiqueta = f"prueba_familia_L{a.L}_P{a.P}_C{a.C}_T{a.tiempo:g}s"
+    if a.formulacion != "baseline":
+        etiqueta += f"_{a.formulacion}"
     if a.salida:
         out = Path(a.salida)
     elif modo == "preflight":

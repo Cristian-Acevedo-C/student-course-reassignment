@@ -11,6 +11,9 @@
 #  Continuar una corrida interrumpida (conserva replicas terminadas):
 #     .\correr_familia.ps1 -L 9 -P 3 -C 4 -Tiempo 3600 -Reanudar
 #
+#  Formulacion compacta equivalente (src/modelo_light.py):
+#     .\correr_familia.ps1 -L 9 -P 3 -C 4 -Tiempo 3600 -Formulacion light
+#
 #  Este script no ejecuta las 480 instancias ni usa los testigos.
 #  (Archivo en ASCII para que Windows PowerShell 5.1 lo lea sin errores.)
 # =====================================================================
@@ -23,7 +26,8 @@ param(
     [switch]$Preflight,
     [int[]]$Replicas,
     [switch]$Reanudar,
-    [string]$Salida
+    [string]$Salida,
+    [ValidateSet("baseline", "light")][string]$Formulacion = "baseline"
 )
 
 $ErrorActionPreference = "Stop"
@@ -44,7 +48,7 @@ Write-Host "=====================================================" -ForegroundCo
 if ($Preflight) {
     Write-Host " PREFLIGHT tecnico - L=$L P=$P C=$C - $Tiempo s" -ForegroundColor Yellow
 } else {
-    Write-Host " Familia L=$L P=$P C=$C - limite $Tiempo s por replica" -ForegroundColor Cyan
+    Write-Host " Familia L=$L P=$P C=$C - limite $Tiempo s por replica - formulacion $Formulacion" -ForegroundColor Cyan
 }
 Write-Host "=====================================================" -ForegroundColor Cyan
 
@@ -100,6 +104,7 @@ if ($null -ne $Replicas -and $Replicas.Count -gt 0) { $argumentos += @("--replic
 if ($Preflight) { $argumentos += "--preflight" }
 if ($Reanudar)  { $argumentos += "--reanudar" }
 if ($Salida)    { $argumentos += @("--salida", $Salida) }
+$argumentos += @("--formulacion", $Formulacion)
 
 $comando = ".\correr_familia.ps1 " + (($PSBoundParameters.GetEnumerator() | ForEach-Object {
     if ($_.Value -is [switch]) { "-$($_.Key)" } else { "-$($_.Key) $($_.Value -join ',')" }
