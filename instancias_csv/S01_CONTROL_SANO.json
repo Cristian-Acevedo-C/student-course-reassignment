@@ -1,0 +1,21 @@
+{
+  "name": "S01_CONTROL_SANO",
+  "description": "Control: instancia benigna de referencia.",
+  "seed": 2026,
+  "courses": {
+    "7A": {
+      "minimum": 28,
+      "target": 30,
+      "maximum": 32
+    },
+    "7B": {
+      "minimum": 28,
+      "target": 30,
+      "maximum": 32
+    }
+  },
+  "origin_slack": 1,
+  "gender_max_difference": 3,
+  "academic_bound_slack": 2,
+  "social_share": 0.5
+}

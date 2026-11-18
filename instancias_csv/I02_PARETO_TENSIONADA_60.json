@@ -1,0 +1,34 @@
+{
+  "name": "I02_PARETO_TENSIONADA_60",
+  "description": "Instancia heterogenea y deliberadamente tensionada para estudiar conflicto entre satisfaccion social y balance pedagogico: 60 estudiantes, 4 cursos de origen y 4 cursos destino de 15.",
+  "seed": 20260818,
+  "transition": "8° básico → 1° medio",
+  "courses": {
+    "1M-A": {
+      "minimum": 15,
+      "target": 15,
+      "maximum": 15
+    },
+    "1M-B": {
+      "minimum": 15,
+      "target": 15,
+      "maximum": 15
+    },
+    "1M-C": {
+      "minimum": 15,
+      "target": 15,
+      "maximum": 15
+    },
+    "1M-D": {
+      "minimum": 15,
+      "target": 15,
+      "maximum": 15
+    }
+  },
+  "origin_slack": 0,
+  "gender_max_difference": 2,
+  "academic_bound_slack": 1,
+  "academic_low_upper": 4.0,
+  "academic_middle_upper": 5.5,
+  "social_share": 0.5
+}

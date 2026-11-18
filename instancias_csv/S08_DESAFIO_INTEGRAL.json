@@ -1,0 +1,31 @@
+{
+  "name": "S08_DESAFIO_INTEGRAL",
+  "description": "120 alumnos, 4 cursos identicos, holguras minimas, baja reciprocidad.",
+  "seed": 2026,
+  "courses": {
+    "1M-A": {
+      "minimum": 28,
+      "target": 30,
+      "maximum": 32
+    },
+    "1M-B": {
+      "minimum": 28,
+      "target": 30,
+      "maximum": 32
+    },
+    "1M-C": {
+      "minimum": 28,
+      "target": 30,
+      "maximum": 32
+    },
+    "1M-D": {
+      "minimum": 28,
+      "target": 30,
+      "maximum": 32
+    }
+  },
+  "origin_slack": 0,
+  "gender_max_difference": 1,
+  "academic_bound_slack": 1,
+  "social_share": 0.5
+}

@@ -1,0 +1,26 @@
+{
+  "name": "S05B_GENERO_DELTA0_INDIVISIBLE",
+  "description": "Delta_g = 0 con 44 mujeres en 3 cursos: imposible aritmeticamente.",
+  "seed": 2026,
+  "courses": {
+    "1M-A": {
+      "minimum": 28,
+      "target": 30,
+      "maximum": 32
+    },
+    "1M-B": {
+      "minimum": 28,
+      "target": 30,
+      "maximum": 32
+    },
+    "1M-C": {
+      "minimum": 28,
+      "target": 30,
+      "maximum": 32
+    }
+  },
+  "origin_slack": 1,
+  "gender_max_difference": 0,
+  "academic_bound_slack": 2,
+  "social_share": 0.5
+}

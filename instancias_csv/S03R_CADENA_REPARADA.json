@@ -1,0 +1,21 @@
+{
+  "name": "S03R_CADENA_REPARADA",
+  "description": "Reparacion de S03: se pidio una segunda preferencia a cada alumno.",
+  "seed": 2026,
+  "courses": {
+    "7A": {
+      "minimum": 30,
+      "target": 32,
+      "maximum": 34
+    },
+    "7B": {
+      "minimum": 30,
+      "target": 32,
+      "maximum": 34
+    }
+  },
+  "origin_slack": 1,
+  "gender_max_difference": 3,
+  "academic_bound_slack": 2,
+  "social_share": 0.5
+}

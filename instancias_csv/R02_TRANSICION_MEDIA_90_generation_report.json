@@ -1,0 +1,62 @@
+{
+  "instance": "R02_TRANSICION_MEDIA_90",
+  "transition": "8° básico → 1° medio",
+  "profile": "heterogeneidad_academica",
+  "synthetic": true,
+  "empirically_calibrated": false,
+  "seed": 20260902,
+  "students": 90,
+  "origin_sizes": {
+    "8A": 29,
+    "8B": 31,
+    "8C": 30
+  },
+  "destination_plan": {
+    "1M-A": {
+      "minimum": 28,
+      "target": 30,
+      "maximum": 32
+    },
+    "1M-B": {
+      "minimum": 28,
+      "target": 30,
+      "maximum": 32
+    },
+    "1M-C": {
+      "minimum": 28,
+      "target": 30,
+      "maximum": 32
+    }
+  },
+  "grade_summary": {
+    "minimum": 2.0,
+    "mean": 4.888,
+    "maximum": 7.0
+  },
+  "academic_levels": {
+    "1": 13,
+    "2": 52,
+    "3": 25
+  },
+  "socioemotional_levels": {
+    "2": 54,
+    "1": 23,
+    "3": 13
+  },
+  "convivencia_levels": {
+    "2": 58,
+    "1": 15,
+    "3": 17
+  },
+  "preferences_per_student": {
+    "1": 25,
+    "2": 37,
+    "3": 28
+  },
+  "preference_arcs": 183,
+  "separation_pairs": 14,
+  "mandatory_preference_satisfaction": true,
+  "witness_satisfies_every_student": true,
+  "preference_separation_directed_overlap": 0,
+  "note": "Synthetic values are structurally plausible assumptions, not estimates from Chilean school data. The witness certifies hard feasibility including one satisfied preference per student and is never supplied to SCIP."
+}

@@ -1,0 +1,28 @@
+{
+  "name": "I00_EJEMPLO_ILUSTRATIVO_18",
+  "description": "Ejemplo ilustrativo pequeño solicitado para visualizar el modelo: tres cursos de origen de 6 estudiantes se reasignan a tres cursos destino de 6.",
+  "seed": 20260818,
+  "transition": "8° básico → 1° medio",
+  "courses": {
+    "1M-A": {
+      "minimum": 6,
+      "target": 6,
+      "maximum": 6
+    },
+    "1M-B": {
+      "minimum": 6,
+      "target": 6,
+      "maximum": 6
+    },
+    "1M-C": {
+      "minimum": 6,
+      "target": 6,
+      "maximum": 6
+    }
+  },
+  "origin_slack": 1,
+  "gender_max_difference": 3,
+  "academic_bound_slack": 2,
+  "academic_low_upper": 4.0,
+  "academic_middle_upper": 5.5
+}

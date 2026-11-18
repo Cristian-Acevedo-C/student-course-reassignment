@@ -1,0 +1,33 @@
+{
+  "name": "R04_EXPANSION_113",
+  "description": "Tres cursos numerosos se redistribuyen en cuatro destinos con tamaños objetivo 29-28-28-28.",
+  "seed": 20260904,
+  "transition": "8° básico → 1° medio",
+  "courses": {
+    "1M-A": {
+      "minimum": 27,
+      "target": 29,
+      "maximum": 31
+    },
+    "1M-B": {
+      "minimum": 26,
+      "target": 28,
+      "maximum": 30
+    },
+    "1M-C": {
+      "minimum": 26,
+      "target": 28,
+      "maximum": 30
+    },
+    "1M-D": {
+      "minimum": 26,
+      "target": 28,
+      "maximum": 30
+    }
+  },
+  "origin_slack": 1,
+  "gender_max_difference": 7,
+  "academic_bound_slack": 2,
+  "academic_low_upper": 4.0,
+  "academic_middle_upper": 5.5
+}

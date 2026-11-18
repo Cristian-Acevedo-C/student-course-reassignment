@@ -1,0 +1,67 @@
+{
+  "instance": "R04_EXPANSION_113",
+  "transition": "8° básico → 1° medio",
+  "profile": "expansion_diversa",
+  "synthetic": true,
+  "empirically_calibrated": false,
+  "seed": 20260904,
+  "students": 113,
+  "origin_sizes": {
+    "8A": 38,
+    "8B": 36,
+    "8C": 39
+  },
+  "destination_plan": {
+    "1M-A": {
+      "minimum": 27,
+      "target": 29,
+      "maximum": 31
+    },
+    "1M-B": {
+      "minimum": 26,
+      "target": 28,
+      "maximum": 30
+    },
+    "1M-C": {
+      "minimum": 26,
+      "target": 28,
+      "maximum": 30
+    },
+    "1M-D": {
+      "minimum": 26,
+      "target": 28,
+      "maximum": 30
+    }
+  },
+  "grade_summary": {
+    "minimum": 3.5,
+    "mean": 5.187,
+    "maximum": 7.0
+  },
+  "academic_levels": {
+    "2": 66,
+    "3": 40,
+    "1": 7
+  },
+  "socioemotional_levels": {
+    "1": 25,
+    "2": 68,
+    "3": 20
+  },
+  "convivencia_levels": {
+    "2": 76,
+    "1": 22,
+    "3": 15
+  },
+  "preferences_per_student": {
+    "2": 53,
+    "1": 29,
+    "3": 31
+  },
+  "preference_arcs": 228,
+  "separation_pairs": 19,
+  "mandatory_preference_satisfaction": true,
+  "witness_satisfies_every_student": true,
+  "preference_separation_directed_overlap": 0,
+  "note": "Synthetic values are structurally plausible assumptions, not estimates from Chilean school data. The witness certifies hard feasibility including one satisfied preference per student and is never supplied to SCIP."
+}
