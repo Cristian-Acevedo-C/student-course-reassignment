@@ -18,6 +18,8 @@ socioemotional_level, convivencia_level, pref_1 … pref_5, separate_with`
 
 Los nombres se asignaron por SHA-256 contra los manifiestos de las entregas v2
 y v3 (`manifiestos/`): cada archivo calza byte a byte con la ruta que figura
-ahí. Esta carpeta trae solo los archivos de datos que estaban disponibles; los
+ahí. El `.gitattributes` del repositorio guarda los `.csv` con fin de línea
+LF y los originales venían en CRLF, así que para re-verificar el SHA-256 de un
+CSV hay que convertirlo antes a CRLF (los `.json` no cambian). Esta carpeta trae solo los archivos de datos que estaban disponibles; los
 manifiestos listan el paquete completo (`src/reassignment/`, notebook de Colab,
 scripts y salidas), que no está versionado aquí todavía.
